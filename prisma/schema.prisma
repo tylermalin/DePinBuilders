@@ -1,0 +1,161 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Tier {
+  SET_AND_FORGET
+  INFRASTRUCTURE
+  FRICTIONLESS
+  ENTERPRISE
+}
+
+enum PostType {
+  REVIEW
+  RESEARCH
+  GUIDE
+  PROJECT_UPDATE
+}
+
+model Project {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  name               String
+  token              String?
+  category           String
+  tier               Tier
+  chain              String
+  hardwareCostUsd    Int
+  yieldLowUsd        Float
+  yieldHighUsd       Float
+  breakEvenMonths    Int?
+  frictionLevel      Int
+  verified           Boolean  @default(false)
+  builderScore       Int
+  change30d          Float
+  powerWatts         Int      @default(0)
+  affiliateCode      String?
+  affiliateDiscount  String?
+  affiliateUrl       String?
+  conflictDisclosure String?
+  blurb              String
+  regionDensity      Json
+  favorites          Favorite[]
+  snapshots          PriceSnapshot[]
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model PriceSnapshot {
+  id        String   @id @default(cuid())
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String
+  tokenUsd  Float?
+  nodeCount Int?
+  source    String
+  takenAt   DateTime @default(now())
+
+  @@index([projectId, takenAt])
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  type        PostType
+  title       String
+  excerpt     String
+  body        String
+  projectSlug String?
+  publishedAt DateTime
+}
+
+model Episode {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  number      Int
+  title       String
+  summary     String
+  audioUrl    String?
+  publishedAt DateTime
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  location    String
+  online      Boolean  @default(false)
+  startsAt    DateTime
+}
+
+model Course {
+  id       String   @id @default(cuid())
+  slug     String   @unique
+  title    String
+  summary  String
+  priceUsd Int      @default(0)
+  modules  Module[]
+}
+
+model Module {
+  id       String   @id @default(cuid())
+  course   Course   @relation(fields: [courseId], references: [id])
+  courseId  String
+  title    String
+  order    Int
+  lessons  Lesson[]
+}
+
+model Lesson {
+  id          String @id @default(cuid())
+  module      Module @relation(fields: [moduleId], references: [id])
+  moduleId    String
+  title       String
+  order       Int
+  durationSec Int    @default(0)
+  videoUrl    String?
+}
+
+model User {
+  id        String     @id
+  email     String     @unique
+  favorites Favorite[]
+  createdAt DateTime   @default(now())
+}
+
+model Favorite {
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  @@id([userId, projectId])
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model VerificationRequest {
+  id        String   @id @default(cuid())
+  project   String
+  category  String
+  website   String
+  email     String
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+}
+
+model AdInquiry {
+  id        String   @id @default(cuid())
+  company   String
+  budget    String
+  email     String
+  createdAt DateTime @default(now())
+}
