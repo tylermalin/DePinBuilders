@@ -4,61 +4,12 @@ import {
   type ProjectSeed,
 } from "@/data/projects.seed";
 
-// ── Types ──
-
-export interface Project {
-  slug: string;
-  name: string;
-  token: string | null;
-  category: string;
-  tier: string;
-  chain: string;
-  hardwareCostUsd: number;
-  yieldLowUsd: number;
-  yieldHighUsd: number;
-  breakEvenMonths: number | null;
-  frictionLevel: number;
-  verified: boolean;
-  builderScore: number;
-  change30d: number;
-  powerWatts: number;
-  affiliateCode: string | null;
-  affiliateDiscount: string | null;
-  affiliateUrl?: string | null;
-  conflictDisclosure: string | null;
-  blurb: string;
-  regionDensity: { NA: number; SA: number; EU: number; AF: number; APAC: number };
-}
-
-export interface CategoryInfo {
-  slug: string;
-  name: string;
-  count: number;
-}
-
-export interface ChainInfo {
-  slug: string;
-  name: string;
-  count: number;
-}
-
-export interface PostSummary {
-  slug: string;
-  type: string;
-  title: string;
-  excerpt: string;
-  projectSlug: string | null;
-  publishedAt: Date;
-}
-
-// ── Helpers ──
-
-export function slugify(s: string): string {
-  return s
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
+// Re-export types and pure helpers from the Prisma-free module
+// so server components can import everything from "@/lib/data"
+export type { Project, CategoryInfo, ChainInfo, PostSummary } from "./types";
+export { tierDisplay, slugify } from "./types";
+import type { Project, CategoryInfo, ChainInfo, PostSummary } from "./types";
+import { slugify } from "./types";
 
 function seedToProject(p: ProjectSeed): Project {
   return {
@@ -329,19 +280,6 @@ export async function getPost(
     });
   }
   return stubPosts.find((p) => p.slug === slug) ?? null;
-}
-
-// ── Tier display helpers ──
-
-const TIER_DISPLAY: Record<string, string> = {
-  SET_AND_FORGET: "Set & Forget",
-  INFRASTRUCTURE: "Infrastructure",
-  FRICTIONLESS: "Frictionless",
-  ENTERPRISE: "Enterprise",
-};
-
-export function tierDisplay(tier: string): string {
-  return TIER_DISPLAY[tier] ?? tier;
 }
 
 // ── Episodes ──

@@ -2,8 +2,8 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import type { Project } from "@/lib/data";
-import { tierDisplay } from "@/lib/data";
+import type { Project } from "@/lib/types";
+import { tierDisplay } from "@/lib/types";
 import { tokenDisplay, yieldDisplay, costDisplay, breakEvenDisplay } from "@/lib/format";
 import { chipColor } from "@/lib/colors";
 import { FrictionBars } from "@/components/ui/friction-bars";

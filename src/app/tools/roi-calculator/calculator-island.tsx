@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { calculate, fmtDollar, fmtBreakEven, fmtRoi } from "@/lib/calc";
-import type { Project } from "@/lib/data";
+import type { Project } from "@/lib/types";
 
 interface Props {
   devices: Pick<
