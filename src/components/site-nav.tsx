@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 
 const NAV_LINKS = [
   { href: "/projects", label: "Projects" },
+  { href: "/rankings", label: "Rankings" },
   { href: "/map", label: "Map" },
   { href: "/tools/roi-calculator", label: "Tools" },
   { href: "/academy", label: "Academy" },
