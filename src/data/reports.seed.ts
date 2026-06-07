@@ -1466,6 +1466,820 @@ export const reports: Record<string, ProjectReport> = {
         "The Proof-of-Compute pipeline audits real hardware specs, telemetry is exposed through a public explorer, and network state is committed to Solana, giving enterprise buyers clear operational visibility.",
     },
   },
+
+  filecoin: {
+    slug: "filecoin",
+    status: "draft",
+    title:
+      "Decentralized Storage Infrastructure: An Analytical Evaluation of Filecoin ($FIL)",
+    dek: "A mature decentralized storage marketplace built on IPFS, scored against the same six-dimension framework.",
+    publishedAt: "2026-06-01",
+    readingMinutes: 13,
+    executiveSummary: [
+      "Filecoin is a mature, foundational DePIN: a dual-sided marketplace for decentralized data storage and retrieval, launched by Protocol Labs after a $257M ICO in 2017 and built as an incentive layer on top of IPFS. A global network of Storage Providers turns storage from a centralized corporate service into a permissionless, algorithmic market.",
+      "The frontier has shifted from raw capacity to onboarding paid, high-value data through Filecoin Plus, accelerated by the Filecoin Virtual Machine (FVM) and its smart contracts. Our assessment yields a composite Headline Builder Score of 78 out of 100, reflecting massive institutional-grade capacity and a pioneering cryptoeconomic design, balanced against centralized-cloud price competition, heavy hardware orchestration, and high capital barriers for new operators.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "78 / 100" },
+      { label: "Native token", value: "$FIL (native Layer-1, FVM)" },
+      { label: "Total raised", value: "$257M ICO + ecosystem funding" },
+      { label: "Active storage providers", value: "~2,800 to 3,200 (mid-2026)" },
+      { label: "Raw capacity", value: "~23 to 25 EiB" },
+      { label: "Paid data onboarded", value: "~1.8 to 2.1 EiB (FIL+)" },
+      { label: "Token burn", value: "100% of base fees burned" },
+      { label: "Circulating supply", value: "~560M to 580M $FIL" },
+      { label: "Maximum supply", value: "2,000,000,000 $FIL" },
+    ],
+    teaserLabels: [
+      "Active storage providers",
+      "Raw capacity",
+      "Paid data onboarded",
+      "Token burn",
+    ],
+    body: [
+      { type: "h2", text: "Technical architecture and cryptographic proofs" },
+      {
+        type: "p",
+        text: "Centralized cloud (S3, Google Cloud, Azure) leans on legal contracts and perimeter security for integrity. Filecoin replaces that institutional trust with continuous, mathematically verifiable proofs executed at the hardware layer, removing the risk of silent data omission or corruption through two consensus mechanisms.",
+      },
+      {
+        type: "list",
+        items: [
+          "Proof-of-Replication (PoRep): at deal start, a provider runs GPU-intensive hashing to prove a unique physical copy of the data is committed to its hardware, blocking dedup tricks.",
+          "Proof-of-Spacetime (PoSt): throughout the deal, the chain issues random WindowPoST challenges that must be answered in a strict window, proving the disk space is still dedicated. A miss slashes collateral on-chain.",
+        ],
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|                     Client Data Upload                      |
+|          (Files encrypted, partitioned, and carried)        |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|                  Storage Market Matching                    |
+|        (Deals negotiated via FVM smart contracts)           |
++-------------------------------------------------------------+
+                          /         \
+             (Data sent) /           \ (FIL collateral pledged)
+                        v             v
++-----------------------------+   +-------------------------+
+|       Storage Provider      |   |   Filecoin Blockchain   |
+|       (Hardware rig)        |   |     (Settlement layer)  |
++-----------------------------+   +-------------------------+
+| - PoRep (initial)           |==>| - Validates proofs      |
+| - WindowPoST (~24h windows) |   | - Distributes rewards   |
+| - Maintains physical disks  |   | - Slashing engine       |
++-----------------------------+   +-------------------------+`,
+      },
+      {
+        type: "p",
+        text: "The network meters two kinds of power. Raw-byte power is the physical space connected. Quality-Adjusted Power rewards useful data: deals verified through Filecoin Plus by community-elected Notaries get a 10x multiplier, so 1 TB of FIL+ enterprise data carries the same block-reward weight as 10 TB of raw, unverified data.",
+      },
+
+      { type: "h2", text: "Operational trajectory and institutional traction" },
+      {
+        type: "p",
+        text: "From mainnet in late 2020 through 2023 the network chased raw capacity, scaling past 20 EiB, which left large unused supply. From 2024 to mid-2026 it pivoted to demand, building the tooling and compliance layers enterprises need. Protocol Labs, the Filecoin Foundation, and aggregators like DeStor and Seal Storage abstract key management behind S3-compatible APIs that drop into legacy IT workflows.",
+      },
+      {
+        type: "table",
+        caption: "Enterprise and research clients",
+        headers: ["Entity", "Window", "Objective"],
+        rows: [
+          ["CERN", "2023-2024", "Backing up Large Hadron Collider telemetry to prevent loss of raw research data."],
+          ["The Starling Lab", "2024-2025", "Cryptographically sealed archives of human-rights testimony and journalism against tampering."],
+          ["UC Berkeley (GLAM Labs)", "Mid-2025", "Preserving open-access astrophysics data, digitized manuscripts, and heritage imagery."],
+          ["Solana and L2 archiving", "2024-2026", "Decentralized storage of historical ledger states, offloading validator storage strain."],
+        ],
+      },
+      {
+        type: "p",
+        text: "These deals pushed active storage past 1.8 EiB, but enterprise IT runs under SOC 2 Type II, HIPAA, and GDPR, and uniform, legally binding guarantees are hard across an independent global operator set. That friction has localized Filecoin's product-market fit around archive-class preservation rather than hot, low-latency data.",
+      },
+
+      { type: "h2", text: "Token economics, slashing, and the FVM" },
+      {
+        type: "list",
+        items: [
+          "Pledge collateral: providers lock $FIL as storage and consensus pledge before onboarding a sector, held for the deal (typically 180 to 540 days).",
+          "Slashing: hardware failure, outage, or a missed WindowPoST burns pledged $FIL and cuts network power.",
+          "Base-fee burn: every transaction, including the heavy daily proof volume, burns a base fee in the EIP-1559 style, a structural deflation force during high utilization.",
+        ],
+      },
+      {
+        type: "p",
+        text: "The FVM reshaped the capital model. Upfront $FIL collateral used to be a hard barrier; now FVM lending markets like GLIF let token holders deposit $FIL to be leased to verified providers, lowering operator entry cost and creating a native yield index for holders.",
+      },
+
+      { type: "h2", text: "Hardware and operational overhead" },
+      {
+        type: "table",
+        caption: "Minimum enterprise node specification",
+        headers: ["Component", "Specification"],
+        rows: [
+          ["CPU", "AMD EPYC or Intel Xeon, 32+ cores with SHA extensions"],
+          ["GPU", "High-tier NVIDIA (RTX 4090, A100, or H100) for PoRep SNARK generation"],
+          ["RAM", "256 to 512 GB DDR4/DDR5 ECC"],
+          ["Storage", "Enterprise NVMe (1 to 2 TB) cache plus dense SAS HDD JBOD arrays"],
+          ["Network", "Symmetric fiber, 1 to 10 Gbps unmetered"],
+          ["Power", "Dual redundant PSUs, industrial UPS, dedicated cooling"],
+        ],
+      },
+      {
+        type: "p",
+        text: "The sealing pipeline (PreCommit 1 and 2, then Commit 1 and 2) imposes heavy operating cost before disks even fill, and a misconfigured NVMe cache or a thermal spike during a PC2 cycle fails the seal, wasting energy and risking penalties. The result is natural barriers to entry that concentrate network health within professional data centers.",
+      },
+
+      { type: "h2", text: "Comparative analysis: Filecoin versus Web2 cloud" },
+      {
+        type: "table",
+        caption: "Storage provider comparison",
+        headers: ["Metric", "Filecoin", "S3 Glacier Deep Archive", "GCS Coldline", "Backblaze B2"],
+        rows: [
+          ["Monthly cost per TB", "~$0.15 to $0.40", "~$0.99", "~$4.00", "~$6.00"],
+          ["Egress fees", "Near-zero, market-negotiated", "~$0.09/GB", "~$0.12/GB", "~$0.01/GB"],
+          ["Verifiability", "Continuous on-chain proofs", "None (opaque logs)", "None (opaque logs)", "None (status dashboards)"],
+          ["Fault tolerance", "Geographically isolated nodes", "Centralized multi-region", "Centralized multi-region", "Centralized multi-region"],
+          ["Uptime", "Algorithmic staking and slashing", "Binding enterprise SLAs", "Binding enterprise SLAs", "Binding corporate SLAs"],
+        ],
+      },
+      {
+        type: "p",
+        text: "For long-term archival, Filecoin runs 75% to 90% under S3 Glacier Deep Archive, and the gap widens on egress, where centralized clouds use high exit fees to lock customers in. Hyperscalers keep the edge on hot data: near-instant global availability, mature analytics pipelines, and binding SLAs. For sub-second retrieval on live apps, raw decentralized storage adds latency, though the FVM and CDN overlays like Saturn are closing it.",
+      },
+
+      { type: "h2", text: "Editorial conclusion" },
+      {
+        type: "p",
+        text: "Filecoin is the most mature storage DePIN: unmatched raw capacity, a deflationary fee sink, and verifiability Web2 cannot match. Its work now is demand, converting the 10x-subsidized FIL+ pipeline into organic paid deals, and lowering the operator friction that keeps the provider set professional. For cold archival data it already wins on price and proof; for hot workloads the FVM and Saturn are still catching up.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "The core challenge is the gap between ~24 EiB of raw capacity and ~2 EiB of paid data. FIL+ has onboarded petabyte-scale archives from CERN and research labs, but most active deals still ride the 10x quality multiplier rather than organic cash, so the network leans on block rewards for provider profitability.",
+      tokenEconomics:
+        "One of the most battle-tested crypto-economic sinks in the space: continuous base-fee burning plus mandatory upfront pledge collateral that locks supply as sectors seal. The vulnerability is collateral itself, a token-price collapse thins the security cushion and a price spike prices out new providers, leaving the network reliant on FVM lending like GLIF for liquidity.",
+      decentralization:
+        "Over 3,000 storage providers across North America, Europe, and East Asia, real geographic spread, but with notable corporate and regional concentration, since much raw power sits in professionalized clusters, adding localized regulatory and isolation risk.",
+      hardwareEconomics:
+        "Strong capital velocity. Storage is abstracted into standard software, so operators scale by chaining generic JBOD enclosures onto existing compute heads. With leased $FIL via FVM and high-value FIL+ allocations, large operators hit predictable 10-to-14-month payback.",
+      operatorFriction:
+        "The primary bottleneck. Running a provider needs enterprise servers, expert Linux administration, and high-bandwidth unmetered links, and the multi-stage sealing pipeline (PC1, PC2, C1, C2) is unforgiving: one outage or misconfiguration can slash collateral or lose data. Retail hobbyists are effectively excluded.",
+      transparency:
+        "Its highest mark. Every deal, proof, FIL+ allocation, and slashing event is on the L1 ledger, auditable in real time through explorers like Filfox and Starboard, with open-source drivers and FVM environments, far beyond the opaque logs of Web2 cloud.",
+    },
+  },
+
+  anyone: {
+    slug: "anyone",
+    status: "draft",
+    title:
+      "Decentralized Privacy Infrastructure: An Analytical Evaluation of Anyone ($ANYONE)",
+    dek: "An incentivized privacy relay network for metadata-shielded routing, scored against the same six-dimension framework.",
+    publishedAt: "2026-05-31",
+    readingMinutes: 12,
+    executiveSummary: [
+      "Anyone is a decentralized, trustless privacy relay network, a high-bandwidth alternative to centralized VPNs and volunteer onion routing. It links independent edge-hardware and software node operators with enterprise privacy consumers, dApp developers, and institutions that need multi-encrypted, metadata-shielded traffic routing.",
+      "Unlike early web3 privacy attempts that stalled on latency and weak economics, Anyone runs an incentivized, cryptographically auditable routing protocol anchored to on-chain token economics. Our assessment yields a composite Headline Builder Score of 88 out of 100, reflecting strong structural design, fast hardware-led distribution, and clear product-market fit in a more censored internet, balanced against retail ISP constraints like CGNAT and the friction of physical edge-routing hardware.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "88 / 100" },
+      { label: "Native token", value: "$ANYONE (ERC-20, Ethereum)" },
+      { label: "Contract", value: "0xfeac2ab969f109077c3a115b81a17274026dc724" },
+      { label: "Active relays", value: "~3,150+ (physical + software, mid-2026)" },
+      { label: "Token mechanism", value: "Stake-to-route with programmatic fee burn" },
+      { label: "Circulating supply", value: "~48.2M to 52M $ANYONE" },
+      { label: "Maximum supply", value: "100,000,000 $ANYONE" },
+    ],
+    teaserLabels: ["Active relays", "Native token", "Token mechanism", "Maximum supply"],
+    body: [
+      { type: "h2", text: "Technical architecture: incentivized onion routing" },
+      {
+        type: "p",
+        text: "Centralized VPNs are a single point of trust that routinely log metadata, source IPs, and timestamps. Volunteer onion routing decouples sender from destination by wrapping payloads through a guard, middle, and exit relay, but volunteer infrastructure suffers bandwidth starvation, high latency, and Sybil attacks, where cheap nodes deanonymize traffic via timing analysis. Anyone formalizes a high-throughput, incentivized multi-layer onion routing protocol with a Proof-of-Uptime and Performance consensus, and forces every node to stake $ANYONE so malicious activity triggers instant slashing.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|               Inbound Traffic Source (Client)               |
+|          (Generates multi-layered encrypted payload)        |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+|                     1. Guard Relay Node                     |
+|  (Strips layer 1; validates source IP; blinds identity)     |
++-------------------------------------------------------------+
+                              |  (encrypted payload)
+                              v
++-------------------------------------------------------------+
+|                    2. Middle Relay Node                     |
+|  (Strips layer 2; blind to source and destination)          |
++-------------------------------------------------------------+
+                              |  (encrypted payload)
+                              v
++-------------------------------------------------------------+
+|                     3. Exit Relay Node                      |
+|  (Strips layer 3; delivers payload to destination)          |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+|             Destination Target / Web Server                 |
++-------------------------------------------------------------+`,
+      },
+      {
+        type: "list",
+        items: [
+          "Guard node: strips the outer layer and forwards. It knows the true source IP but cannot read the inner payload or the destination.",
+          "Middle node: strips the second layer and forwards, blind to both source IP and destination.",
+          "Exit node: strips the final layer and delivers to the destination. It knows the destination but not the client.",
+        ],
+      },
+      { type: "h3", text: "CGNAT mitigation" },
+      {
+        type: "p",
+        text: "Carrier-Grade NAT, used by residential ISPs to conserve IPv4, leaves relays without a public-facing address, blocking inbound connections. Anyone embeds automatic IPv6 tunneling and UPnP hole-punching in its client runtime so residential nodes form stable inbound tunnels without manual port forwarding.",
+      },
+
+      { type: "h2", text: "Growth, ecosystem, and funding" },
+      {
+        type: "p",
+        text: "Iterative hardware batch drops expanded the physical edge-routing footprint to thousands of active relays worldwide, giving the geographic diversity needed to resist localized censorship and partitions. A well-capitalized treasury funds cryptography, engineering, and hardware subsidies that lower end-user capex, and an institutional B2B pipeline integrates the routing layer directly into applications.",
+      },
+      {
+        type: "list",
+        items: [
+          "dApp privacy SDK: routes RPC traffic, state sync, and wallet transactions through Anyone, cutting the metadata harvesting of centralized RPC providers.",
+          "Web3 browser integrations: onion-routed browsing out of the box, no external client.",
+          "Secure DePIN compute tunnels: compute and storage networks route through Anyone to shield client IPs and metadata.",
+        ],
+      },
+
+      { type: "h2", text: "Token economics: stake-to-route and burn" },
+      {
+        type: "list",
+        items: [
+          "Node staking: operators lock $ANYONE to activate a relay and earn emissions, collateral for uptime and speed.",
+          "Bandwidth credits: clients buy routing capacity in $ANYONE, metered per gigabyte.",
+          "Programmatic burn: a structural share of bandwidth fees is burned, tying traffic to deflation.",
+          "Performance reward pool: the rest pays operators by verified uptime, capacity, and PoUP performance.",
+        ],
+      },
+      {
+        type: "diagram",
+        text: String.raw`+--------------------------------------------------------+
+|             Enterprise / Power-User Client             |
+|        (Purchases high-throughput bandwidth)           |
++--------------------------------------------------------+
+                           |
+                           v
++--------------------------------------------------------+
+|          Token Processing and Distribution Hub         |
++--------------------------------------------------------+
+              /                                \
+             v                                  v
++-----------------------------+    +-------------------------+
+|     Programmatic Burn        |   |  Performance Reward Pool|
+| (Permanently removes supply) |   | (Distributed via PoUP)  |
++-----------------------------+    +-------------------------+`,
+      },
+
+      { type: "h2", text: "Hardware and onboarding" },
+      {
+        type: "table",
+        caption: "Anon Relay hardware core",
+        headers: ["Component", "Specification"],
+        rows: [
+          ["Compute", "Quad-core ARM with dedicated crypto offload"],
+          ["Memory", "4GB LPDDR4"],
+          ["Storage", "64GB eMMC secure block"],
+          ["Network", "Dual gigabit Ethernet (WAN/LAN isolation)"],
+          ["Security", "Hardware-isolated secure element (root-of-trust key)"],
+        ],
+      },
+      {
+        type: "p",
+        text: "A privacy relay benefits from local density (more routing combinations), so Anyone does not enforce strict scarcity. To avoid clustering inside a few clouds, an Autonomous System Number balancer reduces the performance multiplier when too many nodes sit in one provider, and pays premiums to residential nodes and underserved ASNs. Install is a passive indoor device over Ethernet and USB-C, which sets the Operator Ease score at 84 out of 100.",
+      },
+
+      { type: "h2", text: "Comparative analysis: Anyone versus centralized and legacy" },
+      {
+        type: "table",
+        caption: "Privacy network comparison",
+        headers: ["Metric", "Anyone", "Centralized VPN", "Legacy onion"],
+        rows: [
+          ["Annual cost", "Utility-metered ($/GB)", "$60 to $140 fixed", "Free (non-incentivized)"],
+          ["Topology", "Decoupled multi-hop marketplace", "Centralized single-hop", "Volunteer relays"],
+          ["Metadata logging", "Cryptographically zero", "High risk (central authority)", "Low to moderate (timing attacks)"],
+          ["Bandwidth", "High, incentivized gigabit", "High, data-center", "Low to moderate"],
+          ["Sybil resistance", "High (token staking)", "Not applicable", "Low (zero-cost nodes)"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Against centralized VPNs, Anyone removes the single logging authority; against legacy onion networks, token staking closes the Sybil hole and pays for real bandwidth. Centralized providers still offer binding corporate SLAs, the trade Anyone makes for trustless, no-log routing.",
+      },
+
+      { type: "h2", text: "Editorial conclusion" },
+      {
+        type: "p",
+        text: "Anyone is one of the cleaner privacy DePIN designs: incentivized multi-hop routing, staking that closes the Sybil gap, and an ASN balancer that keeps the network residential and hard to censor. The constraints are physical, CGNAT and edge-hardware friction, both of which the client runtime is built to absorb. The open question is the pace of enterprise bandwidth demand against the cost of scaling relays.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "Revenue comes from bandwidth fees paid by enterprises, not inflation: privacy SDKs in web3 browsers, dApp middleware, and cross-protocol DePIN tunnels create organic, non-speculative demand that insulates the model from market swings.",
+      tokenEconomics:
+        "A tight usage-to-scarcity link. A structural percentage of every bandwidth fee is burned, so scaling utilization accelerates scarcity, and the mandatory node stake locks operator capital in the consensus directory, limiting dumps. One of the cleaner privacy-network token designs.",
+      decentralization:
+        "Thousands of relays across many countries, ASNs, and residential subnets, with an ASN balancer that dilutes rewards for over-concentrated data-center nodes and pays premiums to residential endpoints. That structure resists single-point partitions and localized censorship.",
+      hardwareEconomics:
+        "The Anon Relay draws little power while routing high-throughput traffic, so operating cost is low and payback on the hardware is fast under baseline traffic, which helps the crowdsourced physical layer scale.",
+      operatorFriction:
+        "Far easier than rooftop sensing hardware. The Anon Relay is a passive indoor edge device over Ethernet and USB-C, and automated UPnP hole-punching and IPv6 tunneling handle CGNAT, so non-technical operators can join.",
+      transparency:
+        "Performance metrics, circuit-state confirmations, and reward allocations are computed by the Proof-of-Uptime and Performance consensus and committed to an immutable ledger, so operators and consumers can verify throughput and integrity in real time.",
+    },
+  },
+
+  grass: {
+    slug: "grass",
+    status: "draft",
+    title:
+      "Decentralized Bandwidth Infrastructure: An Analytical Evaluation of Grass ($GRASS)",
+    dek: "A crowdsourced residential bandwidth network for AI web data, scored against the same six-dimension framework.",
+    publishedAt: "2026-05-30",
+    readingMinutes: 12,
+    executiveSummary: [
+      "Grass, operated by Wynd Labs, is a decentralized, crowdsourced web-scraping network that gathers public data to train AI models. It turns consumer internet connections into node gateways, using the unused outbound bandwidth of millions of residential connections to form an enterprise-grade proxy and data-collection layer that sidesteps the IP-blocking that hits data centers.",
+      "It links residential node hosts with AI labs and LLM developers that need high-volume public web data, with demand tied to a buyback model on Solana. Our assessment yields a composite Headline Builder Score of 88 out of 100, reflecting a highly scalable web-app onboarding architecture and a massive node footprint, balanced against retail ISP compliance risk, variable regional bandwidth pricing, and the attrition dynamics of low-yield consumer nodes.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "88 / 100" },
+      { label: "Native token", value: "$GRASS (Solana SPL)" },
+      { label: "Institutional backing", value: "Polychain, Tribe, Delphi, Bitscale" },
+      { label: "Active residential nodes", value: "2,500,000+ (mid-2026)" },
+      { label: "Annualized recurring revenue", value: "~$14.2M (est. mid-2026)" },
+      { label: "Token accrual", value: "Open-market buybacks and utility locking" },
+      { label: "Circulating supply", value: "~240M to 255M $GRASS" },
+      { label: "Maximum supply", value: "1,000,000,000 $GRASS" },
+    ],
+    teaserLabels: [
+      "Active residential nodes",
+      "Annualized recurring revenue",
+      "Institutional backing",
+      "Maximum supply",
+    ],
+    body: [
+      { type: "h2", text: "Technical architecture and bandwidth orchestration" },
+      {
+        type: "p",
+        text: "AI labs training LLMs need data harvested from public domains, but data-center IPs (AWS, DigitalOcean, GCP) are easily flagged or blocked by enterprise firewalls like Cloudflare and Akamai. Grass routes scraping across millions of residential connections with clean, non-corporate ISP-assigned IPs, so the traffic looks like organic browsing and the network can gather public data at scale.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|               AI Enterprise Client / LLM Lab                |
+|             (Submits complex scraping request)              |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+|                   Grass Orchestration Node                  |
+|          (Parses request and distributes target URLs)       |
++-------------------------------------------------------------+
+         /                    |                    \
+        v                     v                     v
++-----------------+   +-----------------+   +-----------------+
+|  Res. Node #1   |   |  Res. Node #2   |   |  Res. Node #3   |
+| (Light browser) |   | (Desktop node)  |   | (Hardware/app)  |
++-----------------+   +-----------------+   +-----------------+
+         \                    |                    /
+          v                   v                   v
++-------------------------------------------------------------+
+|                  Target Public Web Domains                  |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+|                    Socrates Data Engine                     |
+|        (Cleans, structures JSON / vector outputs)           |
++-------------------------------------------------------------+`,
+      },
+      {
+        type: "p",
+        text: "A dedicated engine, Socrates, cleans and normalizes raw HTML into structured JSON or vectors for AI pipelines. End-to-end TLS secures routing, and the client is a pure relay with no access to local storage, history, or private payloads. The network scales through a tiered client ecosystem.",
+      },
+      {
+        type: "list",
+        items: [
+          "Light browser extension: a passive Chrome/Brave extension using up to 0.5% of unused upstream bandwidth.",
+          "Desktop node: a Windows, macOS, and Linux app with priority routing, up to 4x throughput and higher emission weight.",
+          "Community hardware and mobile: low-power background modules for continuous, low-latency uptime.",
+        ],
+      },
+
+      { type: "h2", text: "Growth and funding" },
+      {
+        type: "p",
+        text: "Low-friction onboarding took the network from pilot deployments to over 2,500,000 active nodes by mid-2026, one of the largest endpoint networks in web3. A seed round co-led by Polychain and Tribe Capital, with Delphi Digital and Bitscale, funded processing capacity, the Socrates platform, and Solana DEX liquidity. By productizing raw bandwidth into structured AI training sets, Grass reached an estimated $14.2M ARR by mid-2026.",
+      },
+
+      { type: "h2", text: "Token economics and value accrual" },
+      {
+        type: "list",
+        items: [
+          "Bandwidth staking and settlement: enterprises buy data and access with $GRASS, or fiat routed programmatically into open-market token accumulation.",
+          "Host compensation: residential nodes earn fractional rewards by verified uptime, throughput, and geographic scarcity.",
+          "Governance: stakers steer upgrades, bandwidth pricing, and treasury allocation.",
+        ],
+      },
+      {
+        type: "diagram",
+        text: String.raw`+--------------------------------------------------------+
+|               Enterprise Data Customer                 |
+|             (Buys structured datasets)                 |
++--------------------------------------------------------+
+                           |
+                           v
++--------------------------------------------------------+
+|               Grass Ecosystem Protocol                 |
++--------------------------------------------------------+
+              /                            \
+             v                              v
++-------------------------+    +-------------------------+
+|  Open-market buybacks   |    |   Ecosystem treasury    |
+| (Purchases $GRASS via   |    |  (Funds node yields and |
+|  Solana DEX pools)      |    |   expansion grants)     |
++-------------------------+    +-------------------------+
+             |
+             v
++-------------------------+
+| Vault locking / burning |
++-------------------------+`,
+      },
+      {
+        type: "p",
+        text: "This creates buying pressure proportional to data demand. The key risk is yield dilution: because software nodes scale freely, a rush of new users can thin per-host yield if enterprise demand does not keep pace. Net-deflationary dynamics need an estimated sustainable ARR near $18.5M at current valuations.",
+      },
+
+      { type: "h2", text: "Hardware, spatial scarcity, and onboarding" },
+      {
+        type: "p",
+        text: "Grass is a zero-capex software network running on existing laptops, desktops, and phones, with an optional low-power Grass Box single-board computer (under 4 watts over USB-C) for continuous uptime. It uses the Uber H3 index and ISP ASN tracking to manage density: nodes sharing a local hex on the same subnet have their multiplier reduced, while underserved regions with high data demand earn up to 2.5x. Onboarding through the browser extension sets the Operator Ease score at 94 out of 100. The friction that remains is network-level: CGNAT shared IPs can lower connectivity scores, and most consumer ISP terms prohibit reselling bandwidth, so strict ISPs may flag continuous background connections.",
+      },
+
+      { type: "h2", text: "Comparative analysis: Grass versus legacy proxies" },
+      {
+        type: "table",
+        caption: "Residential data network comparison",
+        headers: ["Metric", "Grass", "Bright Data", "Oxylabs", "Honeygain"],
+        rows: [
+          ["Enterprise pricing", "~$0.45/GB", "$4 to $15/GB", "$5 to $12/GB", "Reseller only"],
+          ["Node acquisition", "Token emissions / staking", "SDK bundling / hidden P2P", "App monetization kits", "Cash/crypto micro-payouts"],
+          ["Global nodes", "2,500,000+", "~72,000,000", "~102,000,000", "~1,200,000"],
+          ["Data cleaning", "Native Socrates structuring", "Raw proxy", "Raw proxy / custom APIs", "Raw proxy"],
+          ["Ledger transparency", "On-chain proof of integrity", "Centralized logs", "Centralized logs", "Centralized database"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Legacy proxies bundle bandwidth-sharing SDKs into free apps, so users opt in unknowingly through long EULAs, an opaque model that creates compliance risk for enterprise buyers. Grass rewards users directly with tokens, an opt-in, transparent structure that lowers acquisition cost and, paired with Socrates, ships model-ready data rather than raw proxy output. Legacy providers keep an edge in total node pools and enterprise sales relationships, which Grass bridges with enterprise middleware and fiat invoicing.",
+      },
+
+      { type: "h2", text: "Editorial conclusion" },
+      {
+        type: "p",
+        text: "Grass is a highly scalable, software-driven DePIN that bypasses the hardware bottleneck of physical networks. Using existing residential connections, it has quickly built a large global footprint of clean IPs and an effective decentralized web-scraping layer for AI developers. Its zero-capex onboarding drives fast growth, but it must manage long-term retention if yields dilute and navigate retail ISP terms-of-service risk. Its structured-data capability through Socrates and growing commercial traction make it a significant, revenue-generating network in the DePIN data ecosystem.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "Strong traction in AI data collection: an estimated $14.2M ARR from continuous web data for LLM training and real-time monitoring, showing token incentives are balanced by real enterprise utility.",
+      tokenEconomics:
+        "Revenue funds open-market buybacks and rewards, tying adoption to token utility. The catch is yield dilution: software nodes have near-zero entry cost, so rapid user growth can thin per-host yield if enterprise demand does not keep pace. Net deflation needs roughly $18.5M ARR.",
+      decentralization:
+        "Over 2.5M active nodes across many geographies and ISP networks give an exceptionally distributed endpoint footprint, hard to block or partition, with H3 density rules and ASN separation preventing local over-saturation.",
+      hardwareEconomics:
+        "Top of the set. The network runs on devices users already own, so new-node capex is effectively zero and the client uses under 1% of a typical power footprint, an immediate payback path.",
+      operatorFriction:
+        "A light browser extension lets users join in minutes with no technical skill or physical install. The minor friction is local ISP quirks and CGNAT routing that can dent connectivity scores.",
+      transparency:
+        "Real-time network health, regional status, and reward history are available through the dashboard and console, with automated uptime checks guarding against reward manipulation. The mark is held back by a largely centralized dashboard rather than fully on-chain verifiability.",
+    },
+  },
+
+  nosana: {
+    slug: "nosana",
+    status: "draft",
+    title:
+      "Decentralized AI Compute: An Analytical Evaluation of Nosana ($NOS)",
+    dek: "A low-latency GPU inference marketplace on Solana, scored against the same six-dimension framework.",
+    publishedAt: "2026-05-29",
+    readingMinutes: 12,
+    executiveSummary: [
+      "Nosana is a decentralized, low-latency GPU compute marketplace built on Solana, focused squarely on AI inference. Originally a decentralized CI/CD network, it pivoted to address the GPU shortage, crowdsourcing underused consumer and enterprise GPUs (mainly NVIDIA RTX) into an on-demand grid for inference. By stripping virtualization overhead and enterprise pricing, it lowers the cost of running AI models by 70% to 80%.",
+      "It matches hardware hosts, from gaming rigs to colocation centers, with AI developers and labs that need affordable, programmatic compute, settled deterministically on Solana. Our assessment yields a composite Headline Builder Score of 89 out of 100, reflecting strong product-market fit, fast capital velocity, and easy supply onboarding, balanced against competition from centralized GPU aggregators and the challenge of distributing model weights across heterogeneous consumer hardware.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "89 / 100" },
+      { label: "Native token", value: "$NOS (Solana SPL)" },
+      { label: "Total raised", value: "~$2.5M+ (seed, token rounds, grants)" },
+      { label: "Active compute nodes", value: "2,800+ verified GPUs" },
+      { label: "Annualized recurring revenue", value: "~$3.4M (est. mid-2026)" },
+      { label: "Token mechanism", value: "Fee-split with staking and job collateral" },
+      { label: "Circulating supply", value: "~48M to 50M $NOS" },
+      { label: "Maximum supply", value: "100,000,000 $NOS" },
+    ],
+    teaserLabels: [
+      "Active compute nodes",
+      "Annualized recurring revenue",
+      "Total raised",
+      "Maximum supply",
+    ],
+    body: [
+      { type: "h2", text: "Architecture: inference, not training" },
+      {
+        type: "p",
+        text: "Training needs clusters of high-bandwidth enterprise GPUs bound by NVLink and InfiniBand, because the parameter state is shared continuously during backpropagation. Inference, running a trained model to produce a token, image, or frame, is far less bandwidth-bound: as long as a single GPU has enough VRAM to hold the weights (a Llama 3 8B model needs roughly 16GB at 16-bit, less when quantized), the job runs isolated on one consumer or mid-grade card. Nosana targets exactly that workload.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+--------------------------------------------------------+
+|                   AI Developer Client                  |
+|        (Submits inference job + $NOS collateral)       |
++--------------------------------------------------------+
+                           |
+                           v
++--------------------------------------------------------+
+|                 Nosana Smart Contracts                 |
+|             (On-chain job matching and stake)          |
++--------------------------------------------------------+
+                           |
+       +-------------------+-------------------+
+       v (job dispatch)                        v (verification)
++-----------------------------+         +-----------------------------+
+|    Nosana Host Connector    |         |     On-Chain Verification   |
+| (Docker engine orchestrator)|         |   (Deterministic attest.)   |
++-----------------------------+         +-----------------------------+
+       |
+       v
++-----------------------------+
+|  Hardware Layer (Host Node) |  --(executes inference, releases $NOS)
+| (NVIDIA RTX 4090/3090/etc.) |
++-----------------------------+`,
+      },
+      {
+        type: "list",
+        items: [
+          "Client layer: developers point existing inference scripts at an OpenAI-compatible API or the SDK; the system infers VRAM and CUDA requirements.",
+          "Orchestration: the Solana contract picks a staked node meeting the threshold and runs the job in a Docker container for uniform execution across diverse hardware.",
+          "Node layer: a lightweight daemon listens for assignments, pulls the model container, maps local CUDA drivers, and streams results back inside an isolated runtime.",
+        ],
+      },
+
+      { type: "h2", text: "Growth and integrations" },
+      {
+        type: "p",
+        text: "Because hardware is owned by hosts, capital goes to developer incentives, software, and liquidity rather than depreciation. The network aggregates idle gaming and rendering cards (RTX 4090, 3090, 4080) into a liquid pricing pool and stays focused on inference to avoid competing with colocation-heavy HPC networks.",
+      },
+      {
+        type: "table",
+        caption: "Ecosystem integrations",
+        headers: ["Integration", "Objective"],
+        rows: [
+          ["Solana AI builders", "Inference hosting for AI agents, on-chain trading LLMs, and synthetic content, making $NOS the default compute settlement asset."],
+          ["Open-source AI frameworks", "Out-of-the-box integration with Hugging Face, vLLM, and Ollama, no Web3-specific code."],
+          ["Decentralized storage", "Direct links to Arweave and Filecoin to pull cached model weights and cut ingress latency."],
+        ],
+      },
+
+      { type: "h2", text: "Token economics: the $NOS flywheel" },
+      {
+        type: "list",
+        items: [
+          "Compute settlement: jobs are quoted, collateralized, and settled in $NOS; fiat or USDC is auto-converted via DEXs to settle on-chain.",
+          "Provider staking: hosts lock $NOS as collateral against spoofing or dropped jobs, slashed on failure with collateral routed to the client or treasury.",
+          "Governance: locked holders steer fee coefficients, hardware tiers, and ecosystem funds.",
+        ],
+      },
+      {
+        type: "p",
+        text: "A fee-split routes a share of every compute transaction into buybacks or burns, reducing float in proportion to real usage. When fee velocity and lockups exceed the scheduled emission decay of provider rewards, the token reaches a self-sustaining, net-deflationary equilibrium.",
+      },
+
+      { type: "h2", text: "Hardware tiers and onboarding" },
+      {
+        type: "table",
+        caption: "Hardware tiers",
+        headers: ["Tier", "GPUs", "Workloads"],
+        rows: [
+          ["High-end consumer", "RTX 4090, 3090, 4080", "LLM inference (8B to 70B quantized), Stable Diffusion XL, Whisper"],
+          ["Workstation", "RTX 6000 Ada, A6000, A5000", "Unquantized foundation models, fine-tuning, multi-tenant hosting"],
+          ["Mid-tier retail", "RTX 4070 Ti, 3080, 3070", "Light text generation, transcription, basic vision"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Onboarding is purely software (no roof access, mounting, or wiring), which sets the Operator Ease score at 82 out of 100. A host validates an NVIDIA GPU and CUDA drivers, installs Docker and the NVIDIA container toolkit, runs the node CLI linked to a Solana wallet with a small $NOS stake, and the daemon registers, benchmarks, and starts pulling jobs. The real friction is behavioral and technical: constant uptime, heat under sustained inference, and local port-forwarding for container networking.",
+      },
+
+      { type: "h2", text: "Comparative analysis: Nosana versus centralized clouds" },
+      {
+        type: "table",
+        caption: "Compute provider comparison",
+        headers: ["Metric", "Nosana", "AWS / Azure", "RunPod / Vast.ai"],
+        rows: [
+          ["Hourly (RTX 4090 / A10G)", "~$0.25 to $0.45", "~$1.20 to $2.40", "~$0.50 to $0.80"],
+          ["Onboarding", "Programmatic via API", "Credit checks, quotas, contracts", "Semi-programmatic accounts"],
+          ["Architecture", "Decentralized peer-to-peer", "Centralized server farms", "Centralized Web2 aggregation"],
+          ["SLA", "Programmatic, stake-verified", "99.99% binding SLAs", "Variable, provider-dependent"],
+          ["Payment", "On-chain $NOS streaming", "Enterprise invoicing", "Card deposits, Web2 credits"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Nosana's edge is price and frictionless access: deploy an inference pipeline instantly without procurement, quotas, or multi-year commitments. Centralized clouds keep the edge for mission-critical work, with binding SLAs, dedicated support, hardware homogeneity, and certifications like SOC2 and HIPAA. Nosana targets the cost-sensitive segments: rapid scaling, dev and test, agent swarms, and open-source communities.",
+      },
+
+      { type: "h2", text: "Editorial conclusion" },
+      {
+        type: "p",
+        text: "Nosana picked the right slice of compute. By focusing on inference, it turns idle consumer GPUs into a liquid, low-cost grid with near-zero entry capital and clean Solana settlement. The durable questions are competitive (centralized aggregators) and operational (keeping lesser GPU tiers utilized and managing driver and uptime friction), but the demand is real and consumed continuously.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "Strong, because AI compute is consumed every second an inference pipeline runs. The variable run-rate reflects real developer spend driven by a structural cost advantage over legacy cloud, not speculation.",
+      tokenEconomics:
+        "Staking requires nodes to lock $NOS as skin in the game, a supply sink that dampens volatility, and the fee-split channels compute spend back into token demand. The long-term risk is emission decay: as subsidies fall, real demand must scale to keep operators profitable.",
+      decentralization:
+        "Thousands of independent consumer setups worldwide give good heterogeneity, but workloads naturally flow to the cheapest, fastest nodes (RTX 4090 clusters), so scheduling has to keep lesser tiers utilized.",
+      hardwareEconomics:
+        "Its strongest dimension. Capital velocity is decoupled from manufacturing: operators use GPUs they already bought for gaming or rendering, so entry capex is near zero and payback on power and bandwidth is fast.",
+      operatorFriction:
+        "No zoning, leases, or outdoor install, onboarding is purely digital. The remaining friction is software: keeping up with NVIDIA CUDA drivers and configuring local network routing for container traffic.",
+      transparency:
+        "Job matching, staking settlement, and verification run on Solana, and deterministic container hashes let clients independently audit that their workloads ran exactly as requested across the mesh.",
+    },
+  },
+
+  nubila: {
+    slug: "nubila",
+    status: "draft",
+    title:
+      "Decentralized Weather Sensing: An Analytical Evaluation of Nubila ($NB)",
+    dek: "A crowdsourced weather-station network feeding ML forecasts, scored against the same six-dimension framework.",
+    publishedAt: "2026-05-28",
+    readingMinutes: 11,
+    executiveSummary: [
+      "Nubila is a decentralized, crowdsourced network of terrestrial weather stations that aggregates hyper-local climate data to train and run machine-learning forecasting models. It links hardware hosts who deploy stations with enterprise clients that need precise meteorological data: ESG platforms, agriculture, commodity traders, and parametric insurance.",
+      "A validation tier system (Sunny, Rainy, Cloud) keeps data honest and supports token utility. Our assessment yields a composite Headline Builder Score of 74 out of 100, reflecting a scalable hardware footprint and a real fusion of physical sensing with machine learning, balanced against early-stage token volatility, unverified data in emerging regions, and physical placement dependencies.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "74 / 100" },
+      { label: "Native token", value: "$NB (BNB Chain)" },
+      { label: "Category", value: "Environmental and meteorological sensors" },
+      { label: "Deployment", value: "Set & Forget" },
+      { label: "Validation", value: "Hybrid (Sunny, Rainy, Cloud), in progress" },
+      { label: "Token sink", value: "Query fees, ESG curation, validator staking" },
+      { label: "Maximum supply", value: "Fixed cap (per smart contracts)" },
+    ],
+    teaserLabels: ["Native token", "Category", "Deployment", "Validation"],
+    body: [
+      { type: "h2", text: "Architecture and meteorological sensing" },
+      {
+        type: "p",
+        text: "Public agencies (NOAA, ECMWF) run macro-scale models on satellite imagery, radar, and widely spaced stations, accurate regionally but coarse at 9 to 25 km grid cells that miss urban heat islands, valley effects, and micro-burst rain. Nubila closes that gap by crowdsourcing dense terrestrial sensors that measure barometric pressure, temperature, humidity, wind, rainfall, and solar radiation.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|               Physical Terrestrial Sensors                  |
+|          (Temperature, humidity, pressure, wind)            |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|                     Edge Node Gateway                       |
+|          (Digitizes and packets raw readings)               |
++-------------------------------------------------------------+
+                               |  (MQTT / TLS streams)
+                               v
++-------------------------------------------------------------+
+|                 Nubila Validation Pipeline                  |
+|   Cloud (aggregate) - Sunny (staked) - Rainy (anomaly)      |
++-------------------------------------------------------------+
+                               |  (verified packets)
+                               v
++-------------------------------------------------------------+
+|              Machine Learning Forecast Engine               |
+|            (Transformer-based predictive models)            |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|                 Enterprise API Consumers                    |
+|        (AgTech, ESG auditors, parametric insurance)         |
++-------------------------------------------------------------+`,
+      },
+      {
+        type: "list",
+        items: [
+          "Cloud validators: aggregate raw packets from local clusters and cross-reference regional baselines to drop malfunctions and corruption.",
+          "Sunny validators: stake $NB, process clean streams, guarantee uptime for commercial API access, and earn a premium share of emissions.",
+          "Rainy validators: run anomaly and spatial-consistency checks and slash nodes that spoof data, such as a sensor placed in an air-conditioned room.",
+        ],
+      },
+
+      { type: "h2", text: "Growth and commercial integrations" },
+      {
+        type: "p",
+        text: "Rollout is cluster-based, prioritizing density in high-value zones (micro-climate-prone cities and high-yield agricultural valleys) over indiscriminate global spread. Crypto-native and ESG-focused capital on BNB Chain subsidizes hardware and lowers host entry cost. Demand focuses on three verticals.",
+      },
+      {
+        type: "list",
+        items: [
+          "Parametric insurance: contracts auto-pay farmers when local rainfall drops below a threshold, needing tamper-resistant local validation.",
+          "ESG and carbon: localized solar-radiation data to audit distributed solar arrays and reforestation offsets.",
+          "Commodity trading: micro-climate streams over coffee and citrus belts to hedge supply shocks ahead of public agency updates.",
+        ],
+      },
+
+      { type: "h2", text: "Token economics on BNB Chain" },
+      {
+        type: "list",
+        items: [
+          "Validator staking: Sunny and Rainy validators lock $NB; spoofing or downtime is slashed to the treasury.",
+          "Commercial access and burn: enterprises pay in $NB or fiat (routed to open-market buybacks); a share of query fees is retired or routed to incentive pools.",
+          "Hardware emissions: nodes earn daily $NB by data completeness, uptime, and spatial necessity, tapering for redundant installs.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Early returns are set high to attract bootstrap capital but stay volatile with token market depth and query volume. BNB Chain gives liquidity, low-cost micro-reward distribution, and EVM compatibility.",
+      },
+
+      { type: "h2", text: "Hardware and deployment" },
+      {
+        type: "table",
+        caption: "Nubila Edge Weather Station",
+        headers: ["Dimension", "Specification"],
+        rows: [
+          ["Form factor", "Integrated multi-sensor chassis with solar panel"],
+          ["Power", "Ultra-low draw, LiFePO4 battery with solar backup"],
+          ["Sensing", "Temperature (-40 to 65 C), humidity, ultrasonic wind, optical rain gauge, barometric pressure"],
+          ["Connectivity", "2.4 GHz Wi-Fi, optional LoRaWAN"],
+          ["Bandwidth", "~5 to 15 MB/month of structured JSON"],
+          ["RF", "Low-power burst, FCC/CE compliant"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Classified Set & Forget, the station needs no orbital alignment, indoor cabling, or port forwarding, which sets the Operator Ease score at 82 out of 100. The main risk is sub-optimal placement (next to an exhaust vent or under a tree canopy), which the network's algorithmic validation flags and down-weights over time.",
+      },
+
+      { type: "h2", text: "Comparative analysis: Nubila versus agencies and IoT" },
+      {
+        type: "table",
+        caption: "Weather data comparison",
+        headers: ["Metric", "Nubila", "NOAA / ECMWF", "Commercial IoT"],
+        rows: [
+          ["Spatial resolution", "Hyper-local, sub-km", "Macro, 9 to 25 km grid", "Variable regional"],
+          ["Latency", "Near real-time", "Hourly or multi-hour batches", "Proprietary intervals"],
+          ["Capex", "Crowdsourced to hosts", "Public budgets", "High corporate procurement"],
+          ["Access", "Open Web3 API via $NB", "Free macro, paid custom", "Closed enterprise licensing"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Nubila's advantage is deployment cost: it aligns incentives with property owners to build dense micro-mesh grids instead of clearing land and dispatching technicians. Public agencies keep the edge in long-range stability, running supercomputer thermodynamic simulations of global atmosphere. Nubila is best read as a high-density overlay that sharpens short-term, hyper-local forecasting rather than a replacement for state services.",
+      },
+
+      { type: "h2", text: "Editorial conclusion" },
+      {
+        type: "p",
+        text: "Nubila pairs an easy Set & Forget sensor with a credible machine-learning data product and clear buyers in insurance, ESG, and trading. The score reflects where it is in the cycle: scalable and low-friction, but early on revenue, still partly emission-driven, and carrying unverified data it is actively working to validate through the Rainy tier. The path up runs through enterprise query revenue and fuller on-chain transparency.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "Early commercial phase: B2B pilots are emerging in agtech and parametric insurance, but the network still leans partly on mining incentives to drive node growth. To climb, enterprise API query revenue must scale with token distribution.",
+      tokenEconomics:
+        "The Sunny, Rainy, and Cloud validator tiers create a staking sink that locks supply, but early daily returns are volatile and correlated with the broader token market. The deflation path depends on baseline emission decay meeting rising token-denominated data queries.",
+      decentralization:
+        "An accessible consumer form factor supports fast international deployment, but early nodes cluster in tech-centric cities. Localized multipliers are needed to pull stations into rural areas, coastlines, and agricultural belts where the data is most valuable.",
+      hardwareEconomics:
+        "Ultra-low power with integrated solar means near-zero operating cost, and low upfront hardware cost versus geodetic gear gives an attractive early payback for retail participants.",
+      operatorFriction:
+        "Its strongest category. The Set & Forget station avoids the rooftop alignment, cabling, and zoning headaches of other physical networks, opening participation to mainstream consumers.",
+      transparency:
+        "A large share of the early footprint is still unverified, so integrity is a focus. The Rainy validator tier's automated anomaly and fraud checks help, but the score needs fully public, open-source verification of baseline cross-checks, validator uptime, and buyback-and-burn on BNB Chain.",
+    },
+  },
 };
 
 /** Look up a report by project slug, or null when none exists yet. */
