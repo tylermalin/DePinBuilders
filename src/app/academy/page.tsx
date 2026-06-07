@@ -72,12 +72,18 @@ export default async function AcademyPage() {
                 </div>
                 <div className="mt-3.5 flex items-center justify-between">
                   <span
-                    className={`font-mono text-xs font-semibold ${c.free ? "text-good" : "text-orange-ink"}`}
+                    className={`font-mono text-xs font-semibold ${
+                      c.comingSoon
+                        ? "text-muted"
+                        : c.free
+                          ? "text-good"
+                          : "text-orange-ink"
+                    }`}
                   >
-                    {c.free ? "Free" : `$${c.priceUsd}`}
+                    {c.comingSoon ? "Coming soon" : c.free ? "Free" : `$${c.priceUsd}`}
                   </span>
                   <span className="font-mono text-[11px] uppercase text-muted group-hover:text-orange-ink">
-                    View course &rarr;
+                    {c.comingSoon ? "Preview →" : "View course →"}
                   </span>
                 </div>
               </div>

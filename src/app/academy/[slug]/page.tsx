@@ -169,7 +169,17 @@ export default async function CoursePage({
 
             {/* Enroll */}
             <div className="mt-8 rounded-[6px] border-2 border-ink bg-surface-2 p-6 shadow-[var(--shadow)]">
-              {course.free ? (
+              {course.comingSoon ? (
+                <>
+                  <div className="font-display text-lg font-bold">
+                    Coming soon
+                  </div>
+                  <p className="mt-1 text-sm text-muted">
+                    This course is in production. The outline above is the
+                    plan. It opens for enrollment once the lessons are recorded.
+                  </p>
+                </>
+              ) : course.free ? (
                 <>
                   <div className="font-display text-lg font-bold">
                     Free course
@@ -214,7 +224,16 @@ export default async function CoursePage({
               <div className="px-4 py-4 text-sm">
                 <Row label="Price" value={course.free ? "Free" : `$${course.priceUsd}`} />
                 <Row label="Modules" value={course.modules} />
-                <Row label="Access" value={course.free ? "Open" : "Purchase required"} />
+                <Row
+                  label="Access"
+                  value={
+                    course.comingSoon
+                      ? "Coming soon"
+                      : course.free
+                        ? "Open"
+                        : "Purchase required"
+                  }
+                />
               </div>
             </div>
           </div>
