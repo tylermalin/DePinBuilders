@@ -14,6 +14,8 @@ import {
 import { pageMeta } from "@/lib/seo";
 import { productSchema, breadcrumbSchema, reviewSchema } from "@/lib/schema";
 import { ReviewSection } from "@/components/project/review-section";
+import { ReportSummary } from "@/components/project/report-summary";
+import { getReport } from "@/data/reports.seed";
 import { projectTitle, projectDescription } from "@/lib/project-meta";
 import {
   tokenDisplay,
@@ -70,6 +72,8 @@ export default async function ProjectPage({
     getRelatedProjects(slug, 3),
     getComparisonPairsForProject(slug),
   ]);
+
+  const report = getReport(slug);
 
   // Stable color index from seed ordering
   const seedIndex = seedAll.findIndex((s) => s.slug === slug);
@@ -190,6 +194,11 @@ export default async function ProjectPage({
             <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-ink-soft">
               {project.blurb}
             </p>
+
+            {/* Analytical report summary with CTA to the full report */}
+            {report && (
+              <ReportSummary report={report} projectName={project.name} />
+            )}
 
             {/* Affiliate code */}
             {project.affiliateCode && (
