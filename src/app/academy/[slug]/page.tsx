@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getCourses, getCourse } from "@/lib/data";
 import { pageMeta } from "@/lib/seo";
-import { courseSchema, breadcrumbSchema } from "@/lib/schema";
+import { courseSchema, breadcrumbSchema, videoSchema } from "@/lib/schema";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Button } from "@/components/ui/button";
 import { chipColor } from "@/lib/colors";
@@ -51,6 +51,15 @@ export default async function CoursePage({
       { name: "Academy", path: "/academy" },
       { name: course.title, path: `/academy/${slug}` },
     ]),
+    ...(course.youtubeId
+      ? [
+          videoSchema({
+            name: course.title,
+            description: course.summary,
+            youtubeId: course.youtubeId,
+          }),
+        ]
+      : []),
   ];
 
   return (
@@ -91,6 +100,34 @@ export default async function CoursePage({
             <div className="mt-3 font-mono text-xs text-muted">
               {course.modules}
             </div>
+
+            {/* Intro video + slides */}
+            {course.youtubeId && (
+              <div className="mt-8">
+                <div className="overflow-hidden rounded-[6px] border-[1.5px] border-ink bg-ink">
+                  <iframe
+                    className="aspect-video w-full"
+                    src={`https://www.youtube-nocookie.com/embed/${course.youtubeId}`}
+                    title={`${course.title} introduction`}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
+                {course.slidesUrl && (
+                  <a
+                    href={course.slidesUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-block"
+                  >
+                    <Button variant="ghost" size="sm">
+                      View the slides &#8599;
+                    </Button>
+                  </a>
+                )}
+              </div>
+            )}
 
             {/* Curriculum */}
             <div className="mt-8">

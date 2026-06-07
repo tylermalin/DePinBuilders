@@ -290,6 +290,23 @@ export function courseSchema(opts: {
   });
 }
 
+// ── VideoObject (course intro video) ──
+
+export function videoSchema(opts: {
+  name: string;
+  description: string;
+  youtubeId: string;
+}) {
+  return jsonLdScript({
+    "@type": "VideoObject",
+    name: opts.name,
+    description: opts.description,
+    thumbnailUrl: [`https://i.ytimg.com/vi/${opts.youtubeId}/hqdefault.jpg`],
+    embedUrl: `https://www.youtube.com/embed/${opts.youtubeId}`,
+    contentUrl: `https://www.youtube.com/watch?v=${opts.youtubeId}`,
+  });
+}
+
 // ── SoftwareApplication (calculator) ──
 
 export function softwareAppSchema() {

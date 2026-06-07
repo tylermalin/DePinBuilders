@@ -143,6 +143,10 @@ export interface CourseSeed {
   priceUsd: number;
   free: boolean;
   curriculum: CourseModule[];
+  /** YouTube video id for the course intro, when published. */
+  youtubeId?: string;
+  /** Link to the course slide deck, when published. */
+  slidesUrl?: string;
 }
 
 export const courses: CourseSeed[] = [
@@ -154,6 +158,9 @@ export const courses: CourseSeed[] = [
     modules: "4 modules · 12 lessons · 1h 40m",
     priceUsd: 0,
     free: true,
+    youtubeId: "5K4Gd5I-Ylw",
+    slidesUrl:
+      "https://docs.google.com/presentation/d/1amCrkJOM29r_ow2vIB4zRKYp9cnFJ-jbZ9CaJ6aFL6o/edit?usp=sharing",
     curriculum: [
       {
         title: "What DePIN actually is",
