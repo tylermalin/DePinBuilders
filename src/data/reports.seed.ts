@@ -477,6 +477,237 @@ export const reports: Record<string, ProjectReport> = {
         "Render uses a Proof of Rendering mechanism to verify completed jobs without manipulation, and hosts public dashboards for active GPUs, completed jobs, real-time fees, and programmatic burns. A long operating history makes it one of the more trusted protocols in the sector.",
     },
   },
+
+  weatherxm: {
+    slug: "weatherxm",
+    status: "draft",
+    title:
+      "Decentralized Meteorological Infrastructure: An Analytical Evaluation of WeatherXM ($WXM)",
+    dek: "An open-access weather data network crowdsourcing high-resolution atmospheric observations, scored against the same six-dimension framework.",
+    publishedAt: "2026-06-05",
+    readingMinutes: 13,
+    executiveSummary: [
+      "WeatherXM is an open-access meteorological data network that crowdsources real-time, high-resolution atmospheric observations through a global array of community-owned sensing nodes. It targets the structural gaps in traditional meteorology: high capital cost, centralized control, and thin coverage in developing or geographically complex regions. Development began in early 2022 with a hardware MVP, and the native $WXM token launched on Arbitrum One on May 30, 2024.",
+      "By 2026 the network runs 6,079 active stations and 9,787 total deployed units across 81 countries, holding a 99% data quality index, funded by $12.7M of venture capital across a 2022 seed and a 2024 Series A. The roadmap targets 17,000 active stations through demand-led targeted rollouts that place hardware where commercial contracts already exist.",
+      "On our framework, WeatherXM earns a composite Headline Builder Score of 84 out of 100. It scores well on real data demand and transparency, with the main drag being long hardware payback and the leveling, alignment, and mechanical-wear friction of multi-parameter outdoor weather stations.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "84 / 100" },
+      { label: "Native token", value: "$WXM (ERC-20, Arbitrum One)" },
+      { label: "Token launch", value: "May 30, 2024" },
+      {
+        label: "Active stations",
+        value: "6,079 active, 9,787 deployed (2026)",
+      },
+      { label: "Coverage", value: "81 countries, 99% data quality" },
+      { label: "Total funding", value: "$12.7M ($5M seed, $7.7M Series A)" },
+      { label: "Maximum supply", value: "100,000,000 $WXM (hard cap)" },
+      { label: "Emission", value: "14,246 $WXM/day, 10-year linear" },
+      {
+        label: "Buyback",
+        value: "50% of targeted-rollout data revenue, every 3 hours",
+      },
+    ],
+    teaserLabels: [
+      "Active stations",
+      "Coverage",
+      "Total funding",
+      "Buyback",
+    ],
+    body: [
+      { type: "h2", text: "Genesis and funding" },
+      {
+        type: "p",
+        text: "WeatherXM shipped its hardware MVP in early 2022 and prototyped its reward algorithms on Polygon's Mumbai testnet that April. A $5M seed round in June 2022 (Placeholder VC, Metaplanet, Consensys Mesh, SOSV, Protocol Labs, Borderless Capital, DLTx, plus angels including Juan Benet and Eleftherios Diakomichalis) funded early manufacturing. By December 2023 the project had shipped 5,000 stations, which supported a $7.7M Series A in May 2024 led by Lightspeed Faction, bringing total venture funding to $12.7M.",
+      },
+      {
+        type: "p",
+        text: "The $WXM ERC-20 token launched on Arbitrum One on May 30, 2024, and listed on Gate.io, MEXC, BitMart, Uniswap v3, and SwissBorg, opening price discovery and letting early operators claim accumulated beta rewards. By 2026 the network had grown to 6,079 active stations, 4,690 synoptic-grade stations, and 9,787 total deployed units across 81 countries, at a 99% data quality index.",
+      },
+
+      { type: "h2", text: "Hardware architecture and sensing" },
+      {
+        type: "p",
+        text: "The network uses low-cost outdoor stations built for continuous operation, split into four bundles by communication protocol, gateway, and power. The WiFi bundles route data through an indoor gateway, the Helium bundle does edge processing on-station over LoRaWAN, and the Pulse bundle adds 4G/LTE for remote sites without local connectivity.",
+      },
+      {
+        type: "table",
+        caption: "Hardware bundles",
+        headers: ["ID", "Bundle", "Original", "Promo", "Protocol", "Gateway"],
+        rows: [
+          ["WB1000", "M5 WiFi", "Legacy", "Out of stock", "WiFi (indoor)", "WG1000 LCD"],
+          ["WB1200", "D1 WiFi", "$400", "$139", "WiFi (indoor)", "WG1200 open-source"],
+          ["WS2001", "H2 Helium", "$400", "$139", "Helium LoRaWAN (edge)", "Integrated edge node"],
+          ["WB3000", "Pulse 4G", "$900", "$810", "4G / LTE cellular", "WG3000 cellular"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Assembly aligns the wind-cup and wind-vane on the sensor shafts (the cups must spin freely, the vane has calibrated friction). The battery subsystem must use non-rechargeable 1.5V AA lithium or alkaline cells, since rechargeables lose voltage in cold and disrupt the daily on-board cryptographic hashing; the solar panel powers an internal supercapacitor for RF transmission spikes, not the batteries. Installation needs a rigid steel pole (30 to 40 mm) at least 2 meters up, leveled to a bubble target, with the North marker aligned to true North by compass. Misalignment degrades rain and light readings and skews wind direction.",
+      },
+      {
+        type: "table",
+        caption: "Sensor capabilities and tolerances",
+        headers: ["Parameter", "Range", "Accuracy", "Resolution"],
+        rows: [
+          ["Temperature", "-40 to +80 C", "+/-0.5 C (0 to 80), +/-0.6 C (-40 to 0)", "0.1 C"],
+          ["Relative humidity", "1% to 99%", "+/-3% (1 to 90), +/-4% (90 to 99)", "1%"],
+          ["Precipitation", "0 to 450 mm/h", "+/-7%", "0.254 mm/h"],
+          ["Wind speed", "0 to 50 m/s", "+/-0.5 m/s at 5 m/s", "0.1 m/s"],
+          ["Wind direction", "0 to 360 deg", "+/-8 deg", "1 deg"],
+          ["Barometric pressure", "540 to 1100 hPa", "+/-5 hPa (700+), +/-8 hPa (540 to 699)", "1 hPa"],
+          ["Solar irradiance", "0 to 200k lux", "+/-5%", "1 lux"],
+        ],
+      },
+
+      { type: "h2", text: "Geospatial density and grid optimization" },
+      {
+        type: "p",
+        text: "WeatherXM distributes sensors with Uber's H3 spatial index at Resolution 7: hexagonal cells averaging about 5.16 square kilometers. Each cell carries a Cell Capacity, currently capped at 10 rewardable stations. When active stations exceed capacity, a daily ranking decides eligibility by reward score (data quality and location validation first), with ties broken by seniority via the last-claim-time timestamp. Stations outside the top 10 earn zero base reward that day, flagged MAX_CAPACITY_REACHED.",
+      },
+      {
+        type: "p",
+        text: "WeatherXM's own research (Designing a Global Weather Station Network based on H3 grid, by Keppas, Balis, and Pagonis) proposes a dynamic cell capacity that scales with land use and terrain ruggedness: dense urban areas and mountain slopes need 1 to 3 km spacing, flat terrain needs less. The paper estimates 35,990,052 stations for complete global coverage. The capacity algorithm is open-source under the MIT License and the 44GB global dataset is stored on IPFS.",
+      },
+
+      { type: "h2", text: "Consensus, validation, and rewards" },
+      {
+        type: "p",
+        text: "The validation engine has gone through three versions. v1.0 checked only connection status and an active wallet, paying testnet rewards on Polygon Mumbai. v1.5 added Data Quality, Proof of Location, hardware classes, and cell capacity, but lacked low-gas claiming. v2.0, the current system, introduced Business Boost rewards and a Merkle-tree distribution: the network compiles daily balances, publishes a Merkle root to the RewardPool contract on Arbitrum One, and operators claim at their convenience for low L2 gas.",
+      },
+      {
+        type: "table",
+        caption: "Core smart contracts",
+        headers: ["Contract", "Role", "Funding source"],
+        rows: [
+          ["WeatherXM", "Core ERC-20 token on Arbitrum One L2", "Token contract"],
+          ["RewardPool", "Holds and distributes claimed $WXM rewards", "RewardVault and BusinessDevelopmentPool"],
+          ["RewardVault", "Holds the unallocated reward pool", "Fixed 10-year emission, 14,246 $WXM/day"],
+          ["BusinessDevelopmentPool", "Funds localized Business Boost rewards", "Network data revenues and residual tokens"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Each day, a station that clears the Proof of Location and Quality of Data thresholds gets a reward score, and the daily emission is allocated by hardware class weight.",
+      },
+      {
+        type: "formula",
+        text: "RewardScore = PoL x QoD, where PoL checks coordinates against registration and QoD runs out-of-bounds and self-quality checks for spikes and flatlines.",
+      },
+      {
+        type: "formula",
+        text: "TW = sum over hardware classes of (rewardable count x class weight). MaxReward(HC) = DailyEmission x class weight / TW. BaseReward = RewardScore x MaxReward(HC).",
+      },
+      {
+        type: "p",
+        text: "Outages are recorded and compensated. For example, on 2025-02-03 a 5,110-station incident distributed 12,186.48 $WXM, and on 2025-05-01 a 7,470-station incident distributed 3,923.77 $WXM.",
+      },
+
+      { type: "h2", text: "Economic engine and flywheel" },
+      {
+        type: "p",
+        text: "The $WXM supply is hard-capped at 100 million, a predictable, non-inflationary model split across four buckets.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-----------------------------------------------------------+
+|                Total WXM Token Supply (100M)              |
++-----------------------------------------------------------+
+                              |
+      +-----------------------+-----------------------+
+      | 55M                   | 30M                   | 15M
+      v                       v                       v
++-------------+         +-------------+         +-------------+
+|   Station   |         |   Initial   |         |  Treasury   |
+|   Rewards   |         |  Supporters |         |   (10M) +   |
+|  (10-year   |         |   (4-year   |         |  Liquidity  |
+|  emission)  |         |   vesting)  |         |    (5M)     |
++-------------+         +-------------+         +-------------+`,
+      },
+      {
+        type: "list",
+        items: [
+          "Station rewards (55M $WXM): distributed over 10 years, with 3M reserved for early beta adopters by rewardable station-hours.",
+          "Initial supporters (30M $WXM): linear unlock over 4 years with a 1-year cliff.",
+          "Treasury (10M $WXM): linear unlock over 5 years from launch.",
+          "Liquidity support (5M $WXM): one-time issuance at launch to seed exchanges.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Three revenue mechanisms drive token utility. Manufacturers pay a flat $100 onboarding fee per device (Q2 2024 saw a first $300,000 of onboarding revenue for 3,000 devices). The Association auctions four commercial data licenses a year at a minimum bid of 100,000 $WXM, with the 2026 round awarded to WeatherXM AG and the Zeus Bittensor Subnet. Targeted Rollouts on Base fund stations through fractionalized NFTs (four NFTs fund one station): NFT supporters earn 75% of the station's $WXM and physical deployers earn 25% over a two-year cycle, the DAO matches rewards 1:1, and staked NFTs earn 5%, 8%, or 12% over 3, 6, or 12 months.",
+      },
+      {
+        type: "p",
+        text: "When commercial clients license data from targeted-rollout stations, 50% of the revenue funds open-market buybacks of $WXM, executed every three hours into the DAO treasury, tying token demand to commercial success. Separately, the SwissBorg Alpha deal deployed 2,270 stations to underserved areas on a 2-for-1 model, with subsidized hardware at $500 or 700 WXM.",
+      },
+
+      { type: "h2", text: "Application ecosystem" },
+      {
+        type: "list",
+        items: [
+          "Parametric crop insurance: with Etherisc, Sprout Insure, and ACRE Africa, stations act as localized crop oracles. In Burkina Faso the platform served 5,500 smallholder farmers, paying out to mobile money when rainfall drops below a threshold. It cut policy costs by up to 41%, premiums by up to 30%, and the payout cycle from three months to under one week.",
+          "Decentralized AI weather prediction: the Zeus Bittensor subnet trains machine-learning weather models on WeatherXM's high-resolution dataset, a faster, lower-cost, more carbon-efficient alternative to physics-based numerical weather prediction.",
+          "WeatherXM Pro: premium API tiers for enterprise clients, from a free personal tier to an enterprise tier at $100 per station per month.",
+        ],
+      },
+      {
+        type: "table",
+        caption: "WeatherXM Pro API tiers",
+        headers: ["Tier", "Monthly", "API calls/mo", "Features"],
+        rows: [
+          ["Personal", "Free", "1,000", "Personal license, latest observations, 7-day lookback"],
+          ["Basic", "$10 / station", "10,000", "Commercial license, daily observations, 30-day lookback"],
+          ["Basic+", "$20 / station", "10,000", "Commercial license, raw local observations, 30-day lookback"],
+          ["Professional", "$20 / station", "20,000", "Raw observations, 30-day lookback, 1-business-day SLA"],
+          ["Enterprise", "$100 / station", "50,000", "Full database, forecast accuracy tracking, 1-business-day SLA"],
+        ],
+      },
+
+      { type: "h2", text: "WeatherXM versus GEODNET: architectural trade-offs" },
+      {
+        type: "table",
+        caption: "Architectural comparison",
+        headers: ["Dimension", "WeatherXM", "GEODNET", "Trade-off"],
+        rows: [
+          ["Node complexity", "Moderate: multi-parameter stations needing leveling and North alignment", "High: triple-band GNSS needing clear sky and survey-grade antennas", "WeatherXM's lower unit cost ($139 to $810) speeds deployment but exposes mechanical parts to wear and drift."],
+          ["Data authenticity", "High: on-device cryptography via secure elements", "High: cryptographic signing of raw GNSS observations", "Both validate data origin on-device, removing reliance on intermediaries."],
+          ["Density constraints", "H3 Res 7 cells (~5.16 km2), 10-node cell cap", "H3 Res 6/7 with distance-based decay curves", "WeatherXM's cap prevents over-saturation but its seniority tiebreaker can discourage late arrivals in dense areas."],
+          ["Consensus engine", "Dual-gate: daily off-chain PoL and QoD", "Real-time validation of multipath, latency, and noise", "WeatherXM's daily batch allows deep consistency checks but adds latency to reward feedback."],
+          ["Economic loop", "Onboarding fees, annual license auctions, rollout NFT sharing", "Burn-and-mint with corporate data subscriptions", "Annual auctions give clear upfront price discovery but lumpier cash flow than continuous billing."],
+          ["Anti-spoofing", "Spatial-temporal: GPS packets versus declared location, relocation penalties", "Signal-consistency: local atmospheric delay versus neighbors", "WeatherXM's relocation penalties keep the network stable but need manual re-onboarding on false-positive GPS drift."],
+        ],
+      },
+
+      { type: "h2", text: "Strategic outlook and conclusions" },
+      {
+        type: "p",
+        text: "Decentralizing meteorological infrastructure is a viable model for crowdsourcing global environmental data. Settling core tokenomics on Arbitrum One and selling targeted-rollout NFTs on Base has cut the transaction costs that usually limit IoT-based DePIN. The shift from organic deployment to a demand-driven model, scaling from roughly 10,000 toward 17,000 active stations, places hardware where commercial contracts already exist and feeds the 50% buyback.",
+      },
+      {
+        type: "list",
+        items: [
+          "Physical wear: mechanical sensors such as wind cups and rain buckets need ongoing calibration and maintenance, a constraint firmware updates cannot fully remove.",
+          "Incentive transition: as the 10-year reward schedule winds down, the network must move from inflation-driven emissions to utility-generated fees.",
+          "Anti-spoofing maturity: integrating differentiable AI weather models for gradient-based attribution would reward data by its actual contribution to forecast accuracy, moving beyond simple data-presence checks.",
+        ],
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "WeatherXM has real, named demand: parametric crop insurance with Etherisc and ACRE Africa (5,500 farmers in Burkina Faso), the Zeus Bittensor subnet training forecast models on its data, and WeatherXM Pro API tiers up to $100 per station per month. Revenue mechanisms include $100 onboarding fees and four annual data-license auctions at a 100,000 $WXM minimum. The demand story is genuine but still early relative to the emission schedule.",
+      tokenEconomics:
+        "A 100M hard cap with a 10-year linear station emission (14,246 $WXM/day) gives a predictable, non-inflationary model, and the 50% buyback on targeted-rollout data revenue, executed every three hours, links token demand to commercial success. The open question is the handoff from inflation-driven emissions to utility fees as the 10-year schedule winds down.",
+      decentralization:
+        "An H3 Resolution 7 grid (~5.16 km2 cells) with a 10-station cap prevents urban over-saturation and pushes deployment toward data-sparse areas, with 6,079 active stations across 81 countries. The seniority tiebreaker that resolves over-capacity cells can discourage late arrivals in dense areas, a mild centralizing pull.",
+      hardwareEconomics:
+        "The weak point. Low unit cost ($139 to $810 on promotion) speeds deployment, but reported payback runs into years at current token prices, and the multi-parameter mechanical sensors wear and need calibration. Non-rechargeable lithium or alkaline AA cells are required, since rechargeables lose voltage in cold and disrupt on-device hashing.",
+      operatorFriction:
+        "Install is more involved than a plug-in node: a rigid two-meter steel pole, a bubble level inside a target circle, true-North alignment by compass, and careful wind-vane and rain-bucket setup. It is manageable for a committed operator but exposes data quality to physical drift. The hardware is otherwise low-power and runs unattended once mounted.",
+      transparency:
+        "Strong public verifiability. Daily validation runs Proof of Location and Quality of Data checks, rewards distribute through a Merkle root published on Arbitrum that operators claim themselves, the capacity algorithm is open-source under MIT, and the 44GB global dataset lives on IPFS. Outage events and their compensatory distributions are recorded publicly.",
+    },
+  },
 };
 
 /** Look up a report by project slug, or null when none exists yet. */
