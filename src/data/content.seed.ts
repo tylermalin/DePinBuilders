@@ -130,6 +130,11 @@ export const events: EventSeed[] = [
   },
 ];
 
+export interface CourseModule {
+  title: string;
+  lessons: string[];
+}
+
 export interface CourseSeed {
   slug: string;
   title: string;
@@ -137,6 +142,7 @@ export interface CourseSeed {
   modules: string;
   priceUsd: number;
   free: boolean;
+  curriculum: CourseModule[];
 }
 
 export const courses: CourseSeed[] = [
@@ -148,6 +154,40 @@ export const courses: CourseSeed[] = [
     modules: "4 modules · 12 lessons · 1h 40m",
     priceUsd: 0,
     free: true,
+    curriculum: [
+      {
+        title: "What DePIN actually is",
+        lessons: [
+          "Physical infrastructure meets token incentives",
+          "The four categories: compute, wireless, sensors, storage",
+          "Why centralized infrastructure left gaps to fill",
+        ],
+      },
+      {
+        title: "How the incentives work",
+        lessons: [
+          "Emissions, rewards, and the cold-start problem",
+          "Burn-and-mint versus pure emission models",
+          "Reading a token reward flow end to end",
+        ],
+      },
+      {
+        title: "Supply, demand, and real revenue",
+        lessons: [
+          "Demand-side revenue versus emission-funded supply",
+          "What 'verified, not vibes' means in practice",
+          "Spotting a subsidy that will not last",
+        ],
+      },
+      {
+        title: "Before you touch hardware",
+        lessons: [
+          "The six questions to ask about any network",
+          "Mapping cost, yield, and break-even",
+          "Where to find honest data and timestamps",
+        ],
+      },
+    ],
   },
   {
     slug: "depin-hardware-bootcamp",
@@ -157,6 +197,55 @@ export const courses: CourseSeed[] = [
     modules: "5 modules · 22 lessons · 3h 10m",
     priceUsd: 35,
     free: false,
+    curriculum: [
+      {
+        title: "Choosing your first device",
+        lessons: [
+          "Match the device to your location",
+          "Power draw and the true cost of always-on",
+          "New versus used hardware and resale value",
+          "Reading a spec sheet without the marketing",
+          "Shipping, customs, and warranty basics",
+        ],
+      },
+      {
+        title: "Antenna and placement",
+        lessons: [
+          "Line-of-sight and the 10-degree rule",
+          "Rooftop mounts that survive weather",
+          "Cable runs, bends, and signal loss",
+          "Leveling, orientation, and true North",
+        ],
+      },
+      {
+        title: "Network setup",
+        lessons: [
+          "Wi-Fi, Ethernet, and when each matters",
+          "Beating CGNAT and port-forwarding issues",
+          "Static IPs, dynamic DNS, and firewalls",
+          "Firmware, config portals, and miner keys",
+          "Linking a wallet and registering the node",
+        ],
+      },
+      {
+        title: "Uptime and monitoring",
+        lessons: [
+          "Uptime is the whole game",
+          "Power backup and surge protection",
+          "Dashboards, alerts, and quality scores",
+          "Reading reward history for problems",
+        ],
+      },
+      {
+        title: "Troubleshooting",
+        lessons: [
+          "When rewards drop to zero",
+          "Diagnosing signal and multipath issues",
+          "Heat, throttling, and hardware wear",
+          "When to repair, move, or sell",
+        ],
+      },
+    ],
   },
   {
     slug: "tokenomics-for-operators",
@@ -166,6 +255,37 @@ export const courses: CourseSeed[] = [
     modules: "3 modules · 14 lessons · 2h 05m",
     priceUsd: 60,
     free: false,
+    curriculum: [
+      {
+        title: "Reading an emissions schedule",
+        lessons: [
+          "Supply caps, emission curves, and halvings",
+          "Daily reward per node and how it decays",
+          "Vesting, unlocks, and circulating supply",
+          "Where to find the real numbers",
+          "Modeling emissions two years out",
+        ],
+      },
+      {
+        title: "Spotting the subsidy",
+        lessons: [
+          "Demand-to-emission ratio in plain terms",
+          "Burn mechanisms that actually remove supply",
+          "Reward dilution and saturation math",
+          "Token price as a hidden variable",
+          "Stress-testing yield against an 80% drawdown",
+        ],
+      },
+      {
+        title: "Real break-even",
+        lessons: [
+          "Capex, opex, and power in one model",
+          "Break-even past the cold-start phase",
+          "Uptime, downtime, and conservative yield",
+          "Building your own operator spreadsheet",
+        ],
+      },
+    ],
   },
   {
     slug: "picking-networks-that-survive",
@@ -175,6 +295,46 @@ export const courses: CourseSeed[] = [
     modules: "4 modules · 18 lessons · 2h 40m",
     priceUsd: 80,
     free: false,
+    curriculum: [
+      {
+        title: "Real demand versus emissions",
+        lessons: [
+          "The single question that filters most projects",
+          "Reading ARR, fees, and real customers",
+          "Emission-funded supply and its half-life",
+          "Case study: compute demand and the GPU squeeze",
+          "Case study: wireless and carrier offload",
+        ],
+      },
+      {
+        title: "Defensibility and moats",
+        lessons: [
+          "Physical moats versus fungible commodities",
+          "Geographic scarcity and density rules",
+          "Switching costs for enterprise buyers",
+          "Case study: sensors and signed data",
+          "Case study: storage and paid deals",
+        ],
+      },
+      {
+        title: "Token and treasury health",
+        lessons: [
+          "Burn, buyback, and deflation pathways",
+          "Treasury runway and insider unlocks",
+          "Governance and who really decides",
+          "Red flags in the token flow",
+        ],
+      },
+      {
+        title: "Putting it together",
+        lessons: [
+          "Scoring a network on six dimensions",
+          "Weighing operator yield against durability",
+          "Building a watchlist",
+          "When to walk away",
+        ],
+      },
+    ],
   },
   {
     slug: "map-your-first-deployment",
@@ -184,6 +344,27 @@ export const courses: CourseSeed[] = [
     modules: "2 modules · 9 lessons · 1h 15m",
     priceUsd: 0,
     free: true,
+    curriculum: [
+      {
+        title: "Read your location",
+        lessons: [
+          "Rooftop access and what you control",
+          "Line-of-sight and obstructions",
+          "Power, outlets, and always-on cost",
+          "Connectivity and backhaul options",
+          "Local climate and hardware survival",
+        ],
+      },
+      {
+        title: "Plan to earn",
+        lessons: [
+          "Checking density and saturation near you",
+          "Estimating realistic yield for your spot",
+          "A deployment checklist before you buy",
+          "First-week setup and validation",
+        ],
+      },
+    ],
   },
   {
     slug: "depin-for-investors",
@@ -193,5 +374,33 @@ export const courses: CourseSeed[] = [
     modules: "3 modules · 11 lessons · 1h 50m",
     priceUsd: 120,
     free: false,
+    curriculum: [
+      {
+        title: "Market structure",
+        lessons: [
+          "How value accrues in a DePIN network",
+          "Supply side, demand side, and the token",
+          "Comparing networks across categories",
+          "Where the real revenue sits",
+        ],
+      },
+      {
+        title: "Defensibility",
+        lessons: [
+          "Moats: physical, data, and switching costs",
+          "Reading competitive density",
+          "Regulatory and concentration risk",
+          "A network with a moat versus a token with a story",
+        ],
+      },
+      {
+        title: "Diligence questions",
+        lessons: [
+          "The questions that separate signal from hype",
+          "Reading disclosures, unlocks, and treasury",
+          "Position sizing and not-financial-advice discipline",
+        ],
+      },
+    ],
   },
 ];
