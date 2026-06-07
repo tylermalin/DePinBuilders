@@ -3,14 +3,6 @@ import type { ProjectReport } from "@/data/reports.seed";
 import { Kicker } from "@/components/ui/kicker";
 import { Button } from "@/components/ui/button";
 
-/** Labels surfaced as the at-a-glance metric row on the project page. */
-const TEASER_LABELS = [
-  "Annualized recurring revenue",
-  "Active reference nodes",
-  "Total raised",
-  "Token burn",
-];
-
 /**
  * The report's executive summary, a few headline metrics, and a call to action
  * to the full analytical report. Rendered on the project page when a report
@@ -23,9 +15,17 @@ export function ReportSummary({
   report: ProjectReport;
   projectName: string;
 }) {
-  const teaser = TEASER_LABELS.map((label) =>
-    report.profile.find((m) => m.label === label),
-  ).filter((m): m is NonNullable<typeof m> => Boolean(m));
+  // Featured metric labels, or a fallback of the first non-score metrics.
+  const labels =
+    report.teaserLabels ??
+    report.profile
+      .filter((m) => !/builder score/i.test(m.label))
+      .slice(0, 4)
+      .map((m) => m.label);
+
+  const teaser = labels
+    .map((label) => report.profile.find((m) => m.label === label))
+    .filter((m): m is NonNullable<typeof m> => Boolean(m));
 
   return (
     <section className="mt-10 rounded-[6px] border-[1.5px] border-ink bg-surface p-6 shadow-[var(--shadow)]">

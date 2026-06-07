@@ -35,6 +35,9 @@ export interface ProjectReport {
   executiveSummary: string[];
   /** Key structured metrics, indexed into our reporting. */
   profile: ReportMetric[];
+  /** Profile labels to feature in the project-page teaser. Falls back to the
+   *  first four non-score metrics when omitted. */
+  teaserLabels?: string[];
   /** The long-form body, rendered as typed blocks. */
   body: ReportBlock[];
   /** Per-dimension rationale, keyed to the six methodology dimensions. */
@@ -75,6 +78,12 @@ export const reports: Record<string, ProjectReport> = {
       { label: "Circulating supply", value: "~438M to 450M $GEOD" },
       { label: "Maximum supply", value: "1,000,000,000 $GEOD" },
       { label: "Prior settlement layers", value: "Polygon, IoTeX" },
+    ],
+    teaserLabels: [
+      "Annualized recurring revenue",
+      "Active reference nodes",
+      "Total raised",
+      "Token burn",
     ],
     body: [
       { type: "h2", text: "Technical architecture and kinematic correction" },
@@ -343,6 +352,129 @@ export const reports: Record<string, ProjectReport> = {
         "This is the limiting factor. The base station is receive-only with zero RF emissions and runs untouched once mounted, but the install is demanding: a clear sky view and a stable rooftop mount with no obstruction above a 10-degree elevation. That rules out many renters and concentrates deployment among property owners.",
       transparency:
         "The console at console.geodnet.com exposes real-time node status, signal quality, and reward history. Proof of Location and Proof of Accuracy are computed programmatically and committed on-chain, and the drivers ship with native ROS2 and Docker support. Public verifiability is high and guards the data against spoofing.",
+    },
+  },
+
+  render: {
+    slug: "render",
+    status: "draft",
+    title:
+      "Distributed GPU Compute: An Analytical Evaluation of Render Network ($RENDER)",
+    dek: "A two-sided GPU rendering and AI compute marketplace, scored against the same six-dimension framework.",
+    publishedAt: "2026-06-06",
+    readingMinutes: 11,
+    executiveSummary: [
+      "To test the framework beyond physical sensing, we apply it to a digital resource network: Render Network ($RENDER). Categorized as core compute DePIN infrastructure, Render has one of the longest operating histories and clearest demand stories in the sector. Rather than deploying earth-observation hardware, it runs a distributed, two-sided marketplace that matches idle consumer and enterprise GPUs with creators, studios, and AI developers that need large amounts of compute.",
+      "Applying the six-dimension framework yields a composite Headline Builder Score of 85 out of 100. Render leads on capital velocity and low friction, with a zero-upfront bring-your-own-device model and software-only onboarding. It gives ground to GEODNET on the durability of a physical, geographically bound moat and on revenue predictability, since compute demand is more cyclical than subscription-style geodetic revenue.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "85 / 100" },
+      { label: "Native token", value: "$RENDER (formerly RNDR, Solana SPL)" },
+      {
+        label: "Core service model",
+        value: "Distributed GPU rendering and AI/ML compute",
+      },
+      { label: "Tokenomics model", value: "Burn-and-Mint Equilibrium (BME)" },
+      {
+        label: "Hardware requirement",
+        value: "Bring your own device (existing GPUs, NVIDIA preferred)",
+      },
+      { label: "Ecosystem category", value: "Core infrastructure / Compute" },
+    ],
+    teaserLabels: [
+      "Native token",
+      "Tokenomics model",
+      "Hardware requirement",
+      "Core service model",
+    ],
+    body: [
+      { type: "h2", text: "The model: a two-sided GPU marketplace" },
+      {
+        type: "p",
+        text: "Render matches idle GPUs with paid compute jobs. On one side are owners of consumer and enterprise graphics cards; on the other are media companies, architectural firms, 3D artists, and generative AI developers that need rendering and machine-learning compute. Unlike speculative DePIN loops where utility is generated mostly by other on-chain actors, Render's demand comes from mainstream commercial work, which gives it a pricing advantage over centralized cloud providers such as AWS and Azure.",
+      },
+
+      { type: "h2", text: "Comparative framework: GEODNET versus Render" },
+      {
+        type: "p",
+        text: "Running both networks through the same six dimensions shows the structural trade-off between a physical sensing network and a digital resource marketplace.",
+      },
+      {
+        type: "table",
+        caption: "Framework comparison, GEODNET and Render",
+        headers: ["Dimension", "Weight", "GEODNET", "Render", "Trade-off"],
+        rows: [
+          ["Demand-side revenue", "20%", "88", "84", "GEODNET's RTK data serves rigid industrial niches in agriculture and robotics; Render serves a dynamic but cyclical market of 3D studios, motion designers, and AI startups."],
+          ["Token economics", "15%", "80", "78", "Both use Solana-backed burn mechanisms. GEODNET faces steeper long-term halving and miner-retention risk; Render is exposed to supply-side wage compression."],
+          ["Decentralization", "15%", "82", "76", "GEODNET enforces strict geographic spacing via Uber H3 grids; Render is location-agnostic but clusters in low-cost energy zones."],
+          ["Hardware economics", "15%", "86", "88", "GEODNET needs a specialized $695 device; Render uses a $0-CAPEX bring-your-own-device model, offset by GPU depreciation and energy costs."],
+          ["Operator ease", "15%", "58", "78", "GEODNET needs rooftop mounts and sky-view calibration; Render needs only a software client, local network routing, and updates."],
+          ["Transparency", "20%", "84", "84", "Both maintain detailed dashboards showing active jobs, completed transactions, and token burns."],
+          ["Composite", "100%", "91", "85", "GEODNET leads on physical moat and revenue stability; Render excels in frictionless scaling and capital velocity."],
+        ],
+      },
+
+      { type: "h2", text: "Token economics: the Burn-and-Mint Equilibrium" },
+      {
+        type: "p",
+        text: "Render runs a refined Burn-and-Mint Equilibrium (BME), one of the healthiest burn-to-mint systems in DePIN. In this closed loop, end-users buy compute with USD or $RENDER and the corresponding tokens are burned from supply, while node operators earn newly minted tokens on a predictable, long-term emission schedule. The equilibrium price can be modeled as a function of paid demand against the structural emission rate.",
+      },
+      {
+        type: "formula",
+        text: "P(eq) = C(jobs) / S(emissions), where C(jobs) is the total USD value of submitted compute jobs and S(emissions) is the network emission rate over the same period.",
+      },
+      {
+        type: "p",
+        text: "The model aligns demand and emissions, but Render is exposed to supply-side wage compression: as the global supply of consumer GPUs grows, price-per-job can fall and individual operator yield with it. A prolonged drop in compute demand during a downturn risks diluting operators, who still carry electricity and maintenance costs.",
+      },
+
+      { type: "h2", text: "Hardware economics and capital velocity" },
+      {
+        type: "p",
+        text: "This is Render's strongest dimension. It runs on a bring-your-own-device model, so for the millions who already own high-end NVIDIA cards the upfront capital cost to join is literally zero. Net yield of an active node is the gross token yield minus the running and wear costs.",
+      },
+      {
+        type: "formula",
+        text: "R(net) = Y(gross) - C(electricity) - D(hardware): hourly token yield minus local electricity cost under heavy load minus physical depreciation and wear of the silicon under thermal stress.",
+      },
+      {
+        type: "p",
+        text: "The watch-out is obsolescence. A geodetic antenna has an operational life beyond five to seven years, but consumer GPUs age fast. An operator on an older architecture, say an NVIDIA RTX 30-series card, faces reward dilution as newer 40- and 50-series or enterprise H100 cards join the network, compressing the payback on older equipment.",
+      },
+
+      { type: "h2", text: "Decentralization and concentration tendencies" },
+      {
+        type: "p",
+        text: "Digital resource networks need less strict geographic distribution than physical sensing ones. A GPU can render a frame from any coordinate with high-bandwidth internet, so Render is location-agnostic. That flexibility creates concentration: operators cluster in regions with low electricity costs, cold climates, and fast broadband. The high-performance tier leans on institutional GPU clusters and professional data centers, a greater centralizing pull than crowdsourced, physically anchored sensors that cannot be moved or consolidated easily.",
+      },
+
+      { type: "h2", text: "Strategic conclusions and future trajectory" },
+      {
+        type: "p",
+        text: "Scoring GEODNET at 91 and Render at 85 highlights the structural difference between physical sensing networks and digital resource marketplaces.",
+      },
+      {
+        type: "list",
+        items: [
+          "Sensing versus commodity compute: GEODNET's base stations are a physical, geographically bound moat, hard to replace once deployed and insulated from digital copycats. Render competes in a globally fungible commodity compute market, scaling supply instantly but fighting continuously for demand against centralized cloud giants and rival compute DePINs.",
+          "Infrastructure longevity: physical sensing networks face high setup friction (operator ease 58) but enjoy long-term stability and low obsolescence. Digital resource networks scale easily (operator ease 78) but face constant hardware replacement cycles and volatile demand.",
+          "Solana's moat: both networks increasingly settle on Solana. State compression, sub-second finality, and deep liquidity have moved both from speculative minting loops toward efficient, high-frequency, utility-driven businesses.",
+        ],
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "Render's revenue is anchored in real commercial utility: media companies, architectural firms, 3D artists, and generative AI developers, not circular on-chain loops. Compute volume tracks actual jobs submitted, which rose through 2025. The cap on the score is demand cyclicality, since rendering cycles and early-stage AI spending swing more than subscription-style ARR.",
+      tokenEconomics:
+        "The Burn-and-Mint Equilibrium is one of the healthiest burn-to-mint systems in DePIN: users burn $RENDER to buy compute, operators earn newly minted tokens on a predictable schedule. The risk is supply-side wage compression as consumer GPU supply grows, plus operator dilution if compute demand falls during downturns.",
+      decentralization:
+        "A GPU can render from anywhere with bandwidth, so the network is location-agnostic but clusters in low-cost-energy, cold-climate, high-broadband regions. The high-performance tier leans on institutional GPU clusters and data centers, a greater centralizing pull than physically anchored sensor nodes.",
+      hardwareEconomics:
+        "Its strongest dimension. The bring-your-own-device model means zero upfront capital for the millions who already own high-end NVIDIA GPUs. Net yield is gross token yield minus electricity minus depreciation. The watch-out is obsolescence: consumer GPUs age fast, and older cards face reward dilution as newer architectures join.",
+      operatorFriction:
+        "Onboarding is software-only: register a compatible GPU, link a Solana wallet, and configure firewall and ports. No roof access or mounting. The remaining friction is optimization, since near-100% uptime, fast uploads, and precise driver configuration are needed for high-value jobs and can trip up non-technical hosts.",
+      transparency:
+        "Render uses a Proof of Rendering mechanism to verify completed jobs without manipulation, and hosts public dashboards for active GPUs, completed jobs, real-time fees, and programmatic burns. A long operating history makes it one of the more trusted protocols in the sector.",
     },
   },
 };
