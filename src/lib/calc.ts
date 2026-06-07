@@ -2,9 +2,14 @@
  * Pure ROI calculation function matching the prototype's recalc() logic exactly.
  *
  * Formulas (from prototype):
- *   gross = dailyEarnings * tokenMultiplier
+ *   gross = dailyEarnings * tokenMultiplier * uptime
  *   powerCostPerDay = (powerWatts / 1000) * 24 * electricityRate
  *   netDaily = gross - powerCostPerDay
+ *
+ * Uptime scales rewards only. A node that is offline earns nothing for that
+ * window but the operator still pays to keep the hardware powered, so power
+ * cost is charged at the full 24 hours. That gives a deliberately conservative
+ * net for any uptime below 100 percent.
  *   netMonthly = netDaily * 30
  *   netYearly = netDaily * 365
  *   breakEvenMonths = hardwareCost / (netDaily * 30)   [if netDaily > 0]
@@ -22,6 +27,8 @@ export interface CalcInputs {
   hardwareCost: number;
   /** Device power draw in watts */
   powerWatts: number;
+  /** Fraction of time the node is online and earning (0 to 1). Defaults to 1. */
+  uptime?: number;
 }
 
 export interface CalcOutputs {
@@ -35,7 +42,8 @@ export interface CalcOutputs {
 }
 
 export function calculate(inputs: CalcInputs): CalcOutputs {
-  const gross = inputs.dailyEarnings * inputs.tokenMultiplier;
+  const uptime = inputs.uptime ?? 1;
+  const gross = inputs.dailyEarnings * inputs.tokenMultiplier * uptime;
   const powerCostDaily =
     (inputs.powerWatts / 1000) * 24 * inputs.electricityRate;
   const net = gross - powerCostDaily;
