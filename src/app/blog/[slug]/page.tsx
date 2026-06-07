@@ -5,6 +5,7 @@ import { pageMeta } from "@/lib/seo";
 import { articleSchema, breadcrumbSchema } from "@/lib/schema";
 import { Tag } from "@/components/ui/tag";
 import { Button } from "@/components/ui/button";
+import { ReportBody } from "@/components/report/report-body";
 
 export async function generateStaticParams() {
   const posts = await getPosts();
@@ -90,19 +91,14 @@ export default async function BlogPostPage({
               day: "numeric",
               year: "numeric",
             })}{" "}
-            · DePin.Builders
+            · {post.author} · DePin.Builders · {post.readingMinutes} min read
           </div>
 
-          <div className="prose mt-8">
-            <p className="text-base leading-relaxed text-ink-soft">
-              {post.excerpt}
-            </p>
-            <p className="mt-4 text-sm italic text-muted">
-              Full article content will be authored in MDX or loaded from a
-              CMS in a later phase. This page demonstrates the route,
-              metadata, schema, and internal linking structure.
-            </p>
-          </div>
+          <p className="mt-8 max-w-3xl text-[17px] font-medium leading-relaxed text-ink">
+            {post.excerpt}
+          </p>
+
+          <ReportBody blocks={post.body} />
 
           {/* Related project link */}
           {relatedProject && (
