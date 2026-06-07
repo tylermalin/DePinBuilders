@@ -1,6 +1,7 @@
 import { PrismaClient, Tier } from "@prisma/client";
 import type { Prisma } from "@prisma/client";
 import { projects } from "../src/data/projects.seed";
+import { getReview } from "../src/data/reviews.seed";
 
 const db = new PrismaClient();
 
@@ -31,11 +32,27 @@ async function main() {
         p.regionDensity as unknown as Prisma.InputJsonValue,
     };
 
-    await db.project.upsert({
+    const project = await db.project.upsert({
       where: { slug: p.slug },
       update: data,
       create: { slug: p.slug, ...data },
     });
+
+    const review = getReview(p.slug);
+    if (review) {
+      const reviewData = {
+        status: review.status,
+        verdict: review.verdict,
+        strengths: review.strengths as unknown as Prisma.InputJsonValue,
+        risks: review.risks as unknown as Prisma.InputJsonValue,
+        scores: review.scores as unknown as Prisma.InputJsonValue,
+      };
+      await db.projectReview.upsert({
+        where: { projectId: project.id },
+        update: reviewData,
+        create: { projectId: project.id, ...reviewData },
+      });
+    }
   }
 
   console.log("Seed complete.");

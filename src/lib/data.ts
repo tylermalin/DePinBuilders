@@ -3,6 +3,7 @@ import {
   projects as seedProjects,
   type ProjectSeed,
 } from "@/data/projects.seed";
+import { getReview } from "@/data/reviews.seed";
 
 // Re-export types and pure helpers from the Prisma-free module
 // so server components can import everything from "@/lib/data"
@@ -34,6 +35,7 @@ function seedToProject(p: ProjectSeed): Project {
     conflictDisclosure: p.conflictDisclosure,
     blurb: p.blurb,
     regionDensity: p.regionDensity,
+    review: getReview(p.slug),
   };
 }
 
@@ -59,6 +61,9 @@ export async function getAllProjects(): Promise<Project[]> {
     return rows.map((r) => ({
       ...r,
       regionDensity: r.regionDensity as Project["regionDensity"],
+      // Editorial review content is seed-sourced for now; the DB ProjectReview
+      // table is wired alongside live data later (see DATA-MODEL.md).
+      review: getReview(r.slug),
     }));
   }
   return seedProjects
@@ -75,6 +80,7 @@ export async function getProject(
     return {
       ...row,
       regionDensity: row.regionDensity as Project["regionDensity"],
+      review: getReview(row.slug),
     };
   }
   const seed = seedProjects.find((p) => p.slug === slug);

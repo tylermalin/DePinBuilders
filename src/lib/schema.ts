@@ -116,6 +116,36 @@ export function productSchema(opts: {
   });
 }
 
+// ── Review (editorial verdict + score) ──
+
+export function reviewSchema(opts: {
+  name: string;
+  slug: string;
+  verdict: string;
+  builderScore: number;
+  category: string;
+}) {
+  return jsonLdScript({
+    "@type": "Review",
+    name: `${opts.name} review`,
+    url: `${SITE}/projects/${opts.slug}`,
+    itemReviewed: {
+      "@type": "Product",
+      name: opts.name,
+      category: opts.category,
+    },
+    reviewBody: opts.verdict,
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: opts.builderScore,
+      bestRating: 100,
+      worstRating: 0,
+    },
+    author: { "@type": "Organization", name: BRAND },
+    publisher: { "@type": "Organization", name: BRAND },
+  });
+}
+
 // ── ItemList ──
 
 export function itemListSchema(
