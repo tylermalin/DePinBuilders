@@ -9,6 +9,7 @@ const NAV_LINKS = [
   { href: "/tools/roi-calculator", label: "Tools" },
   { href: "/academy", label: "Academy" },
   { href: "/blog", label: "Blog" },
+  { href: "/reports", label: "Reports" },
   { href: "/podcasts", label: "Podcasts" },
   { href: "/events", label: "Events" },
   { href: "/about", label: "About" },

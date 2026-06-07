@@ -8,6 +8,7 @@ import {
   getEpisodes,
   getCourses,
 } from "@/lib/data";
+import { getReportSlugs } from "@/data/reports.seed";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = "https://depin.builders";
@@ -66,6 +67,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }));
 
+  const reportRoutes = getReportSlugs().map((slug) => ({
+    url: `${base}/reports/${slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   const staticRoutes = [
     "",
     "/projects",
@@ -74,6 +81,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/map",
     "/academy",
     "/blog",
+    "/reports",
     "/podcasts",
     "/events",
     "/about",
@@ -92,5 +100,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...postRoutes,
     ...episodeRoutes,
     ...courseRoutes,
+    ...reportRoutes,
   ];
 }

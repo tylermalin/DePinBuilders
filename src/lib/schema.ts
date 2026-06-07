@@ -191,6 +191,29 @@ export function articleSchema(opts: {
   });
 }
 
+// ── Report (in-depth analytical Article at /reports) ──
+
+export function reportSchema(opts: {
+  title: string;
+  description: string;
+  slug: string;
+  publishedAt: string;
+}) {
+  return jsonLdScript({
+    "@type": "Article",
+    headline: opts.title,
+    description: opts.description,
+    url: `${SITE}/reports/${opts.slug}`,
+    datePublished: opts.publishedAt,
+    author: { "@type": "Organization", name: BRAND },
+    publisher: {
+      "@type": "Organization",
+      name: BRAND,
+      logo: { "@type": "ImageObject", url: `${SITE}/logo.png` },
+    },
+  });
+}
+
 // ── PodcastEpisode ──
 
 export function podcastEpisodeSchema(opts: {
