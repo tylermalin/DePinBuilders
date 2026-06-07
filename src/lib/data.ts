@@ -4,6 +4,12 @@ import {
   type ProjectSeed,
 } from "@/data/projects.seed";
 import { getReview } from "@/data/reviews.seed";
+import {
+  getBlogPosts,
+  getBlogPost,
+  type BlogPostSeed,
+} from "@/data/posts.seed";
+export type { BlogPostSeed };
 
 // Re-export types and pure helpers from the Prisma-free module
 // so server components can import everything from "@/lib/data"
@@ -193,99 +199,19 @@ export async function getRelatedProjects(
 
 // ── Posts (seed fallback with stub data) ──
 
-const stubPosts: PostSummary[] = [
-  {
-    slug: "hivemapper-bee-review",
-    type: "REVIEW",
-    title: "Hivemapper Bee review: when proof-of-coverage finally feels boring",
-    excerpt:
-      "We drove 600 miles with the Bee. The hardware clears the bar. Earnings depend entirely on how saturated your region already is.",
-    projectSlug: null,
-    publishedAt: new Date("2026-05-20"),
-  },
-  {
-    slug: "gpu-depin-squeeze",
-    type: "RESEARCH",
-    title:
-      "The GPU DePIN squeeze: io.net, Aethir and Render now chase the same demand",
-    excerpt:
-      "Supply was the easy part. Three networks are competing for a demand pool smaller than the token charts implied.",
-    projectSlug: null,
-    publishedAt: new Date("2026-05-14"),
-  },
-  {
-    slug: "best-depin-no-hardware-2026",
-    type: "GUIDE",
-    title: "Best DePIN projects with no hardware to start in 2026",
-    excerpt:
-      "A practical ranking of zero-cost networks you can run today on a phone or browser, with realistic expectations.",
-    projectSlug: null,
-    publishedAt: new Date("2026-05-08"),
-  },
-  {
-    slug: "weatherxm-hardware-signed-climate-data",
-    type: "RESEARCH",
-    title: "WeatherXM and the case for hardware-signed climate data",
-    excerpt:
-      "Most climate data is estimated. A network of signed stations is a different asset, and insurers are noticing.",
-    projectSlug: "weatherxm",
-    publishedAt: new Date("2026-04-30"),
-  },
-  {
-    slug: "geodnet-miner-review-roi",
-    type: "REVIEW",
-    title: "GEODNET miner review and ROI: is centimeter GPS worth $695?",
-    excerpt:
-      "The numbers, the friction, and who should actually buy one. Spoiler: location and line-of-sight decide everything.",
-    projectSlug: "geodnet",
-    publishedAt: new Date("2026-04-22"),
-  },
-  {
-    slug: "helium-solana-one-year",
-    type: "PROJECT_UPDATE",
-    title: "Helium on Solana, one year on: what changed for operators",
-    excerpt:
-      "Migration was the headline. What it did to rewards and low-density coverage is the real story.",
-    projectSlug: "helium",
-    publishedAt: new Date("2026-04-15"),
-  },
-];
-
 export async function getPosts(): Promise<PostSummary[]> {
-  if (await canQueryDb()) {
-    const rows = await prisma!.post.findMany({
-      orderBy: { publishedAt: "desc" },
-      select: {
-        slug: true,
-        type: true,
-        title: true,
-        excerpt: true,
-        projectSlug: true,
-        publishedAt: true,
-      },
-    });
-    return rows;
-  }
-  return stubPosts;
+  return getBlogPosts().map((p) => ({
+    slug: p.slug,
+    type: p.type,
+    title: p.title,
+    excerpt: p.excerpt,
+    projectSlug: p.projectSlug,
+    publishedAt: new Date(p.publishedAt),
+  }));
 }
 
-export async function getPost(
-  slug: string,
-): Promise<PostSummary | null> {
-  if (await canQueryDb()) {
-    return prisma!.post.findUnique({
-      where: { slug },
-      select: {
-        slug: true,
-        type: true,
-        title: true,
-        excerpt: true,
-        projectSlug: true,
-        publishedAt: true,
-      },
-    });
-  }
-  return stubPosts.find((p) => p.slug === slug) ?? null;
+export async function getPost(slug: string): Promise<BlogPostSeed | null> {
+  return getBlogPost(slug);
 }
 
 // ── Episodes ──
