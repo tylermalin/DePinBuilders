@@ -15,7 +15,9 @@ import { pageMeta } from "@/lib/seo";
 import { productSchema, breadcrumbSchema, reviewSchema } from "@/lib/schema";
 import { ReviewSection } from "@/components/project/review-section";
 import { ReportSummary } from "@/components/project/report-summary";
+import { ProjectLinks } from "@/components/project/project-links";
 import { getReport } from "@/data/reports.seed";
+import { getLinks } from "@/data/links.seed";
 import { projectTitle, projectDescription } from "@/lib/project-meta";
 import {
   tokenDisplay,
@@ -74,6 +76,7 @@ export default async function ProjectPage({
   ]);
 
   const report = getReport(slug);
+  const projectLinks = getLinks(slug);
 
   // Stable color index from seed ordering
   const seedIndex = seedAll.findIndex((s) => s.slug === slug);
@@ -347,6 +350,12 @@ export default async function ProjectPage({
                 </Disclosure>
               </div>
             </div>
+
+            {projectLinks && (
+              <div className="mt-6">
+                <ProjectLinks links={projectLinks} />
+              </div>
+            )}
           </div>
         </div>
       </div>
