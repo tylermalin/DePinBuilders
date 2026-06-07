@@ -1,5 +1,27 @@
 import type { ProjectLinks } from "@/data/links.seed";
 
+// Render order and labels for the link rows. Only present links are shown.
+const ROWS: { key: keyof ProjectLinks; label: string }[] = [
+  { key: "website", label: "Website" },
+  { key: "docs", label: "Docs" },
+  { key: "whitepaper", label: "Whitepaper" },
+  { key: "explorer", label: "Explorer" },
+  { key: "x", label: "X" },
+  { key: "telegram", label: "Telegram" },
+  { key: "discord", label: "Discord" },
+  { key: "github", label: "GitHub" },
+  { key: "youtube", label: "YouTube" },
+  { key: "linkedin", label: "LinkedIn" },
+  { key: "medium", label: "Medium" },
+  { key: "substack", label: "Substack" },
+  { key: "reddit", label: "Reddit" },
+  { key: "warpcast", label: "Warpcast" },
+  { key: "instagram", label: "Instagram" },
+  { key: "facebook", label: "Facebook" },
+  { key: "appStore", label: "App Store" },
+  { key: "playStore", label: "Google Play" },
+];
+
 function Ext({ href, label }: { href: string; label: string }) {
   return (
     <a
@@ -21,36 +43,33 @@ function Ext({ href, label }: { href: string; label: string }) {
 /**
  * Official links block for a project. Renders only the links that exist, so a
  * project with partial data shows a clean partial block rather than blanks.
- * All entries are verified or sourced from the project's own report.
+ * All entries come from official channels or the project's own report.
  */
 export function ProjectLinks({ links }: { links: ProjectLinks }) {
-  const hasAny =
-    links.website ||
-    links.docs ||
-    links.x ||
-    links.discord ||
-    (links.contracts && links.contracts.length > 0);
-  if (!hasAny) return null;
+  const rows = ROWS.filter((r) => typeof links[r.key] === "string");
+  const hasContracts = links.contracts && links.contracts.length > 0;
+  if (rows.length === 0 && !hasContracts) return null;
 
   return (
     <div className="overflow-hidden rounded-[6px] border-2 border-ink bg-surface">
       <div className="border-b-[1.5px] border-ink bg-ink px-4 py-3 font-mono text-[11px] uppercase tracking-[0.12em] text-paper">
         Official links
       </div>
-      <div className="px-4 py-2">
-        {links.website && <Ext href={links.website} label="Website" />}
-        {links.docs && <Ext href={links.docs} label="Docs" />}
-        {links.x && <Ext href={links.x} label="X" />}
-        {links.discord && <Ext href={links.discord} label="Discord" />}
-      </div>
+      {rows.length > 0 && (
+        <div className="px-4 py-2">
+          {rows.map((r) => (
+            <Ext key={r.key} href={links[r.key] as string} label={r.label} />
+          ))}
+        </div>
+      )}
 
-      {links.contracts && links.contracts.length > 0 && (
+      {hasContracts && (
         <div className="border-t border-line px-4 py-3">
           <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.08em] text-muted">
             Token contract
           </div>
           <div className="space-y-2">
-            {links.contracts.map((c) => (
+            {links.contracts!.map((c) => (
               <div key={c.address}>
                 <div className="font-mono text-[10px] uppercase tracking-[0.05em] text-muted">
                   {c.chain}
