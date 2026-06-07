@@ -194,7 +194,7 @@ export const projects: ProjectSeed[] = [
     breakEvenMonths: null,
     frictionLevel: 3,
     verified: true,
-    builderScore: 82,
+    builderScore: 85,
     change30d: 1.2,
     powerWatts: 20,
     affiliateCode: null,

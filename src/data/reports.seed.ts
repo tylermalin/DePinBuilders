@@ -2906,6 +2906,98 @@ export const reports: Record<string, ProjectReport> = {
         "The top mark in the directory. Moving security into silicon enclaves means anyone can cryptographically verify validity, and with public dashboards and Cardano anchoring the record is open and auditable.",
     },
   },
+
+  aethir: {
+    slug: "aethir",
+    status: "draft",
+    title: "Enterprise GPU Compute: An Analytical Evaluation of Aethir ($ATH)",
+    dek: "An enterprise-grade, low-latency GPU compute marketplace for AI and cloud gaming, scored against the same six-dimension framework.",
+    publishedAt: "2026-05-20",
+    readingMinutes: 12,
+    executiveSummary: [
+      "Aethir is an enterprise-grade, ultra-low-latency marketplace for crowdsourced and centralized GPU compute. It pools high-performance enterprise GPUs and edge nodes into a distributed cloud optimized for AI inference, machine-learning training, and high-fidelity cloud gaming, without the capital cost of centralized hyperscalers.",
+      "It connects independent and institutional hosts, from underutilized data centers and mining operations to retail edge hosts, with AI developers, LLM training operations, and cloud-gaming studios, settling on Arbitrum. Our assessment yields a composite Headline Builder Score of 85 out of 100, reflecting very high raw compute performance and massive enterprise supply aggregation, balanced against decentralized routing optimization, strict uptime compliance, and long-term emission decay.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "85 / 100" },
+      { label: "Native token", value: "$ATH (Arbitrum / Ethereum ERC-20)" },
+      { label: "Contract", value: "0xc87d779Da055666173E628b9aa5a0c7C42883fcf" },
+      { label: "Co-onboarding partners", value: "io.net, Filecoin, TensorWave, Qualcomm" },
+      { label: "Network", value: "32,000+ containers, 70,000+ checker nodes" },
+      { label: "Aggregated compute", value: "40,000+ enterprise GPUs (H100, A100, RTX 4090)" },
+      { label: "Circulating supply", value: "~4B to 6.5B $ATH" },
+      { label: "Maximum supply", value: "42,000,000,000 $ATH" },
+    ],
+    teaserLabels: ["Aggregated compute", "Network", "Co-onboarding partners", "Maximum supply"],
+    body: [
+      { type: "h2", text: "Architecture: containers and checkers" },
+      {
+        type: "p",
+        text: "Centralized cloud routes workloads from regional hubs over long distances, adding egress fees and latency spikes that break real-time AI agents and interactive gaming. Aethir pools disparate hardware into unified virtual clusters through a lightweight virtualization layer, running jobs in secure sandboxed containers on the edge or data-center floor close to users.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|             Commercial AI / Cloud Gaming Workload           |
+|       (LLM inference, render pipelines, game streams)       |
++-------------------------------------------------------------+
+                               |  (workload via SDK / API)
+                               v
++-------------------------------------------------------------+
+|                   Aethir Virtualization Layer               |
+|  - Aggregates H100, A100, and retail edge units globally    |
+|  - Dynamic task allocation by latency and processing tier   |
++-------------------------------------------------------------+
+                               |  (continuous performance proofs)
+                               v
++-------------------------------------------------------------+
+|                Aethir Checker and Validator Nodes           |
+|  - Audit uptime, speed, and bandwidth                       |
+|  - Sign off-chain proofs committed to Arbitrum              |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|             Arbitrum Settlement and Token Sink              |
+|        ($ATH distribution, staking locks, burns)            |
++-------------------------------------------------------------+`,
+      },
+      {
+        type: "p",
+        text: "The architecture is bifurcated: Containers are the physical GPU providers (enterprise data centers for heavy lifting, Aethir Edge devices for localized inference and caching), and Checkers are decentralized validators that continuously audit container performance. A scheduling engine allocates jobs by proximity, performance tier, and cost. Anti-spoofing rests on Proof of Compute Capability (randomized tasks only the claimed hardware can solve in time), constant uptime and latency ping audits, and secure-enclave attestation, which stops an operator from passing an emulated low-end card off as an H100.",
+      },
+      {
+        type: "table",
+        caption: "Aethir versus centralized hyperscalers",
+        headers: ["Metric", "Aethir", "Centralized cloud (e.g. AWS)"],
+        rows: [
+          ["Capital cost", "Near-zero, aggregates existing capacity", "Very high, data-center campuses and silicon contracts"],
+          ["Acquisition speed", "Instant across a global grid", "Delayed by scheduling and supply lines"],
+          ["Redundancy", "Global failover across thousands of nodes", "Regional zone failures without paid multi-region"],
+          ["Pricing", "Up to 60 to 80% cheaper", "Premium, high-margin lock-in"],
+          ["SLA", "Probabilistic, incentivized uptime", "Binding 99.999% availability"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Aethir's edge is price and agility: it indexes underused enterprise infrastructure and retail edge units already deployed, delivering sudden high-volume rendering or parallel inference at a fraction of hyperscaler cost while AI startups face waitlists elsewhere. Centralized providers keep the edge on institutional trust and binding SLAs, and decentralized retail nodes can vary with consumer internet, so Aethir is a global compute engine that augments mission-critical centralized infrastructure rather than fully replacing it.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "Aethir is winning enterprise contracts across AI research and cloud gaming. With the market for high-tier parallel processing scaling fast, immediate low-cost GPU capacity positions it to absorb demand from cost-conscious machine-learning teams.",
+      tokenEconomics:
+        "A fee-locking and checker-staking framework funded by real compute bookings. The watch-out is physical: enterprise nodes carry heavy power and operating cost, so if the token value drops below the cost of power, higher-tier data centers can offboard, which makes precise emission balancing vital.",
+      decentralization:
+        "Distributed corporate data centers plus tens of thousands of global checker and edge units give an expansive footprint that mitigates local latency. The ongoing work is edge routing, keeping compute clusters adjacent to the users running the workloads.",
+      hardwareEconomics:
+        "Mixed. High-end GPUs are not zero-capex, but for enterprises indexing already-sunk, underused racks the payback is fast since they capture margin from previously idle hardware. Retail edge boxes run roughly $400 to $600.",
+      operatorFriction:
+        "Two tiers. Consumer checker and Aethir Edge boxes are near plug-and-play, while enterprise container onboarding needs deep systems administration, security isolation, and reliable networking, a balanced barrier that protects network performance.",
+      transparency:
+        "A core strength. Automated cryptographic Proof of Compute Capability tests run by decentralized checkers give enterprise buyers definitive evidence of hardware validity and execution speed, a constant, trustworthy audit trail.",
+    },
+  },
 };
 
 /** Look up a report by project slug, or null when none exists yet. */
