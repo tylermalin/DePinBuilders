@@ -25,6 +25,7 @@ export function CalculatorIsland({ devices }: Props) {
   const [daily, setDaily] = useState(mid);
   const [rate, setRate] = useState(0.15);
   const [tokenMul, setTokenMul] = useState(1.0);
+  const [uptime, setUptime] = useState(1.0);
   const [cost, setCost] = useState(device.hardwareCostUsd);
 
   // When device changes, reset to its defaults
@@ -42,6 +43,7 @@ export function CalculatorIsland({ devices }: Props) {
     tokenMultiplier: tokenMul,
     hardwareCost: cost,
     powerWatts: device.powerWatts,
+    uptime,
   });
 
   return (
@@ -114,6 +116,24 @@ export function CalculatorIsland({ devices }: Props) {
               />
               <span className="min-w-[64px] text-right font-mono text-[13px] font-semibold">
                 {tokenMul.toFixed(2)}&times;
+              </span>
+            </div>
+          </Field>
+
+          {/* Uptime slider */}
+          <Field label="Node uptime (%)">
+            <div className="flex items-center gap-3">
+              <input
+                type="range"
+                min="0.5"
+                max="1"
+                step="0.01"
+                value={uptime}
+                onChange={(e) => setUptime(+e.target.value)}
+                className="flex-1 accent-orange"
+              />
+              <span className="min-w-[64px] text-right font-mono text-[13px] font-semibold">
+                {Math.round(uptime * 100)}%
               </span>
             </div>
           </Field>

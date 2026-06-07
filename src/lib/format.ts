@@ -1,4 +1,4 @@
-import type { Project } from "./data";
+import type { Project } from "./types";
 
 /** Format token display: null => "pre-token", else "$TOKEN" */
 export function tokenDisplay(token: string | null): string {

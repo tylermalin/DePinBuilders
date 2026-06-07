@@ -165,9 +165,11 @@ export function ProjectsDirectory({ projects, categories, chains }: Props) {
 
       {/* Table */}
       <div className="overflow-hidden rounded-[6px] border-[1.5px] border-ink bg-surface">
-        {/* Header */}
+        {/* Header. Sits flush as the top row of the table. It was previously
+            pinned with `sticky top-[66px]`, which left it floating over the
+            first listing as rows scrolled under the translucent nav. */}
         <div
-          className="sticky top-[66px] z-10 grid h-[46px] items-center gap-2 bg-ink px-4 text-paper"
+          className="grid h-[46px] items-center gap-2 bg-ink px-4 text-paper"
           style={{
             gridTemplateColumns: "34px 2.2fr 1.3fr 1fr 1fr 1fr 1.1fr 50px",
           }}
