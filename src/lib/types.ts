@@ -3,6 +3,30 @@
  * This file must NEVER import from db.ts or Prisma.
  */
 
+export interface ReviewScores {
+  /** Demand-side revenue versus pure token emission */
+  realRevenue: number;
+  /** Emission schedule, burn, and payout sustainability */
+  tokenEconomics: number;
+  /** Geographic and operator distribution */
+  decentralization: number;
+  /** Payback, cost-to-yield, resale, and capital efficiency */
+  hardwareEconomics: number;
+  /** Install and maintenance ease (higher means easier to run) */
+  operatorFriction: number;
+  /** Public stats, verifiable data, and disclosure quality */
+  transparency: number;
+}
+
+export interface ProjectReview {
+  /** "draft" hides this behind a draft label; "published" is a final verdict */
+  status: "draft" | "published";
+  verdict: string;
+  strengths: string[];
+  risks: string[];
+  scores: ReviewScores;
+}
+
 export interface Project {
   slug: string;
   name: string;
@@ -31,6 +55,8 @@ export interface Project {
     AF: number;
     APAC: number;
   };
+  /** Editorial review, null until one is authored for this project */
+  review: ProjectReview | null;
 }
 
 export interface CategoryInfo {

@@ -12,7 +12,8 @@ import {
   slugify,
 } from "@/lib/data";
 import { pageMeta } from "@/lib/seo";
-import { productSchema, breadcrumbSchema } from "@/lib/schema";
+import { productSchema, breadcrumbSchema, reviewSchema } from "@/lib/schema";
+import { ReviewSection } from "@/components/project/review-section";
 import { projectTitle, projectDescription } from "@/lib/project-meta";
 import {
   tokenDisplay,
@@ -90,6 +91,17 @@ export default async function ProjectPage({
       { name: "Projects", path: "/projects" },
       { name: project.name, path: `/projects/${slug}` },
     ]),
+    ...(project.review
+      ? [
+          reviewSchema({
+            name: project.name,
+            slug: project.slug,
+            verdict: project.review.verdict,
+            builderScore: project.builderScore,
+            category: project.category,
+          }),
+        ]
+      : []),
   ];
 
   const specRows = [
@@ -198,8 +210,11 @@ export default async function ProjectPage({
               </div>
             )}
 
+            {/* Editorial review: verdict, score breakdown, strengths, risks */}
+            <ReviewSection project={project} />
+
             {/* Internal links */}
-            <div className="mt-8">
+            <div className="mt-12">
               <h2 className="mb-3 font-display text-lg font-semibold">
                 Explore further
               </h2>

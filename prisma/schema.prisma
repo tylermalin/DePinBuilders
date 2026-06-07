@@ -45,8 +45,24 @@ model Project {
   regionDensity      Json
   favorites          Favorite[]
   snapshots          PriceSnapshot[]
+  review             ProjectReview?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
+}
+
+// Editorial review for a project. One per project. Scores are 0..100 on the
+// six published methodology dimensions, stored as JSON. status starts at
+// "draft" so the page can label it until an editor promotes it to "published".
+model ProjectReview {
+  id        String   @id @default(cuid())
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String   @unique
+  status    String   @default("draft")
+  verdict   String
+  strengths Json
+  risks     Json
+  scores    Json
+  updatedAt DateTime @updatedAt
 }
 
 model PriceSnapshot {
