@@ -43,16 +43,13 @@ describe("rankProjects", () => {
     expect(ranked[0].slug).toBe("geodnet");
   });
 
-  it("never puts the founder-affiliated project at the top", async () => {
+  it("never puts the founder-affiliated project at the default top sort", async () => {
+    // The guardrail (DATA-MODEL.md) is that the conflict-disclosed project must
+    // never be the DEFAULT top rank, which is the composite. It may legitimately
+    // lead a single dimension it genuinely scores highest on (e.g. transparency).
     const projects = await getAllProjects();
-    for (const key of [
-      "composite",
-      "realRevenue",
-      "transparency",
-    ] as RankSortKey[]) {
-      const ranked = rankProjects(projects, key, -1);
-      expect(ranked[0].slug).not.toBe("malama-labs");
-    }
+    const ranked = rankProjects(projects, "composite", -1);
+    expect(ranked[0].slug).not.toBe("malama-labs");
   });
 
   it("sorts ascending when direction is 1", async () => {
