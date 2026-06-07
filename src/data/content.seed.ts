@@ -147,6 +147,8 @@ export interface CourseSeed {
   youtubeId?: string;
   /** Link to the course slide deck, when published. */
   slidesUrl?: string;
+  /** True until the course is produced. Renders as a coming-soon state. */
+  comingSoon?: boolean;
 }
 
 export const courses: CourseSeed[] = [
@@ -204,6 +206,7 @@ export const courses: CourseSeed[] = [
     modules: "5 modules · 22 lessons · 3h 10m",
     priceUsd: 35,
     free: false,
+    comingSoon: true,
     curriculum: [
       {
         title: "Choosing your first device",
@@ -262,6 +265,7 @@ export const courses: CourseSeed[] = [
     modules: "3 modules · 14 lessons · 2h 05m",
     priceUsd: 60,
     free: false,
+    comingSoon: true,
     curriculum: [
       {
         title: "Reading an emissions schedule",
@@ -302,6 +306,7 @@ export const courses: CourseSeed[] = [
     modules: "4 modules · 18 lessons · 2h 40m",
     priceUsd: 80,
     free: false,
+    comingSoon: true,
     curriculum: [
       {
         title: "Real demand versus emissions",
@@ -351,6 +356,7 @@ export const courses: CourseSeed[] = [
     modules: "2 modules · 9 lessons · 1h 15m",
     priceUsd: 0,
     free: true,
+    comingSoon: true,
     curriculum: [
       {
         title: "Read your location",
@@ -381,6 +387,7 @@ export const courses: CourseSeed[] = [
     modules: "3 modules · 11 lessons · 1h 50m",
     priceUsd: 120,
     free: false,
+    comingSoon: true,
     curriculum: [
       {
         title: "Market structure",
