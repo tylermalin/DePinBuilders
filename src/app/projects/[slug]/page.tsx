@@ -301,8 +301,8 @@ export default async function ProjectPage({
           </div>
 
           {/* Right column: spec sheet */}
-          <div>
-            <div className="sticky top-[82px] overflow-hidden rounded-[6px] border-2 border-ink bg-surface shadow-[6px_6px_0_var(--ink)]">
+          <div className="sticky top-[82px]">
+            <div className="overflow-hidden rounded-[6px] border-2 border-ink bg-surface shadow-[6px_6px_0_var(--ink)]">
               {/* Header */}
               <div className="flex items-center justify-between border-b-[1.5px] border-ink bg-ink px-4 py-3 text-paper">
                 <span className="font-mono text-[11px] uppercase tracking-[0.12em]">
