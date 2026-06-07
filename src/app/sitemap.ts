@@ -69,6 +69,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     "",
     "/projects",
+    "/rankings",
     "/tools/roi-calculator",
     "/tools/compare",
     "/map",
