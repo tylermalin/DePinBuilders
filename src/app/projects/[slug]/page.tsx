@@ -16,8 +16,13 @@ import { productSchema, breadcrumbSchema, reviewSchema } from "@/lib/schema";
 import { ReviewSection } from "@/components/project/review-section";
 import { ReportSummary } from "@/components/project/report-summary";
 import { ProjectLinks } from "@/components/project/project-links";
+import {
+  ProjectScreenshot,
+  ProjectGallery,
+} from "@/components/project/project-media";
 import { getReport } from "@/data/reports.seed";
 import { getLinks } from "@/data/links.seed";
+import { getMedia } from "@/data/media.seed";
 import { projectTitle, projectDescription } from "@/lib/project-meta";
 import {
   tokenDisplay,
@@ -77,6 +82,7 @@ export default async function ProjectPage({
 
   const report = getReport(slug);
   const projectLinks = getLinks(slug);
+  const projectMedia = getMedia(slug);
 
   // Stable color index from seed ordering
   const seedIndex = seedAll.findIndex((s) => s.slug === slug);
@@ -198,6 +204,14 @@ export default async function ProjectPage({
               {project.blurb}
             </p>
 
+            {/* Website screenshot (rendered only when an image is provided) */}
+            {projectMedia?.screenshot && (
+              <ProjectScreenshot
+                image={projectMedia.screenshot}
+                website={projectLinks?.website}
+              />
+            )}
+
             {/* Analytical report summary with CTA to the full report */}
             {report && (
               <ReportSummary report={report} projectName={project.name} />
@@ -224,6 +238,14 @@ export default async function ProjectPage({
 
             {/* Editorial review: verdict, score breakdown, strengths, risks */}
             <ReviewSection project={project} />
+
+            {/* Official product / sensor imagery (rendered only when provided) */}
+            {projectMedia?.products && projectMedia.products.length > 0 && (
+              <ProjectGallery
+                images={projectMedia.products}
+                projectName={project.name}
+              />
+            )}
 
             {/* Internal links */}
             <div className="mt-12">
