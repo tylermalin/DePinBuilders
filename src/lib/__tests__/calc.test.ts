@@ -202,6 +202,42 @@ describe("calculate", () => {
       expect(result.breakEvenMonths).toBeNull();
     });
 
+    it("uptime defaults to 100% when omitted", () => {
+      const withUptime = calculate({
+        dailyEarnings: 2.0,
+        electricityRate: 0,
+        tokenMultiplier: 1.0,
+        hardwareCost: 100,
+        powerWatts: 0,
+        uptime: 1.0,
+      });
+      const omitted = calculate({
+        dailyEarnings: 2.0,
+        electricityRate: 0,
+        tokenMultiplier: 1.0,
+        hardwareCost: 100,
+        powerWatts: 0,
+      });
+      expect(omitted.grossDaily).toBeCloseTo(withUptime.grossDaily, 4);
+      expect(omitted.grossDaily).toBeCloseTo(2.0, 4);
+    });
+
+    it("uptime scales gross earnings but not power cost", () => {
+      const result = calculate({
+        dailyEarnings: 2.0,
+        electricityRate: 0.15,
+        tokenMultiplier: 1.0,
+        hardwareCost: 100,
+        powerWatts: 100,
+        uptime: 0.5,
+      });
+      // gross = 2.0 * 1.0 * 0.5 = 1.0
+      expect(result.grossDaily).toBeCloseTo(1.0, 4);
+      // power cost charged at full 24h regardless of uptime: 100/1000*24*0.15 = 0.36
+      expect(result.powerCostDaily).toBeCloseTo(0.36, 4);
+      expect(result.netDaily).toBeCloseTo(0.64, 4);
+    });
+
     it("token multiplier 2x doubles gross", () => {
       const base = calculate({
         dailyEarnings: 1.0,
