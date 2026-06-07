@@ -92,36 +92,74 @@ export default async function CoursePage({
               {course.modules}
             </div>
 
-            {/* Content area */}
-            {course.free ? (
-              <div className="mt-8">
-                <SectionHeader kicker="Course content" title="Modules" />
-                <p className="mt-4 text-sm text-muted">
-                  Full course content loads here in production. Free courses
-                  are fully indexable. This is a placeholder for the module
-                  list and lesson content.
-                </p>
+            {/* Curriculum */}
+            <div className="mt-8">
+              <SectionHeader kicker="Course content" title="What you will cover" />
+              <div className="mt-5 space-y-4">
+                {course.curriculum.map((m, mi) => (
+                  <div
+                    key={mi}
+                    className="overflow-hidden rounded-[6px] border-[1.5px] border-line"
+                  >
+                    <div className="flex items-center justify-between gap-3 bg-surface-2 px-4 py-2.5">
+                      <span className="font-display text-sm font-semibold">
+                        <span className="font-mono text-[11px] text-muted">
+                          Module {mi + 1}
+                        </span>{" "}
+                        · {m.title}
+                      </span>
+                      <span className="flex-none font-mono text-[10px] uppercase tracking-[0.06em] text-muted">
+                        {m.lessons.length} lessons
+                      </span>
+                    </div>
+                    <ol className="divide-y divide-line">
+                      {m.lessons.map((l, li) => (
+                        <li
+                          key={li}
+                          className="flex items-baseline gap-3 px-4 py-2.5 text-[13px]"
+                        >
+                          <span className="font-mono text-[11px] text-muted">
+                            {mi + 1}.{li + 1}
+                          </span>
+                          <span className="text-ink-soft">{l}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ))}
               </div>
-            ) : (
-              <div className="mt-8 rounded-[6px] border-2 border-ink bg-surface-2 p-8 text-center">
-                <div className="font-display text-xl font-bold">
-                  Premium course
-                </div>
-                <p className="mt-2 text-sm text-muted">
-                  This course requires a one-time purchase of ${course.priceUsd}.
-                  Sign in to access the full content.
-                </p>
-                <div className="mt-4 flex justify-center gap-3">
-                  <Button variant="fill">
-                    Purchase for ${course.priceUsd}
-                  </Button>
-                  <Button variant="ghost">Sign in</Button>
-                </div>
-                <p className="mt-3 font-mono text-[10px] text-muted">
-                  Payment integration is stubbed for this phase.
-                </p>
-              </div>
-            )}
+            </div>
+
+            {/* Enroll */}
+            <div className="mt-8 rounded-[6px] border-2 border-ink bg-surface-2 p-6 shadow-[var(--shadow)]">
+              {course.free ? (
+                <>
+                  <div className="font-display text-lg font-bold">
+                    Free course
+                  </div>
+                  <p className="mt-1 text-sm text-muted">
+                    Open access. Start anytime, no purchase needed.
+                  </p>
+                  <div className="mt-4">
+                    <Button variant="fill">Start the course</Button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="font-display text-lg font-bold">
+                    Enroll for ${course.priceUsd}
+                  </div>
+                  <p className="mt-1 text-sm text-muted">
+                    One-time purchase with lifetime access to every module
+                    above.
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    <Button variant="fill">Enroll for ${course.priceUsd}</Button>
+                    <Button variant="ghost">Sign in</Button>
+                  </div>
+                </>
+              )}
+            </div>
 
             <div className="mt-8 flex gap-3">
               <Link href="/academy">
