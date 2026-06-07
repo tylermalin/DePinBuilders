@@ -708,6 +708,764 @@ export const reports: Record<string, ProjectReport> = {
         "Strong public verifiability. Daily validation runs Proof of Location and Quality of Data checks, rewards distribute through a Merkle root published on Arbitrum that operators claim themselves, the capacity algorithm is open-source under MIT, and the 44GB global dataset lives on IPFS. Outage events and their compensatory distributions are recorded publicly.",
     },
   },
+
+  onocoy: {
+    slug: "onocoy",
+    status: "draft",
+    title:
+      "Decentralized Geodetic Infrastructure: An Analytical Evaluation of Onocoy ($ONO)",
+    dek: "A Swiss RTK correction network with European Space Agency-backed verification, scored against the same six-dimension framework.",
+    publishedAt: "2026-06-04",
+    readingMinutes: 12,
+    executiveSummary: [
+      "Onocoy is a Swiss-founded RTK geodetic correction network: a dual-sided marketplace connecting independent reference-station operators with enterprise clients that need centimeter-level positioning for precision agriculture, autonomous vehicles, and drones. Like GEODNET, it crowdsources terrestrial reference stations to correct the atmospheric and orbital errors in standard GNSS, but it runs a dual-token model built around strict data verification and targeted hardware distribution.",
+      "Our assessment yields a composite Headline Builder Score of 87 out of 100. The rating reflects a rigorous data-verification engine backed by the European Space Agency and ETH Zurich, and high station density across Europe, balanced against regional token-price exposure and the early stage of its global commercial scaling.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "87 / 100" },
+      { label: "Native token", value: "$ONO (Solana SPL, live on Jupiter)" },
+      {
+        label: "Total raised",
+        value: "~$5.7M (incl. $1.5M ESA NAVISP grant, Ryze Labs)",
+      },
+      {
+        label: "Active nodes",
+        value: "~6,700+ across 50+ countries (Europe-concentrated)",
+      },
+      { label: "Annualized recurring revenue", value: "~$1.85M (est. mid-2026)" },
+      { label: "Token burn", value: "100% of consumed Data Credits burned" },
+      { label: "Circulating supply", value: "~80,730,000 $ONO" },
+      { label: "Maximum supply", value: "810,000,000 $ONO" },
+    ],
+    teaserLabels: [
+      "Active nodes",
+      "Annualized recurring revenue",
+      "Total raised",
+      "Token burn",
+    ],
+    body: [
+      { type: "h2", text: "Technical architecture and kinematic correction" },
+      {
+        type: "p",
+        text: "Standard GNSS constellations (GPS, GLONASS, Galileo, BeiDou) broadcast from orbits roughly 20,000 kilometers up. Atmospheric delay, tropospheric refraction, and local multipath degrade a standard receiver to three to ten meters. RTK removes those errors: a stationary reference station at a precisely surveyed coordinate measures the exact error in the satellite carrier waves, then streams corrections in RTCM format over the NTRIP standard.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|                GNSS Satellite Constellations                |
+|              (GPS, Galileo, GLONASS, BeiDou)                |
++-------------------------------------------------------------+
+                 /                             \
+                /                               \
+       (Atmospheric delay)             (Atmospheric delay)
+              /                                   \
+             v                                     v
++-----------------------------+        +-------------------------+
+|     Onocoy Base Station     |        |       Mobile Rover      |
+|     (Precisely Surveyed)    |        |  (Drone/Tractor/Robot)  |
++-----------------------------+        +-------------------------+
+              |                                     ^
+              | (Raw MSM7 phase corrections)        | (cm-level RTCM)
+              v                                     |
++-----------------------------+                     |
+|     Onocoy Caster Servers   |                     |
+|   (servers.onocoy.com:2101) |                     |
++-----------------------------+                     |
+              +---(Streams RTCM corrections via internet)---+`,
+      },
+      {
+        type: "p",
+        text: "A rover connects an NTRIP client to the Onocoy caster network at servers.onocoy.com:2101. Unlike single-station corrections, Onocoy uses a modern Multi-System Message approach (MSM4/5/6/7), tracking all available constellations at once.",
+      },
+      { type: "h3", text: "Leadership and validation" },
+      {
+        type: "p",
+        text: "Onocoy was founded by satellite and GPS-telemetry veterans, including co-founder and president Daniel Ammann. Its standout credential is a $1.5M non-dilutive grant from the European Space Agency's NAVISP Element 2 program, funding a project with ETH Zurich to engineer an AI-driven, decentralized fraud-detection layer against GPS spoofing, signal injection, and data falsification.",
+      },
+
+      { type: "h2", text: "Operational growth, partnerships, and funding" },
+      {
+        type: "p",
+        text: "The network has grown to over 6,700 active, verified reference points, capitalized by more than $5.7M. Early rounds drew Smart Island Capital and hardware executives, notably Thomas Seiler, the long-standing former CEO of GNSS manufacturer u-blox, who joined as a core strategic advisor. Institutional backing from Ryze Labs followed to accelerate international markets.",
+      },
+      {
+        type: "table",
+        caption: "Enterprise and technical partnerships",
+        headers: ["Partner", "Objective"],
+        rows: [
+          ["ArduSimple", "Mainstream hardware distribution: pre-packaged triple-band CORS base stations (Septentrio simpleRTK3B Pro) pre-calibrated for Onocoy."],
+          ["GNS Electronics", "Produces the NTRIP-X RTK base station, a plug-and-play appliance that lowers onboarding complexity."],
+          ["LOCANOS", "Builds the Base Station Lite, with simultaneous Wi-Fi and Ethernet NTRIP streaming for industrial sites."],
+          ["ETH Zurich", "R&D partner using ESA capital to implement spatial verification resilient against adversarial attacks."],
+        ],
+      },
+      {
+        type: "p",
+        text: "These connections position Onocoy across precision agriculture, heavy-machinery tracking, and European drone-delivery corridors, for an estimated $1.85M of annualized recurring revenue as pilots move into commercial production.",
+      },
+
+      { type: "h2", text: "Token economics: the dual-token model" },
+      {
+        type: "p",
+        text: "Onocoy settles on Solana for high throughput and sub-penny fees, and caps $ONO at 810,000,000. A strict dual-token model isolates the volatile crypto layer from consumer utility cost.",
+      },
+      {
+        type: "list",
+        items: [
+          "Data Credits (DC): an internal, fiat-pegged currency used only to buy RTK correction streams. Enterprise clients buy DC with cash or $ONO.",
+          "$ONO token: the crypto asset distributed daily to base-station operators for uploading continuous, multi-constellation data.",
+        ],
+      },
+      {
+        type: "diagram",
+        text: String.raw`+--------------------------------------------------------+
+|              Commercial Enterprise Client              |
+|        (Buys fixed-value Data Credits with fiat)       |
++--------------------------------------------------------+
+                            |
+                            v
++--------------------------------------------------------+
+|               Data Credit (DC) Consumption             |
+|          (Client consumes the stream via NTRIP)        |
++--------------------------------------------------------+
+                            |
+                            v
++--------------------------------------------------------+
+|                  On-Chain Token Burn                   |
+|       (Corresponding $ONO is permanently burned)       |
++--------------------------------------------------------+
+                            |
+                            v
++--------------------------------------------------------+
+|                 Operator Reward Cycle                  |
+|   (New $ONO emitted to base stations meeting 98%+      |
+|    quality standards)                                  |
++--------------------------------------------------------+`,
+      },
+      {
+        type: "p",
+        text: "High-Value Areas amplify emissions over industrial or underserved zones to pull supply where demand is, while over-dense clusters face severe reward dilution. Because 100% of the $ONO mapped to consumed Data Credits is burned on-chain, the network trends structurally toward net deflation as tracking operations scale past the fixed daily emission curve.",
+      },
+
+      { type: "h2", text: "Hardware, validation, and installation friction" },
+      {
+        type: "table",
+        caption: "Onocoy reference hardware options",
+        headers: ["Dimension", "Septentrio simpleRTK3B Pro", "GNS NTRIP-X"],
+        rows: [
+          ["Estimated cost", "~$650 to $1,100", "~$450 to $690"],
+          ["Frequencies", "L1, L2, L5 triple-band", "L1, L2 dual-band"],
+          ["Constellations", "GPS, GLONASS, Galileo, BeiDou, QZSS", "GPS, GLONASS, Galileo, BeiDou"],
+          ["Connectivity", "RJ45 Ethernet / USB-C", "Wi-Fi / Ethernet"],
+          ["Power", "Under 3 watts", "Under 2.5 watts"],
+          ["Bandwidth", "~15 to 25 GB/month", "~12 to 18 GB/month"],
+        ],
+      },
+      {
+        type: "p",
+        text: "On setup, a station does not earn full rewards immediately. A mandatory 24-to-36 hour validation test measures signal-to-noise ratio, tracking consistency, and antenna stability to screen out spoofed or indoor installs. Rewards are bound to location scarcity: devices placed in close proximity have baseline payouts reduced by mathematical decay functions to eliminate redundant overhead.",
+      },
+      { type: "h3", text: "Installation" },
+      {
+        type: "p",
+        text: "Geodetic hardware remains a high barrier, setting the Operator Ease score at 60 out of 100. The antenna needs a rigid roof mast with a 360-degree clear sky view and no obstruction above a 10-degree elevation, low-loss coaxial routed indoors, wired Ethernet, and caster configuration.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|  1. Antenna mechanical mounting                             |
+|     - Secure a geodetic antenna on a rigid roof mast        |
+|     - Achieve a 360-degree unobstructed view of the sky     |
+|     - No barriers above a 10-degree elevation angle         |
++-------------------------------------------------------------+
+                            |
+                            v
++-------------------------------------------------------------+
+|  2. Hardware infrastructure                                 |
+|     - Route low-loss coaxial cable indoors to the receiver  |
+|     - Connect wired RJ45 Ethernet directly to the router    |
+|     - Avoid sharp cable bends to limit signal attenuation   |
++-------------------------------------------------------------+
+                            |
+                            v
++-------------------------------------------------------------+
+|  3. Firmware and caster configuration                       |
+|     - Open the WebUI at a local IP (e.g. 192.168.3.1)       |
+|     - Set reference position to Auto for calibration        |
+|     - Map NTRIP output to servers.onocoy.com:2101           |
+|     - Activate RTCMv3 MSM7 blocks (1005, 1077, 1087)        |
++-------------------------------------------------------------+
+                            |
+                            v
++-------------------------------------------------------------+
+|  4. Dashboard onboarding                                    |
+|     - Register the hardware serial on the Onocoy console    |
+|     - Enter the NTRIP username and password                 |
+|     - Link a Solana SPL wallet to complete mapping          |
++-------------------------------------------------------------+`,
+      },
+
+      { type: "h2", text: "Comparative analysis: Onocoy versus legacy networks" },
+      {
+        type: "table",
+        caption: "High-precision positioning comparison",
+        headers: ["Metric", "Onocoy", "Trimble VRS Now", "Legacy CORS"],
+        rows: [
+          ["Annual enterprise cost", "~$350 to $500 (Data Credits)", "~$1,850", "$1,200 to $2,500"],
+          ["Spatial precision", "1 to 2 cm", "2 cm", "2.5 cm"],
+          ["Verification", "Decentralized validator with AI fraud detection (ESA/ETH Zurich)", "Centralized server checks", "Manual engineering audits"],
+          ["Infrastructure", "Crowdsourced DePIN (Solana)", "Corporate owned", "State / corporate monopolies"],
+          ["Uptime", "Community matrix, density redundancy", "Legally binding SLAs", "Contractual SLAs"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Legacy providers keep an edge in long-standing legal SLAs and government contracting, but Onocoy's capital-efficient, token-incentivized scaling lets it compete hard on price-to-performance, putting centimeter-accurate data within reach of mass-market robotic and commercial software platforms.",
+      },
+
+      { type: "h2", text: "Editorial conclusion" },
+      {
+        type: "p",
+        text: "Onocoy is a high-fidelity implementation of the physical-sensing DePIN model. By avoiding single-vendor hardware lock-in and securing cryptographic validation from top-tier academic and aerospace institutions, it builds a defensible, enterprise-grade geodetic layer on Solana. Its main challenge is translating a dense European footprint into demand capture across the Americas and Asian commercial shipping corridors.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "Healthy initial enterprise integrations in precision agriculture, machinery tracking, and European drone corridors, with a clean fiat separation through Data Credits. ARR is an estimated $1.85M as pilots move to production. The score is held back by demand still concentrated in the Euro-zone, with retail data use yet to broaden.",
+      tokenEconomics:
+        "A dual-token, burn-on-consumption design: 100% of the $ONO mapped to consumed Data Credits is burned on-chain, cleanly offsetting emissions, and High-Value Area rewards keep hardware incentives aligned with where demand is. One of the stronger token designs in the geodetic set.",
+      decentralization:
+        "Over 6,700 live nodes across 50+ countries make the network resilient, with spatial-scarcity decay preventing over-dense clusters. The main caveat is heavy European concentration, which leaves Americas and Asia coverage thin.",
+      hardwareEconomics:
+        "Ultra-low operating power (under 3 watts) and a choice of third-party hardware (ArduSimple Septentrio, GNS NTRIP-X) shield operators from vendor lock-in. Capital-efficient for the centimeter accuracy delivered.",
+      operatorFriction:
+        "Like other RTK networks, the rooftop install is demanding: a 360-degree clear sky view, no obstruction above 10 degrees, low-loss coaxial routing, wired Ethernet, and caster configuration. That limits deployment to property owners and tech-literate hosts.",
+      transparency:
+        "The standout dimension. Compliance and code integrity are validated with the European Space Agency and developed alongside ETH Zurich, with real-time data validation tracked on-chain and a 24-to-36 hour onboarding test against signal-to-noise and antenna stability to screen out spoofed or indoor installs.",
+    },
+  },
+
+  helium: {
+    slug: "helium",
+    status: "draft",
+    title:
+      "Decentralized Wireless Infrastructure: An Analytical Evaluation of Helium ($HNT)",
+    dek: "The pioneer wireless DePIN, spanning a saturated IoT layer and a carrier-grade mobile business, scored against the same framework.",
+    publishedAt: "2026-06-03",
+    readingMinutes: 13,
+    executiveSummary: [
+      "Helium is the pioneer wireless DePIN, a dual-sided marketplace for decentralized connectivity. Launched on its own Layer-1 in 2019, it migrated to Solana in April 2023, unifying two verticals under one token-incentivized network: a mature LoRaWAN IoT layer and a fast-growing CBRS and Wi-Fi mobile-offload layer. Independent hotspot hosts provide coverage, and enterprise clients and retail subscribers consume affordable data.",
+      "Helium has evolved to tap real consumer demand, primarily through its Helium Mobile subsidiary, with the economy tied to a Burn-and-Mint Equilibrium that bridges real data consumption into token value. Our assessment yields a composite Headline Builder Score of 89 out of 100, reflecting unmatched network scale, strong institutional backing, and genuine carrier-grade mobile demand, balanced against severe IoT-layer saturation and localized install complexity.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "89 / 100" },
+      { label: "Native tokens", value: "$HNT, $IOT, $MOBILE (Solana SPL)" },
+      { label: "Total raised", value: "$364.8M (incl. $200M Series D, 2022)" },
+      { label: "IoT hotspots", value: "~380,000 active" },
+      { label: "Mobile nodes", value: "~18,000 cell / Wi-Fi" },
+      { label: "Mobile subscribers", value: "~115,000 (mid-2026)" },
+      {
+        label: "Token mechanism",
+        value: "Burn-and-Mint Equilibrium (Data Credits at $0.00001 peg)",
+      },
+      { label: "Circulating supply", value: "~172,000,000 $HNT" },
+      { label: "Maximum supply", value: "223,000,000 $HNT (hard cap)" },
+    ],
+    teaserLabels: [
+      "IoT hotspots",
+      "Mobile subscribers",
+      "Total raised",
+      "Maximum supply",
+    ],
+    body: [
+      { type: "h2", text: "Technical architecture and wireless protocols" },
+      {
+        type: "p",
+        text: "Legacy carriers run top-down: multi-billion-dollar spectrum licenses, commercial roof rights, and capital-intensive macro towers. Helium bypasses that capex by crowdsourcing its footprint across two sub-networks governed by Helium Improvement Proposal 51 (HIP-51).",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|                Helium Network Core Architecture             |
+|                       (Solana Blockchain)                   |
++-------------------------------------------------------------+
+                               |
+         +---------------------+---------------------+
+         v                                           v
++-----------------------------+             +-------------------------+
+|      IoT Sub-Network         |            |    Mobile Sub-Network   |
+|          ($IOT)              |            |        ($MOBILE)        |
++-----------------------------+             +-------------------------+
+         |                                           |
+         v                                           v
++-----------------------------+             +-------------------------+
+| 915 MHz LoRaWAN hotspots    |             | CBRS small cells / Wi-Fi|
+| (low bandwidth, long range) |             | (high speed, 3.5 GHz)   |
++-----------------------------+             +-------------------------+
+         |                                           |
+         v                                           v
++-----------------------------+             +-------------------------+
+| IoT sensors, asset trackers |             | Retail subscribers,     |
+| (smart cities, logistics)   |             | carrier data offload    |
++-----------------------------+             +-------------------------+`,
+      },
+      { type: "h3", text: "The IoT sub-network (LoRaWAN)" },
+      {
+        type: "p",
+        text: "On the license-free sub-GHz band (915 MHz in North America, 868 MHz in Europe), a single 5-watt hotspot can carry small packets up to 15 kilometers line-of-sight. The data rate is restricted (0.3 to 50 kbps), so it cannot move voice or video, only telemetry from battery sensors, smart meters, and asset trackers.",
+      },
+      { type: "h3", text: "The mobile sub-network (CBRS and Wi-Fi)" },
+      {
+        type: "p",
+        text: "For data-heavy consumer use, Helium added CBRS small cells in the 3.5 GHz band (Band 48), which act as local LTE towers over a wired backhaul, and carrier-grade Wi-Fi access points on 2.4 and 5 GHz that offload mobile devices over secure Passpoint. Routing and physical-state tracking are verified on Solana through on-chain state channels.",
+      },
+      {
+        type: "table",
+        caption: "Helium packet router network",
+        headers: ["Layer", "Routing core", "Protocol", "Use case"],
+        rows: [
+          ["Global IoT", "router.helium.io", "LoRaWAN v1.0.3 / Semtech UDP", "Enterprise asset tracking and telemetry"],
+          ["US mobile core", "mobile.core.helium.io", "3GPP LTE Band 48 (CBRS)", "High-speed mobile data offload"],
+          ["Global Wi-Fi", "wifi.config.helium.io", "Passpoint / 802.11u", "Retail Wi-Fi offload"],
+        ],
+      },
+
+      { type: "h2", text: "Growth, the T-Mobile partnership, and network dynamics" },
+      {
+        type: "p",
+        text: "Helium scaled to over 900,000 registered LoRaWAN hotspots at peak, but hyper-growth caused extreme metro saturation, with dozens of hotspots stacked at the same coordinates diluting IoT rewards. The network consolidated to roughly 380,000 high-utility IoT nodes by mid-2026 and pivoted toward mobile, backed by $364.8M of venture funding from a16z, Tiger Global, and Multicoin, launching Helium Mobile as a hybrid network with T-Mobile rather than a standalone carrier.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`[Helium Mobile Subscriber]
+           |
+           +---> Is a Helium Wi-Fi / CBRS node available?
+                      |
+                      +---> YES: connect to the Helium DePIN node ($0.50/GB to network)
+                      |
+                      +---> NO: roam onto a T-Mobile macro tower (MVNO backing)`,
+      },
+      {
+        type: "p",
+        text: "The hybrid model solves the cold-start coverage problem: subscribers get 5G across North America via T-Mobile macro towers, and whenever a device detects an active Helium Wi-Fi or CBRS node the connection shifts to the decentralized network. That lets Helium Mobile offer an aggressive $20 per month unlimited plan, driving over 115,000 active subscribers by mid-2026.",
+      },
+      {
+        type: "table",
+        caption: "Commercial and ecosystem partnerships",
+        headers: ["Partner", "Date", "Objective"],
+        rows: [
+          ["T-Mobile", "Sep 2022", "Nationwide MVNO agreement providing cellular backup for Helium Mobile subscribers."],
+          ["Google Cloud", "Oct 2024", "Native Helium Mobile eSIM profiles in Google Pixel devices."],
+          ["Dish Network", "Oct 2021", "Multi-regional carrier offload over decentralized cells."],
+          ["Solana Labs", "Apr 2023", "Migrated the settlement layer to Solana, freeing developer focus for wireless routing."],
+        ],
+      },
+
+      { type: "h2", text: "Token economics: Burn-and-Mint and sub-DAOs" },
+      {
+        type: "p",
+        text: "Helium runs a multi-token Burn-and-Mint Equilibrium. The core asset is $HNT, hard-capped at 223,000,000.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+------------------------------------+
+|          Commercial User           |
+|     (Buys Data Credits with USD)   |
++------------------------------------+
+                  |
+                  v
++------------------------------------+
+|  Data Credits ($0.00001 USD peg)   |
++------------------------------------+
+                  |
+                  v
++------------------------------------+
+| Equivalent $HNT burned from supply |
++------------------------------------+
+                  |
+       +----------+----------+
+       v                     v
++------------------+   +------------------+
+|  $IOT sub-DAO    |   |  $MOBILE sub-DAO |
+| (mints to IoT)   |   | (mints to mobile)|
++------------------+   +------------------+`,
+      },
+      { type: "h3", text: "Data Credit mechanics" },
+      {
+        type: "p",
+        text: "To move data, clients spend non-transferable Data Credits pegged to a fixed fiat price, and acquiring them removes $HNT from supply.",
+      },
+      {
+        type: "formula",
+        text: "1 Data Credit = $0.00001 USD. To get Data Credits, users buy $HNT and burn it on-chain, so rising commercial data use permanently removes $HNT from supply.",
+      },
+      { type: "h3", text: "HIP-51 sub-DAOs" },
+      {
+        type: "list",
+        items: [
+          "$IOT: earned by LoRaWAN hotspot hosts for coverage and for passing Proof of Coverage challenges.",
+          "$MOBILE: earned by CBRS and Wi-Fi operators by regional verification and active data offload.",
+          "Both are backed by a programmatic $HNT floor pool and redeemable for $HNT on-chain via automated market-maker formulas.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Net deflation needs burned $HNT to exceed minted rewards. The network emits about 1,215,000 $HNT per month on a two-year halving cycle, so at current run rates it needs sustained monthly Data Credit revenue near $12.15M to turn net-deflationary. The mobile layer's subscriber fees and corporate offload clearings are the main catalyst.",
+      },
+
+      { type: "h2", text: "Hardware, spatial scarcity, and installation friction" },
+      {
+        type: "table",
+        caption: "Helium hardware suites",
+        headers: ["Dimension", "Bobcat Miner 300 (IoT)", "Mobile Outdoor Wi-Fi AP", "FreedomFi + CBRS"],
+        rows: [
+          ["Retail cost", "$429", "$499", "$1,499"],
+          ["Bands", "915 / 868 MHz", "2.4 and 5 GHz (Wi-Fi 6)", "3.5 GHz (LTE Band 48)"],
+          ["Power", "Under 5 watts", "~12 watts", "~45 watts"],
+          ["Backhaul", "10 to 30 GB/month", "100+ Mbps", "200+ Mbps"],
+          ["Deployment", "Indoor window / rooftop", "Outdoor eaves / poles", "Outdoor mast, GPS lock"],
+        ],
+      },
+      { type: "h3", text: "Spatial scarcity (HIP-17 and HIP-103)" },
+      {
+        type: "list",
+        items: [
+          "IoT (HIP-17): H3 Resolution 8 (~700 m) hexes. Stacking hotspots in one hex drops the reward scale proportionally (for example 1.0 to 0.2), discouraging multiple miners in a single home.",
+          "Mobile (HIP-103): higher emission multipliers for high-demand urban hexes set by carrier heatmaps, with minimal baseline emissions in unpopulated rural hexes, focusing capital where subscribers are.",
+        ],
+      },
+      { type: "h3", text: "Installation friction" },
+      {
+        type: "p",
+        text: "Friction depends on the layer, which sets a composite Operator Ease score of 64 out of 100. Indoor Wi-Fi is plug-and-play over Ethernet, but outdoor cellular nodes are a real step up.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|  1. Structural mounting                                     |
+|     - Secure roof access or mount a heavy mast              |
+|     - Verify line-of-sight over target traffic zones        |
+|     - Shield the chassis against weather                    |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+|  2. Power and backhaul                                      |
+|     - Route outdoor-rated Cat6 Ethernet                     |
+|     - Deploy PoE+ (802.3at) injectors                       |
+|     - Ensure backhaul over 220 Mbps down                    |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+|  3. SAS handshake and cryptographic lock                   |
+|     - Connect the GPS receiver to a sky window              |
+|     - Register coordinates with the FCC database via SAS    |
+|     - Wait for cloud authorization to transmit              |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+|  4. Solana on-chain registration                            |
+|     - Pair hardware with the Helium Mobile wallet via BLE   |
+|     - Mint the unique device NFT on Solana                  |
+|     - Stake entry fees to begin earning                     |
++-------------------------------------------------------------+`,
+      },
+
+      { type: "h2", text: "Comparative analysis: decentralized connectivity versus centralized telecom" },
+      {
+        type: "table",
+        caption: "Wireless infrastructure comparison",
+        headers: ["Metric", "Helium Mobile", "Traditional MVNO", "Tier-1 carrier"],
+        rows: [
+          ["Subscription", "$20/mo unlimited", "$30 to $45/mo", "$75 to $95/mo"],
+          ["Infrastructure", "Crowdsourced DePIN, token-incentivized", "Leased from parent MNO", "Centralized macro towers"],
+          ["Routing", "Local offload plus MVNO roaming", "Single-hop parent pipeline", "Direct base-station subsystem"],
+          ["Capex", "Shifted to independent hosts", "No hardware owned", "Multi-billion annual budget"],
+          ["SLA", "Best-effort community redundancy", "Secondary carrier tier", "Binding enterprise SLAs"],
+        ],
+      },
+      {
+        type: "p",
+        text: "By shifting capex to hosts who buy and maintain the equipment for token incentives, Helium can offer a competitive $20 rate. Legacy carriers keep the edge for enterprise and public-safety work: licensed spectrum free of open-band interference, binding SLAs, dedicated support, and guaranteed uptime on critical corridors, which matters where coverage density is thin.",
+      },
+
+      { type: "h2", text: "Editorial conclusion" },
+      {
+        type: "p",
+        text: "Helium is the largest physical wireless deployment in web3 and, after the Solana migration and the T-Mobile partnership, the first DePIN to pair crowdsourced coverage with carrier-grade consumer demand. The IoT layer is mature but saturated, so the mobile business and its deflationary pull are the story to watch. Coverage gaps in sparse areas and binding enterprise SLAs remain the edge centralized carriers keep.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "Strong real-world traction for consumer DePIN: recurring on-chain revenue from retail cellular plans and enterprise data routing. Helium Mobile's $20 unlimited plan and ~115,000 subscribers give demand that is largely insulated from pure-emission speculation. The highest demand score in our set so far.",
+      tokenEconomics:
+        "The Burn-and-Mint Equilibrium ties usage to value: Data Credits are bought by burning $HNT, so growing data use removes supply. The system stays sensitive to token price, since a lower $HNT raises emissions per dollar burned, so it needs steady subscriber growth to hold equilibrium.",
+      decentralization:
+        "An expansive dual-network footprint, but with structural imbalance. The IoT layer is saturated in dense urban hexes, diluting host rewards, while the mobile layer depends on dense urban placement to capture offload traffic, which makes uniform rural coverage hard.",
+      hardwareEconomics:
+        "Capital needs vary by tier. Legacy IoT nodes are low-power with simple installs and manageable payback. High-speed CBRS mobile nodes need larger upfront capital, more complex installs, and fast backhaul, which stretches their payback.",
+      operatorFriction:
+        "Friction depends on layer. Indoor Wi-Fi access points are plug-and-play, but outdoor cellular nodes need Power-over-Ethernet cabling, high mast mounts, and FCC Spectrum Access System clearance, a real step up in effort.",
+      transparency:
+        "High transparency since the Solana migration: Proof of Coverage challenges, data-transmission receipts, and sub-DAO treasury balances are all recorded on-chain and auditable in real time through tools like the Helium explorer and Solana block explorers, guarding against spoofed coverage.",
+    },
+  },
+
+  "io-net": {
+    slug: "io-net",
+    status: "draft",
+    title:
+      "Decentralized Compute Infrastructure: An Analytical Evaluation of io.net ($IO)",
+    dek: "An enterprise-grade GPU clustering layer for AI, scored against the same six-dimension framework.",
+    publishedAt: "2026-06-02",
+    readingMinutes: 13,
+    executiveSummary: [
+      "In DePIN, a structural shift is underway: protocols are moving from speculative, capacity-inflated emissions toward verifiable, demand-driven orchestration. io.net is a premier example, an enterprise-grade decentralized clustering layer for high-performance GPUs. It aggregates underused compute from independent data centers, crypto-mining farms, and consumer hosts (the io.workers) into a globally distributed virtual supercomputer.",
+      "The protocol attacks a real bottleneck in the AI economy: the shortage and centralized control of high-end silicon (NVIDIA H100, A100, and Blackwell-class) needed for model training, fine-tuning, and low-latency inference. Unlike earlier distributed-compute networks that treated nodes as isolated instances, io.net clusters GPUs over decentralized connections for multi-node training. Our assessment yields a composite Headline Builder Score of 88 out of 100, reflecting strong market timing, an innovative clustering architecture, and deep capitalization, balanced against wide-area networking bottlenecks, data-center compliance barriers, and a competitive AI compute market.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "88 / 100" },
+      { label: "Native token", value: "$IO (Solana SPL)" },
+      {
+        label: "Total raised",
+        value: "$30M+ Series A (Hack VC, Multicoin, Delphi, Animoca)",
+      },
+      {
+        label: "Verified GPUs",
+        value: "45,000+ cluster-ready, 200,000+ total nodes",
+      },
+      { label: "Annualized recurring revenue", value: "~$14.2M (est. mid-2026)" },
+      {
+        label: "Token mechanism",
+        value: "Buyback-and-burn from demand-side fees (up to 2%)",
+      },
+      { label: "Circulating supply", value: "~95M to 110M $IO" },
+      { label: "Maximum supply", value: "800,000,000 $IO" },
+    ],
+    teaserLabels: [
+      "Verified GPUs",
+      "Annualized recurring revenue",
+      "Total raised",
+      "Maximum supply",
+    ],
+    body: [
+      { type: "h2", text: "Technical architecture and clustering" },
+      {
+        type: "p",
+        text: "Deep-learning training and distributed reinforcement learning cannot run on a single node. They need dozens to thousands of GPUs communicating synchronously, exchanging weights and gradients with minimal latency. Centralized data centers do this over physical InfiniBand or NVLink at up to 900 GB/s. Across a decentralized network, nodes are separated by geography, residential ISPs, and firewalls, so naive synchronous training stalls on latency.",
+      },
+      {
+        type: "p",
+        text: "io.net works around that with an orchestration engine built on Ray, Kubernetes, and Anyscale that groups distributed GPUs into one software-defined cluster. Custom execution topologies using Exatensor and DeepSpeed apply data-parallel, pipeline-parallel, and tensor-parallel strategies to slice models into pipelines, minimizing the data sent over wide-area networks so cross-node latency does not bottleneck the GPUs.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-----------------------------------------------------------------------+
+|                       io.net Orchestration Layer                      |
+|                 (Ray / Kubernetes Cluster Controller)                 |
++-----------------------------------------------------------------------+
+          /                          |                          \
+         v                           v                           v
++-------------------------+ +-------------------------+ +-------------------------+
+|  Independent Node A     | |  Independent Node B     | |  Independent Node C     |
+|  (Data Center GPU Rig)  | |  (Mining Farm Array)    | |  (Consumer Node H100)   |
++-------------------------+ +-------------------------+ +-------------------------+
+| - Ray Worker Daemon     | | - Ray Worker Daemon     | | - Ray Worker Daemon     |
+| - Docker Container      | | - Docker Container      | | - Docker Container      |
+| - Local NVLink Bridge   | | - Local NVLink Bridge   | | - Local NVLink Bridge   |
++-------------------------+ +-------------------------+ +-------------------------+
+         ^                           ^                           ^
+         +---(Inter-node mesh VPN via WireGuard / Netmaker)------+`,
+      },
+      {
+        type: "p",
+        text: "Secure low-latency links between nodes run over an automated mesh VPN using WireGuard and Netmaker. The orchestrator monitors topology continuously, evaluating round-trip time, packet drop, and bandwidth, then places clusters to minimize routing bottlenecks.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`Select nodes where:
+   MIN(RTT_latency) AND MAX(inter-node_bandwidth)
+   subject to: GPU_model == requested_spec
+               AND CUDA_version >= minimum_requirement`,
+      },
+      {
+        type: "table",
+        caption: "Global orchestration network",
+        headers: ["Region", "Control plane", "Telemetry", "Gateway"],
+        rows: [
+          ["North America", "us-east.ionet.network", "gRPC / WSS", "Anycast (Cloudflare/AWS edge)"],
+          ["Europe", "eu-central.ionet.network", "gRPC / WSS", "Anycast (Cloudflare/AWS edge)"],
+          ["Asia-Pacific", "ap-southeast.ionet.network", "gRPC / WSS", "Anycast (Cloudflare/AWS edge)"],
+        ],
+      },
+
+      { type: "h2", text: "Growth, capitalization, and ecosystem" },
+      {
+        type: "p",
+        text: "io.net's supply growth tracked crypto-mining economics. After Ethereum moved to proof-of-stake, industrial mining facilities held large GPU inventories that were no longer profitable, and io.net converted those rigs into AI inference and rendering clusters. Between early 2024 and mid-2026 the verified footprint passed 45,000 enterprise-grade, cluster-ready units (A100, H100, L40S, RTX 4090) alongside hundreds of thousands of consumer devices, supported by a $30M Series A led by Hack VC with Multicoin, Delphi Digital, Animoca, and OKX Ventures.",
+      },
+      {
+        type: "table",
+        caption: "Enterprise and protocol integrations",
+        headers: ["Partner", "Objective"],
+        rows: [
+          ["Render Network", "Cross-network routing of heavy 3D rendering and spatial pipelines to io.net GPU clusters."],
+          ["Filecoin", "Decentralized storage for machine-learning checkpoints and model datasets."],
+          ["Aethir", "Inter-network aggregation of enterprise edge clusters to lift cross-protocol utilization."],
+          ["B2B AI incubators", "Subsidized compute giving early-stage AI startups low-cost fine-tuning and batch inference."],
+        ],
+      },
+      {
+        type: "formula",
+        text: "Demand-to-Emission ratio = on-chain annualized compute spend / annual dollar value of incentive emissions. Above 0.60 marks a self-sustaining network.",
+      },
+      {
+        type: "p",
+        text: "This B2B pipeline pushed estimated demand-side ARR to $14.2M by mid-2026, making io.net one of the largest capital-backed compute networks in DePIN.",
+      },
+
+      { type: "h2", text: "Token economics: burn-to-mint on Solana" },
+      {
+        type: "p",
+        text: "The $IO token launched with an 800,000,000 cap under a burn-to-mint and utility model. Settling on Solana lets the control plane run micro-transactions for telemetry validation, register nodes via compressed state, and pay thousands of workers continuously at minimal fees.",
+      },
+      {
+        type: "list",
+        items: [
+          "Payment settlement: $IO is the preferred currency for buying clusters, and paying in $IO avoids payment surcharges.",
+          "Worker collateral and staking: providers stake $IO proportional to the value and tier of their GPUs, a bond against spoofing or unexpected downtime.",
+          "Governance: holders vote in the io.net DAO on protocol changes, emission decay, and treasury grants.",
+        ],
+      },
+      {
+        type: "p",
+        text: "For enterprises that cannot hold crypto on the balance sheet, io.net routes fiat payments through an internal stablecoin unit (IOSD, pegged 1:1 to USD): a 2% protocol fee is retained and the rest funds an automated swap that buys $IO on the open market and burns it.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+--------------------------------------------------------+
+|               Enterprise Compute Client                |
+|            (Pays cluster fee in fiat / USD)            |
++--------------------------------------------------------+
+                           |
+                           v
++--------------------------------------------------------+
+|              io.net Gateway Routing Engine             |
+|    (Deducts 2% protocol fee, allocates 98% to pool)    |
++--------------------------------------------------------+
+              /                                    \
+             v                                      v
++--------------------------+          +--------------------------+
+|  2% Platform Revenue     |          |  98% Swap Infrastructure |
+|  (Retained by Treasury)  |          |  (Automated Market Swap) |
++--------------------------+          +--------------------------+
+                                                   |
+                                                   v
+                                      +--------------------------+
+                                      | Open-Market $IO Buyback  |
+                                      | and Programmatic Burn    |
+                                      +--------------------------+`,
+      },
+      { type: "h3", text: "Emissions decay and risks" },
+      {
+        type: "p",
+        text: "Worker emissions follow an annual halving to enforce scarcity, which creates a hardware attrition threshold: if the $IO price falls far in a downturn, programmatic rewards can drop below the electricity cost of running high-end GPUs. Because data centers operate on tight margins, a prolonged deficit can trigger rapid node disconnection and availability gaps.",
+      },
+      {
+        type: "formula",
+        text: "Net deflation needs burned tokens to exceed minted rewards. At current emission baselines, io.net needs roughly $22.5M in ARR to become net-deflationary.",
+      },
+
+      { type: "h2", text: "Hardware onboarding and operational friction" },
+      {
+        type: "table",
+        caption: "Worker classifications",
+        headers: ["Tier", "Silicon", "Infrastructure", "Use cases"],
+        rows: [
+          ["Enterprise", "NVIDIA H100, A100, H200, L40S", "Data center, static IPv4, 10+ Gbps symmetric", "Large LLM training, multi-node deep learning"],
+          ["Mid-market", "RTX 4090, 3090, A6000, A5000", "Mining farms or high-tier residential, 1+ Gbps", "Fine-tuning, batch inference, rendering"],
+          ["Consumer / edge", "Apple Silicon M1 to M4 Max/Ultra", "Standard residential, low-power uptime", "Low-latency inference, edge AI"],
+        ],
+      },
+      { type: "h3", text: "Proof-of-Compute verification" },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|  1. Secure containerized deployment                         |
+|     - Worker runs the official io.net Docker daemon         |
+|     - Grants access to the NVIDIA Management Library        |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+|  2. Cryptographic hardware handshake                        |
+|     - Control plane queries GPU UUIDs and microcode         |
+|     - Verifies hardware signatures via a secure enclave     |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+|  3. Deterministic stress testing                            |
+|     - Orchestrator sends isolated CUDA kernels              |
+|     - Validates speed against expected TFLOPS               |
++-------------------------------------------------------------+
+                              |
+                              v
++-------------------------------------------------------------+
+|  4. Network performance auditing                            |
+|     - Continuous ping, packet-loss, and speed runs          |
+|     - Records verified metrics to Solana via compressed     |
+|       state structures                                      |
++-------------------------------------------------------------+`,
+      },
+      { type: "h3", text: "Installation and friction" },
+      {
+        type: "p",
+        text: "Despite streamlined tooling, onboarding carries real friction, setting the Operator Ease score at 62 out of 100. Enterprise nodes need Linux administration (Ubuntu 22.04), CUDA toolkit management, and Docker permissions, and residential CGNAT blocks the inbound ports clustering needs. Data centers must clear corporate firewall policy and compliance such as SOC2 and ISO 27001. That concentrates reliable supply among experienced miners and institutional providers.",
+      },
+
+      { type: "h2", text: "Comparative analysis: distributed compute versus hyperscalers" },
+      {
+        type: "table",
+        caption: "GPU compute provider comparison",
+        headers: ["Metric", "io.net", "Lambda / CoreWeave", "AWS"],
+        rows: [
+          ["A100 80GB hourly", "$1.10 to $1.60", "$1.90 to $2.20", "$4.10 to $4.90"],
+          ["Provisioning time", "Under 90 seconds", "Minutes to hours", "Instant if allocation exists"],
+          ["Availability", "High, global elastic supply", "Limited, supply queues", "Strict quotas, contract lock-ins"],
+          ["Interconnect", "Variable WAN, software mesh VPN", "Local NVLink / InfiniBand up to 900 GB/s", "Local NVLink / Elastic Fabric Adapter"],
+          ["SLA", "Community-bond, dynamic node replacement", "Binding enterprise SLAs", "Tier-4 binding SLAs"],
+          ["Compliance", "Pseudonymous nodes, encrypted pipelines", "SOC2 / HIPAA options", "Federal, healthcare, corporate"],
+        ],
+      },
+      {
+        type: "p",
+        text: "io.net runs up to 70% cheaper than AWS and about 30% under specialized web2 GPU clouds, because it is capital-light: it buys no real estate, substations, or cooling, and passes third-party infrastructure savings to developers. Hyperscalers keep the edge for the heaviest jobs, training a trillion-parameter model from scratch stays bottlenecked by WAN latency and suits physical InfiniBand fabrics, and compliance regimes like HIPAA and SOC2 Type II often require data in verified, physically secure environments. io.net is building encrypted container and zero-knowledge compute environments to close that gap.",
+      },
+
+      { type: "h2", text: "Editorial conclusion" },
+      {
+        type: "p",
+        text: "io.net pairs sharp market timing with a genuine technical answer to decentralized clustering, and it is one of the best-capitalized compute networks in DePIN. The durable questions are physical: WAN interconnect limits the largest training jobs, enterprise compliance favors hyperscalers for sensitive data, and emission decay against tight data-center margins makes scaling organic demand the priority.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "Real commercial traction: an estimated $14.2M ARR from AI firms and developers, with demand-side volume expanding. The Demand-to-Emission ratio shows paying customers are a meaningful share of operator yield, though still minor against total emissions at this bootstrapping stage.",
+      tokenEconomics:
+        "Programmatic payments on Solana give a clear path to value accrual through buyback-and-burn on demand-side fees. The risk is the hardware attrition threshold: because data centers run on tight margins, a sharp token-price drop can push rewards below electricity cost and trigger node churn. Net deflation needs roughly $22.5M ARR.",
+      decentralization:
+        "Hundreds of thousands of registered consumer nodes, but the cluster-ready enterprise GPU capacity concentrates in specialized data-center partnerships and re-allocated mining facilities, a moderate concentration risk on a Herfindahl basis.",
+      hardwareEconomics:
+        "Its strongest dimension. By prioritizing already-amortized silicon, re-allocated mining rigs and underused enterprise tiers, io.net sidesteps most upfront capital, giving fast payback windows for operators whose hardware is already paid off.",
+      operatorFriction:
+        "Consumer setups are straightforward, but enterprise nodes need real Linux administration, CUDA toolchain management, and Docker orchestration, and residential CGNAT blocks the inbound ports clustering needs. Data centers must clear SOC2 and ISO 27001. That concentrates reliable supply among experienced operators.",
+      transparency:
+        "The Proof-of-Compute pipeline audits real hardware specs, telemetry is exposed through a public explorer, and network state is committed to Solana, giving enterprise buyers clear operational visibility.",
+    },
+  },
 };
 
 /** Look up a report by project slug, or null when none exists yet. */

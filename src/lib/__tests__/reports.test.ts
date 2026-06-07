@@ -99,6 +99,23 @@ describe("reports seed", () => {
     }
   });
 
+  it("states a headline score that matches the project builderScore", () => {
+    // The score on /projects and /rankings is the project builderScore. The
+    // report's stated headline must equal it, so the three surfaces never drift.
+    for (const slug of getReportSlugs()) {
+      const report = getReport(slug)!;
+      const text = report.executiveSummary.join(" ");
+      const match = text.match(/Headline Builder Score of (\d+)/);
+      expect(match, `${slug} report states no headline score`).not.toBeNull();
+      const stated = Number(match![1]);
+      const project = seed.find((p) => p.slug === slug);
+      expect(project, `${slug} report has no project`).toBeDefined();
+      expect(stated, `${slug} headline vs builderScore`).toBe(
+        project!.builderScore,
+      );
+    }
+  });
+
   it("keeps every table row aligned to its header count", () => {
     for (const slug of getReportSlugs()) {
       for (const b of getReport(slug)!.body) {

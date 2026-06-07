@@ -178,7 +178,7 @@ export const reviews: Record<string, ProjectReview> = {
     strengths: [
       "A community RTK network with real correction demand and an 18-month reported break-even.",
       "Dense European coverage gives strong rewards to well-placed EU stations.",
-      "Verified on our methodology with transparent operator reporting.",
+      "Validated with the European Space Agency and ETH Zurich, with on-chain data verification.",
     ],
     risks: [
       "Competes head-on with a larger, faster-paying GEODNET for the same customers.",
@@ -186,12 +186,12 @@ export const reviews: Record<string, ProjectReview> = {
       "Rooftop, clear-sky siting limits who can run it well.",
     ],
     scores: {
-      realRevenue: 74,
-      tokenEconomics: 72,
-      decentralization: 70,
-      hardwareEconomics: 72,
-      operatorFriction: 56,
-      transparency: 80,
+      realRevenue: 81,
+      tokenEconomics: 85,
+      decentralization: 88,
+      hardwareEconomics: 89,
+      operatorFriction: 60,
+      transparency: 94,
     },
   },
   aethir: {
@@ -255,12 +255,12 @@ export const reviews: Record<string, ProjectReview> = {
       "Years of pivots make forward economics harder to project.",
     ],
     scores: {
-      realRevenue: 72,
-      tokenEconomics: 66,
-      decentralization: 84,
-      hardwareEconomics: 58,
+      realRevenue: 92,
+      tokenEconomics: 88,
+      decentralization: 78,
+      hardwareEconomics: 84,
       operatorFriction: 64,
-      transparency: 80,
+      transparency: 94,
     },
   },
   render: {
@@ -301,12 +301,12 @@ export const reviews: Record<string, ProjectReview> = {
       "Young enough that operator economics are still settling.",
     ],
     scores: {
-      realRevenue: 76,
-      tokenEconomics: 70,
+      realRevenue: 85,
+      tokenEconomics: 78,
       decentralization: 74,
-      hardwareEconomics: 82,
-      operatorFriction: 78,
-      transparency: 76,
+      hardwareEconomics: 89,
+      operatorFriction: 62,
+      transparency: 86,
     },
   },
   filecoin: {
