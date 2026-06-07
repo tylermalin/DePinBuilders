@@ -2280,6 +2280,632 @@ export const reports: Record<string, ProjectReport> = {
         "A large share of the early footprint is still unverified, so integrity is a focus. The Rainy validator tier's automated anomaly and fraud checks help, but the score needs fully public, open-source verification of baseline cross-checks, validator uptime, and buyback-and-burn on BNB Chain.",
     },
   },
+
+  natix: {
+    slug: "natix",
+    status: "draft",
+    title: "Decentralized Edge Vision: An Analytical Evaluation of NATIX Network ($NTXT)",
+    dek: "A smartphone-camera mapping network for hyper-local geospatial data, scored against the same six-dimension framework.",
+    publishedAt: "2026-05-27",
+    readingMinutes: 11,
+    executiveSummary: [
+      "NATIX is a dual-sided marketplace for crowdsourced, hyper-local geospatial and video data. It turns standard smartphone and dashcam cameras into edge nodes that build a real-time, privacy-preserving map of the physical world: traffic density, road-surface degradation, pedestrian flow, and parking, all without compromising individual anonymity.",
+      "It links everyday drivers (the network mappers) with navigation developers, municipal planners, and autonomous-fleet operators that need high-frequency spatial intelligence, with data licensing routed into $NTXT value on Solana. Our assessment yields a composite Headline Builder Score of 82 out of 100, reflecting very high capital velocity and fast node growth through frictionless smartphone onboarding, balanced against the difficulty of monetizing visual data, retaining geographic density, and long-term emission decay.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "82 / 100" },
+      { label: "Native token", value: "$NTXT (Solana SPL)" },
+      { label: "Co-onboarding partner", value: "Silencio (dual-app harvesting)" },
+      { label: "Active edge nodes", value: "150,000+ smartphone mappers (mid-2026)" },
+      { label: "Distance mapped", value: "50,000,000+ km cumulative" },
+      { label: "Token mechanism", value: "Data-licensing buybacks and staking sinks" },
+      { label: "Circulating supply", value: "~5B to 7.5B $NTXT" },
+      { label: "Maximum supply", value: "100,000,000,000 $NTXT" },
+    ],
+    teaserLabels: ["Active edge nodes", "Distance mapped", "Co-onboarding partner", "Maximum supply"],
+    body: [
+      { type: "h2", text: "Architecture: edge AI on the phone" },
+      {
+        type: "p",
+        text: "Centralized video mapping uploads raw feeds to the cloud for object detection, which is bandwidth-heavy and exposed under GDPR and CCPA. NATIX runs lightweight convolutional networks directly on smartphone chipsets: raw video stays in volatile memory, is never stored or transmitted, and only redacted vector metadata leaves the device. That cuts data per kilometer from gigabytes of video to a few kilobytes of high-value metadata.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|              Physical Real-World Infrastructure             |
+|          (Vehicles, pedestrians, potholes, signs)           |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|                 NATIX Drive& App Edge Node                  |
+|  - Raw video streams into volatile RAM only                 |
+|  - On-device CNN runs inference instantly                   |
+|  - Redacts faces and license plates at the edge             |
++-------------------------------------------------------------+
+                               |  (only redacted vector metadata)
+                               v
++-------------------------------------------------------------+
+|          Decentralized Aggregation Layer (Solana)           |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|                  Commercial Data Consumer                   |
+|       (Navigation apps, municipalities, fleets)             |
++-------------------------------------------------------------+`,
+      },
+      {
+        type: "p",
+        text: "The on-device model extracts traffic volume and speed, road anomalies (potholes, debris, construction), on-street parking states, and pedestrian density. A dual-app paradigm with Silencio lets one dashboard-mounted phone map road infrastructure visually while Silencio harvests ambient acoustic data, doubling capital efficiency per kilometer. Anti-spoofing cross-checks GPS against accelerometer, gyroscope, and magnetometer, rejects pre-recorded or virtualized feeds via visual perspective analysis, and signs every payload in a secure enclave.",
+      },
+      {
+        type: "table",
+        caption: "NATIX versus centralized mapping fleets",
+        headers: ["Metric", "NATIX", "Centralized fleets (e.g. Street View)"],
+        rows: [
+          ["Capital cost", "Near-zero, crowdsourced smartphones", "Very high, custom camera vehicles"],
+          ["Refresh frequency", "Minutes to hours in active zones", "Months to years between sweeps"],
+          ["Privacy", "On-device edge anonymization", "Centralized raw imagery, later blur"],
+          ["Scaling speed", "Instant via app marketplaces", "Slow, capital-intensive logistics"],
+          ["SLA", "Community-validated density", "Binding enterprise SLAs"],
+        ],
+      },
+      {
+        type: "p",
+        text: "NATIX's edge is refresh rate: hundreds of drivers already on these streets detect road damage and traffic shifts within minutes, where dedicated fleets re-map every few months. Legacy providers keep the edge on consistency and binding SLAs, and NATIX can thin out in rural or low-income areas, so it reads best as a real-time layer over traditional maps rather than a full replacement.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "A real B2B data-licensing pipeline to navigation, municipal, and fleet buyers is building, supplying low-cost real-time road data. Dynamic computer-vision licensing is still scaling, so the score reflects promise more than mature recurring revenue.",
+      tokenEconomics:
+        "An enterprise-funded burn-and-lock framework, but as a software-first app it faces churn: mappers can offboard fast if yields drop below their attention threshold, unlike hardware operators paying off equipment, which makes long-term emission balancing critical.",
+      decentralization:
+        "150,000+ mapping units across many regions give an expansive footprint, but drivers cluster in dense cities, leaving rural areas under-mapped, which keeps the hexagonal reward multipliers in constant tuning.",
+      hardwareEconomics:
+        "A standout. Smartphones are already owned, so capex is $0 and payback is near-instant, with only marginal battery and data cost. Unmatched capital velocity.",
+      operatorFriction:
+        "No tools, roof access, or assembly: download the app, clip the phone to a dashboard mount, and drive. Accessible to millions of rideshare, delivery, and commuter drivers.",
+      transparency:
+        "On-device multi-sensor cross-checks resist spoofing, and interactive counters show coverage, but the score would rise with open-sourced historical metadata and on-chain validation proofs per telemetry batch.",
+    },
+  },
+
+  skyx: {
+    slug: "skyx",
+    status: "draft",
+    title: "Portable Weather Sensing: An Analytical Evaluation of SkyX Network ($SKY)",
+    dek: "A portable, no-mount weather sensing network, the Starlink for weather, scored against the same six-dimension framework.",
+    publishedAt: "2026-05-26",
+    readingMinutes: 11,
+    executiveSummary: [
+      "SkyX is a dual-sided marketplace for crowdsourced, hyper-local weather and environmental data built on portable, consumer-deployable IoT sensors. It targets the spatial gaps and slow refresh of government-funded meteorology, and its no-mount, battery-powered devices function as a Starlink for weather aimed at renters, travelers, and mobile operators.",
+      "It bridges peaq (for decentralized machine identity) and Solana (for micro-reward liquidity), linking hosts with precision agriculture, renewable-energy, aviation, and disaster-management buyers. Our assessment yields a composite Headline Builder Score of 81 out of 100, reflecting an exceptionally low operator friction from compact, portable hardware, balanced against early B2B monetization and the consistency challenges of mobile nodes.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "81 / 100" },
+      { label: "Native token", value: "$SKY (peaq native, Solana bridging)" },
+      { label: "Co-onboarding partners", value: "GEODNET, Wicrypt" },
+      { label: "Active edge nodes", value: "~16,000+ core nodes, scaling with SKY-100/300" },
+      { label: "Entry hardware", value: "EUR 249 (SKY-100 portable)" },
+      { label: "Token mechanism", value: "Data-licensing buyback-and-lock" },
+      { label: "Supply", value: "Pre-token / points phase, ~50% community" },
+    ],
+    teaserLabels: ["Active edge nodes", "Entry hardware", "Co-onboarding partners", "Native token"],
+    body: [
+      { type: "h2", text: "Architecture: portable edge sensing" },
+      {
+        type: "p",
+        text: "Legacy weather telemetry leans on sparse, costly government stations, leaving gaps in rural areas and complex microclimates with low refresh rates. SkyX runs a light-node architecture through its SKY-EDGE processing layer: edge nodes convert analog signals into immutable text metadata, hash it, and anchor provenance via peaq IDs, batching mass updates through scaling layers to hold sub-hourly refresh for pennies in fees.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|              Physical Atmospheric Environment               |
+|      (Temperature, humidity, pressure, wind, rainfall)      |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|                 SkyX Edge Sensing Hardware                  |
+|    - SKY-100 (portable, BLE) or SKY-300 (fixed, camera)     |
+|    - On-board telemetry verification and packaging          |
++-------------------------------------------------------------+
+                               |  (signed telemetry vectors)
+                               v
++-------------------------------------------------------------+
+|        Decentralized Identity and Ledger (peaq IDs)         |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|                  Commercial Data Consumer                   |
+|     (AgTech AI, energy grids, emergency services)           |
++-------------------------------------------------------------+`,
+      },
+      {
+        type: "p",
+        text: "The flagship SKY-100 is a compact 4-in-1 unit (temperature, humidity, wind, pressure) in an IP56 chassis with over five days of battery, activating on opening and broadcasting over BLE and 2.4 GHz Wi-Fi. The SKY-300 adds a wide-angle sky camera for fixed agricultural and smart-city mounts. A dual-token design pairs $SKY utility with an RWA token for fractional ownership of professional hardware, and a buyback-and-lock loop routes enterprise revenue into open-market $SKY purchases. Anti-spoofing cross-checks readings against neighboring nodes, signs payloads in secure elements, and matches barometric pressure to GPS elevation.",
+      },
+      {
+        type: "table",
+        caption: "SkyX versus legacy weather networks",
+        headers: ["Metric", "SkyX", "Legacy meteorological networks"],
+        rows: [
+          ["Capital cost", "Low, crowdsourced modular hardware", "Very high, government installations"],
+          ["Resolution", "Hyper-local, ~1 km per node", "Wide regional, sparse hubs"],
+          ["Onboarding", "Plug-and-play portable units", "Zoning, land rights, engineering"],
+          ["Adaptability", "Mobile nodes track shifting conditions", "Fixed installations"],
+          ["SLA", "Community-backed availability", "Deterministic corporate guarantees"],
+        ],
+      },
+      {
+        type: "p",
+        text: "SkyX's edge is spatial adaptability: a dense array of low-cost portable units can blanket a target region in days, where fixed legacy stations cannot. Legacy entities keep the edge on calibration and long-term consistency, so SkyX is a hyper-local layer that fills the gaps rather than a replacement.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "SkyX targets large verticals (agriculture, renewable energy) where weather drives revenue, and is building a software suite with tools like SkyXGPT. Because the node footprint is still expanding, early B2B pipelines remain in the bootstrapping phase and data reliability still has to be proven to corporate buyers.",
+      tokenEconomics:
+        "The dual-token design cleanly separates $SKY utility from RWA asset ownership, and the buyback-and-lock ties usage to token dynamics. As a pre-token, points-based network, durability depends on keeping mobile mappers active if rewards compress after the token event.",
+      decentralization:
+        "Modular consumer sensors position SkyX to reach regions legacy networks ignore, but mobile operators cluster in metros, so reward structures must keep pulling hardware into rural and remote areas.",
+      hardwareEconomics:
+        "The EUR 249 SKY-100 is competitive against professional weather gear, and small, mount-free devices keep manufacturing, shipping, and deployment fast, giving strong capital velocity.",
+      operatorFriction:
+        "Its strongest area. Portable, battery-powered devices that sync over BLE and Wi-Fi by opening a lid remove the rooftop-install friction, opening participation to renters, travelers, and mobile users.",
+      transparency:
+        "peaq IDs give a clear framework for device identity and data history. The open challenge is validating mobile-sensor quality, since portable units can sit in suboptimal spots, so edge-filtering must stay sensitive.",
+    },
+  },
+
+  silencio: {
+    slug: "silencio",
+    status: "draft",
+    title: "Decentralized Acoustic Sensing: An Analytical Evaluation of Silencio ($SLC)",
+    dek: "A smartphone-microphone noise-mapping network feeding PropTech and AI, scored against the same six-dimension framework.",
+    publishedAt: "2026-05-25",
+    readingMinutes: 11,
+    executiveSummary: [
+      "Silencio is a dual-sided marketplace for crowdsourced acoustic and environmental intelligence. It uses standard smartphone microphones as edge sensors to build a real-time, privacy-preserving map of global soundscapes, measuring noise pollution and ambient decibels without recording raw conversation.",
+      "It links acoustic mappers with real-estate valuation engines, PropTech platforms, municipal planners, and embodied-AI developers that need diverse real-world audio datasets, settling on the peaq Network. Our assessment yields a composite Headline Builder Score of 84 out of 100, reflecting very high capital velocity and rapid growth (2M+ users) through frictionless smartphone onboarding, balanced against audio-data monetization, density retention, and emission decay.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "84 / 100" },
+      { label: "Native token", value: "$SLC (peaq native, LayerZero multichain)" },
+      { label: "Co-onboarding partner", value: "NATIX (dual-app harvesting)" },
+      { label: "Active edge nodes", value: "2,000,000+ accounts (mid-2026)" },
+      { label: "Data harvested", value: "250,000+ hours, 150+ languages, 180+ countries" },
+      { label: "Token mechanism", value: "Data-licensing buybacks and staking sinks" },
+      { label: "Maximum supply", value: "100,000,000,000 $SLC" },
+    ],
+    teaserLabels: ["Active edge nodes", "Data harvested", "Co-onboarding partner", "Maximum supply"],
+    body: [
+      { type: "h2", text: "Architecture: decibels at the edge" },
+      {
+        type: "p",
+        text: "Legacy noise mapping uses stationary industrial decibel meters or centralized audio upload, which is costly and exposed under GDPR and CCPA. Silencio runs audio processing on the phone: the microphone is a transient sensor measuring sound intensity in decibels and metadata bands only, raw audio never leaves volatile memory for standard noise mapping. It extracts time-weighted average decibels, peaks, H3 spatial identifiers, and contextual tags. For its AI training tracks, it uses user-consented, blockchain-verified voice and environmental samples.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|               Physical Real-World Soundscapes               |
+|            (Traffic, construction, venues, nature)          |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|                 Silencio Mobile Edge Node                   |
+|  - Ambient audio streams into volatile RAM only             |
+|  - Local stack runs instant decibel calculations            |
+|  - Anonymizes metadata, zero recording                      |
++-------------------------------------------------------------+
+                               |  (anonymized decibel telemetry)
+                               v
++-------------------------------------------------------------+
+|           Decentralized Aggregation Layer (peaq)            |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|                  Commercial Data Consumer                   |
+|     (PropTech, robotics AI, municipalities, hospitality)    |
++-------------------------------------------------------------+`,
+      },
+      {
+        type: "p",
+        text: "A SoundCheck browser extension feeds live noise ratings (A+ to F) into real-estate and hotel-booking platforms, and a B2B pipeline routes over 250,000 hours of annotated environmental and accent-diverse audio to embodied-AI developers. The token allocation is 51% community, and a buyback-and-lock routes enterprise revenue into open-market $SLC purchases. Anti-spoofing cross-checks microphone trends against GPS, accelerometer, and gyroscope, rejects looped or emulated audio by frequency analysis, and signs payloads in secure enclaves before the peaq ledger.",
+      },
+      {
+        type: "table",
+        caption: "Silencio versus centralized monitoring",
+        headers: ["Metric", "Silencio", "Centralized monitoring fleets"],
+        rows: [
+          ["Capital cost", "Near-zero, 2M+ smartphones", "Very high, static municipal sensors"],
+          ["Refresh frequency", "Minutes to hours in active zones", "Months to years between maps"],
+          ["Privacy", "On-device anonymization, consent AI", "Municipal or opaque corporate"],
+          ["Scaling speed", "Instant via app marketplaces", "Slow, government contracts"],
+          ["SLA", "Community-validated density", "Binding enterprise SLAs"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Silencio's edge is refresh and cost: millions of users moving through spaces daily catch construction, nightlife, and pollution shifts within minutes, where municipal maps update every few years. Legacy providers keep the edge on consistency and SLAs, so Silencio complements rather than replaces them, with a strong second leg in annotated AI and robotics datasets.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "A licensing pipeline across PropTech (SoundCheck) and, increasingly, the AI training sector: annotated environmental and voice data for robotics and machine learning stretches utility well beyond municipal noise tracking.",
+      tokenEconomics:
+        "An enterprise- and AI-dataset-funded burn-and-lock, but as a software-first app it must manage churn, since mappers can offboard quickly if yields fall, making emission balancing and campaign engagement important.",
+      decentralization:
+        "2,000,000+ users across 180+ countries give an expansive footprint, but users cluster in cities and popular venues, leaving rural and industrial corridors under-mapped and the reward multipliers in constant tuning.",
+      hardwareEconomics:
+        "A standout. Smartphones are already owned, so capex is $0 and payback is near-instant with only marginal battery and data cost.",
+      operatorFriction:
+        "Among the easiest in the directory: download the app, grant microphone and location access, and run a session while going about the day.",
+      transparency:
+        "On-device multi-sensor cross-checks resist spoofing and interactive counters show coverage, but the score would rise with open-sourced historical metadata and on-chain validation proofs on the peaq ledger.",
+    },
+  },
+
+  "375ai": {
+    slug: "375ai",
+    status: "draft",
+    title: "Decentralized Telecom Mapping: An Analytical Evaluation of 375ai",
+    dek: "A smartphone-modem RF and telecom mapping network, scored against the same six-dimension framework.",
+    publishedAt: "2026-05-24",
+    readingMinutes: 10,
+    executiveSummary: [
+      "375ai is a dual-sided marketplace for crowdsourced telecommunications and RF spatial intelligence. It uses standard smartphone cellular and Wi-Fi modems as edge nodes to map the physical RF landscape: Wi-Fi density, cellular signal strength, network latency, and infrastructure anomalies, without compromising user anonymity.",
+      "It links network mappers with logistics planners, supply-chain teams, real-estate developers, and municipal telecom authorities, with future data licensing routed into a Solana token. Our assessment yields a composite Headline Builder Score of 81 out of 100, reflecting very high capital velocity and fast smartphone-driven node growth, balanced against the difficulty of monetizing unstructured RF data, density retention, and execution of the upcoming token event.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "81 / 100" },
+      { label: "Native token", value: "Pre-token (points on Solana)" },
+      { label: "Co-onboarding ecosystems", value: "Helium, Silencio, Hivemapper" },
+      { label: "Active edge nodes", value: "Multi-thousand mobile mappers" },
+      { label: "Token mechanism", value: "Future data-licensing buybacks and burns" },
+      { label: "Supply", value: "Pre-token; points qualify for airdrop" },
+    ],
+    teaserLabels: ["Native token", "Co-onboarding ecosystems", "Active edge nodes", "Supply"],
+    body: [
+      { type: "h2", text: "Architecture: passive RF sensing" },
+      {
+        type: "p",
+        text: "RF site surveys traditionally use costly diagnostic fleets and manual field sweeps, which are slow and quickly go stale. 375ai runs background telemetry on smartphone modems: it samples ambient RF locally, stripping MAC addresses, packet contents, and identifiers, and only anonymized vector metadata leaves the device, a few kilobytes per mapping interval.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|               Physical Ambient RF Infrastructure            |
+|          (Wi-Fi access points, cell towers, BLE)            |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|                   375ai Mobile App Edge Node                |
+|  - RF scans in sandboxed memory                             |
+|  - On-device engine processes RSSI and cell IDs             |
+|  - Strips MACs, packets, and identifiers                    |
++-------------------------------------------------------------+
+                               |  (anonymized telemetry vectors)
+                               v
++-------------------------------------------------------------+
+|          Decentralized Aggregation Layer (Solana)           |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|                  Commercial Data Consumer                   |
+|      (Logistics planners, municipalities, telcos)           |
++-------------------------------------------------------------+`,
+      },
+      {
+        type: "p",
+        text: "It extracts received signal strength (RSSI) for Wi-Fi and cellular, cell-tower telemetry (MCC, MNC, LAC, CID), latency and signal-to-noise, and wireless congestion topology. It runs in the background, complementing mapping or acoustic apps on the same trip, and a pre-token points framework qualifies operators for a future airdrop. Anti-spoofing cross-checks GPS against accelerometer and gyroscope plus neighboring tower IDs, rejects pre-recorded or emulated telemetry by signal and handover analysis, and signs payloads on-device.",
+      },
+      {
+        type: "table",
+        caption: "375ai versus centralized wireless testing",
+        headers: ["Metric", "375ai", "Centralized testing fleets"],
+        rows: [
+          ["Capital cost", "Near-zero, crowdsourced smartphones", "Very high, diagnostic vehicles and engineers"],
+          ["Refresh frequency", "Continuous on active corridors", "Months or quarters between drive tests"],
+          ["Privacy", "On-device anonymization of RF beacons", "Centralized raw carrier telemetry"],
+          ["Scaling speed", "Instant via app marketplaces", "Slow, vehicle-fleet logistics"],
+          ["SLA", "Community-validated density", "Binding enterprise SLAs"],
+        ],
+      },
+      {
+        type: "p",
+        text: "375ai's edge is agility: users already on these routes catch carrier degradation, new Wi-Fi buildouts, and dead zones within hours, where dedicated fleets scan a route every few quarters. Legacy providers keep the edge on consistency and SLAs, and 375ai can thin out in rural areas, so it is a real-time complement to traditional mapping.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "A data-licensing pipeline aimed at logistics and supply-chain markets is in design; low-cost continuous RF mapping positions 375ai to take share from legacy diagnostics, but crowdsourced RF licensing is technical and still early.",
+      tokenEconomics:
+        "Currently pre-token on points. The transition path to a Solana utility token is clear, but with no hardware lock-in, operators can offboard fast if airdrop value disappoints, making post-event emission decay design essential.",
+      decentralization:
+        "Background software can reach an expansive footprint, but users cluster in metros, leaving rural shipping lanes and secondary highways under-mapped and the reward multipliers in constant tuning.",
+      hardwareEconomics:
+        "A standout. Smartphone modems are already owned, so capex is $0 and payback is near-instant with only marginal battery and data cost.",
+      operatorFriction:
+        "No tools or antenna mounting: download the app, grant background location and telemetry permissions, and go about the day.",
+      transparency:
+        "On-device multi-sensor cross-checks resist spoofing, but transparency rests on app metrics today and would rise with open coverage metrics and on-chain proofs for processed telemetry on Solana.",
+    },
+  },
+
+  denet: {
+    slug: "denet",
+    status: "draft",
+    title: "Decentralized Storage: An Analytical Evaluation of DeNet ($DE)",
+    dek: "A consumer-device decentralized storage network on Polygon, scored against the same six-dimension framework.",
+    publishedAt: "2026-05-23",
+    readingMinutes: 11,
+    executiveSummary: [
+      "DeNet is a dual-sided marketplace for crowdsourced, frictionless decentralized storage. It uses spare hard-drive capacity on consumer PCs and phones as nodes, capturing underused global storage without compromising data sovereignty or encryption.",
+      "It links Datakeepers (PC storage providers) and Mobile Watchers (verification nodes) with retail and enterprise clients that want low-cost, distributed, censorship-resistant storage, settling on Polygon. Our assessment yields a composite Headline Builder Score of 81 out of 100, reflecting very high capital velocity and a dual-tier consumer-device architecture, balanced against private-key onboarding friction, distributed-latency management, and emission decay.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "81 / 100" },
+      { label: "Native token", value: "$DE (Polygon, ERC-20)" },
+      { label: "Active nodes", value: "100,000+ multi-tier nodes (projected mid-2026)" },
+      { label: "Data stored", value: "Petabyte-scale redundant capacity" },
+      { label: "Token mechanism", value: "Storage-licensing buybacks and staking sinks" },
+      { label: "Encryption", value: "Client-side AES-256 with erasure coding" },
+    ],
+    teaserLabels: ["Active nodes", "Data stored", "Encryption", "Native token"],
+    body: [
+      { type: "h2", text: "Architecture: shard, encrypt, verify" },
+      {
+        type: "p",
+        text: "Centralized cloud stores files in corporate data centers, creating honeypots and single points of failure. DeNet encrypts files client-side with keys generated at onboarding, shards them with erasure coding, and distributes encrypted fragments, so unencrypted data never leaves the device and the network can reconstruct a file even if individual nodes go offline.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|                     User Raw Data Input                     |
++-------------------------------------------------------------+
+                               |  (client-side private key)
+                               v
++-------------------------------------------------------------+
+|                    DeNet Local Edge Node                    |
+|  - AES-256 local encryption                                 |
+|  - Cryptographic sharding into N fragments                  |
++-------------------------------------------------------------+
+                               |  (encrypted, anonymized shards)
+                               v
++-------------------------------------------------------------+
+|          Decentralized Peering Layer (Polygon)              |
++-------------------------------------------------------------+
+            /                                   \
+           v                                     v
++-----------------------+               +-----------------------+
+|  PC Datakeeper Nodes  |               | Mobile Watcher Nodes  |
+| (Store sharded data)  |               | (Verify replication)  |
++-----------------------+               +-----------------------+`,
+      },
+      {
+        type: "p",
+        text: "Two node roles split the work: Datakeepers commit spare disk space to store encrypted shards, and lightweight Mobile Watchers run as randomized auditors that challenge Datakeepers for proofs of replication without downloading the data. A buyback-and-lock routes storage revenue into open-market $DE purchases. Integrity rests on Continuous Proof of Storage, decentralized Watcher audits, and zero-knowledge shard tracking on Polygon.",
+      },
+      {
+        type: "table",
+        caption: "DeNet versus centralized cloud",
+        headers: ["Metric", "DeNet", "Centralized providers (e.g. Dropbox)"],
+        rows: [
+          ["Capital cost", "Near-zero, consumer devices", "Very high, dedicated data centers"],
+          ["Sovereignty", "Client-side keys, disintermediated", "Centralized keys, provider access"],
+          ["Privacy", "Encryption and sharding by design", "Server-side, provider-managed"],
+          ["Storage cost", "Disintermediated peer pricing", "Premium corporate pricing"],
+          ["Onboarding", "Wallet and client-side key custody", "Standard email login"],
+        ],
+      },
+      {
+        type: "p",
+        text: "DeNet's edge is price and absolute data sovereignty, undercutting cloud that must build and cool data centers. Legacy providers keep the edge on onboarding familiarity and SLAs: email-and-password with managed recovery versus DeNet's private-key custody, where a lost key means permanent data loss. That self-custody step is the friction DeNet must keep educating users through.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "DeNet is positioned to undercut cloud storage on price. Enterprise migration into web3 storage is a long cycle, but consumer-facing storage at a fraction of Dropbox cost is a viable demand channel.",
+      tokenEconomics:
+        "A buyback-and-lock fueled by storage revenue, but as a zero-capex software network it must manage churn, since Datakeepers can offboard fast if yields fall, making stable rewards imperative.",
+      decentralization:
+        "Consumer PCs and phones give a highly distributed footprint that resists single points of failure and censorship. The focus is uniform latency by incentivizing nodes in high-bandwidth regions.",
+      hardwareEconomics:
+        "A standout. Unallocated drive capacity is already owned, so capex is $0 and payback is near-instant, with only marginal electricity and bandwidth cost.",
+      operatorFriction:
+        "Allocating free disk space (Datakeeper) or running the mobile app (Watcher) is easy, with no hardware assembly. The one friction is the mandatory private-key onboarding, which needs user education on self-custody.",
+      transparency:
+        "Continuous Proof of Storage cross-checked by decentralized Watcher audits on Polygon gives strong cryptographic verification. The score would rise with a broader open-source footprint and public real-time storage-health dashboards.",
+    },
+  },
+
+  "4dsky": {
+    slug: "4dsky",
+    status: "draft",
+    title: "Decentralized Airspace Sensing: An Analytical Evaluation of 4DSKY",
+    dek: "An edge-native flight-tracking network for drones and aviation, scored against the same six-dimension framework.",
+    publishedAt: "2026-05-22",
+    readingMinutes: 12,
+    executiveSummary: [
+      "4DSKY is an edge-native decentralized flight-tracking and airspace awareness network. Using professional-grade sensors deployed by a distributed community, it builds a real-time, fault-tolerant map of global airspace, removing the single points of failure and latency of legacy tracking. It serves drone-delivery operators managing BVLOS compliance, unmanned-traffic-management systems, and airports needing enhanced flight information.",
+      "Built on the open-source Neuron M2M protocol with Hedera as the consensus layer, it enforces strict hardware requirements (premium Jetvision equipment) and defense-grade validation. Our assessment yields a composite Headline Builder Score of 79 out of 100, reflecting defense-grade data integrity (selected into NATO DIANA), strong institutional partnerships, and high hardware residual value, balanced against high capital barriers, demanding line-of-sight installs, and a pre-token ecosystem.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "79 / 100" },
+      { label: "Settlement", value: "Pre-token (beta points) / Hedera Consensus Service" },
+      { label: "Network stack", value: "Neuron M2M protocol" },
+      { label: "Primary hardware", value: "Jetvision Airsquitter (~$700 to $1,000+)" },
+      { label: "Telemetry", value: "ADS-B, UAT, Mode S/C, FLARM, MLAT" },
+      { label: "Validation partners", value: "NATO DIANA, UK CAA, Thales, Collins Aerospace" },
+      { label: "Network yield", value: "120,000+ flights tracked daily" },
+    ],
+    teaserLabels: ["Primary hardware", "Validation partners", "Network yield", "Network stack"],
+    body: [
+      { type: "h2", text: "Architecture: masterless edge tracking" },
+      {
+        type: "p",
+        text: "Legacy flight tracking streams raw RF to central servers for multilateration, adding single points of failure and latency unfit for safety-critical traffic management. 4DSKY processes on the edge: the Jetvision node ingests multiple frequencies (1090 MHz and 868/915 MHz), decodes ADS-B, FLARM, UAT, and Mode S locally, runs on-board MLAT with 30-nanosecond GPS time sync, and serves clients peer-to-peer through the open-source ADEX framework, cutting end-to-end latency to milliseconds.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|               Physical Airspace Architecture                |
+|       (Airliners, UAVs, cargo drones, gliders)              |
++-------------------------------------------------------------+
+                               |  (RF: 1090 / 868 / 915 MHz)
+                               v
++-------------------------------------------------------------+
+|               4DSKY Jetvision Airsquitter Node              |
+|  - Multi-receiver RF ingestion                              |
+|  - 30ns GPS time sync, on-board MLAT                        |
++-------------------------------------------------------------+
+                               |  (peer-to-peer via ADEX)
+                               v
++-------------------------------------------------------------+
+|        Decentralized Consensus and Logging (Hedera HCS)     |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|                  Commercial Data Consumer                   |
+|     (Airport eFIS, UTM providers, drone fleets)             |
++-------------------------------------------------------------+`,
+      },
+      {
+        type: "p",
+        text: "Heavy telemetry stays off-chain at the edge while Hedera's Consensus Service handles device identity, policy, and immutable audit trails, so nodes keep working in degraded or denied connectivity. A pre-token beta points matrix rewards early operators, a 2 km exclusion radius prevents reward saturation, and integrity rests on 30 ns time cross-verification, on-device key signing, and aviation-physics sanity filters that reject impossible flight paths.",
+      },
+      {
+        type: "table",
+        caption: "4DSKY versus legacy aviation tracking",
+        headers: ["Metric", "4DSKY", "Aggregators (FlightRadar24)", "Legacy ATC radar"],
+        rows: [
+          ["Capital cost", "Distributed to hosts", "Hobbyist feeds plus leased arrays", "Very high installations"],
+          ["Architecture", "Edge-native, peer-to-peer", "Cloud-centralized", "Monolithic regional"],
+          ["Latency", "Ultra-low, sub-second", "1 to 5+ second cloud delay", "Low, local sweeps"],
+          ["Single point of failure", "None, masterless mesh", "High, central servers", "Low to moderate"],
+          ["Regulatory validation", "UK CAA, Eurocontrol, NATO DIANA", "Low, consumer tracking", "Absolute national standard"],
+        ],
+      },
+      {
+        type: "p",
+        text: "4DSKY's edge is an edge-native pipeline with defense-grade validation, fit for automated drone separation and airport information services that centralized aggregators cannot safely serve. Legacy radar keeps the edge on regulatory mandate and sovereign funding, so 4DSKY targets the fast-growing low-altitude commercial drone market rather than replacing national radar.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "Strong. Rather than speculative retail demand, 4DSKY addresses real drone-aviation and airspace-management problems, backed by multi-million-dollar government grants, avionics partners (Thales, Collins Aerospace), and NATO DIANA, a clear B2B monetization path.",
+      tokenEconomics:
+        "Cannot yet be judged on market metrics: the network runs a points matrix pre-token. The planned 2 km separation and hardware gating are structurally sound, but value accrual and emission curves are unproven until token launch.",
+      decentralization:
+        "Specialized, costly Jetvision sensors keep node count below smartphone networks, and operators cluster near cities and aviation hubs, leaving rural areas under-mapped and needing targeted incentives.",
+      hardwareEconomics:
+        "Despite a high $700 to $1,000+ entry, the Jetvision Airsquitter is professional aviation gear with high residual value independent of token rewards, which reduces sunk-capital risk versus single-purpose DePIN miners.",
+      operatorFriction:
+        "Real friction: buy high-end hardware, set up static power and wired network, and mount an external antenna at elevation with clear line of sight. That limits participation to dedicated and professional operators.",
+      transparency:
+        "A core strength. On-device key signatures plus 30 ns GPS time sync and multi-node cross-lateration give defense-grade anti-spoofing and the accuracy safety-critical aviation requires.",
+    },
+  },
+
+  "malama-labs": {
+    slug: "malama-labs",
+    status: "draft",
+    title: "Compliance-Grade Environmental Sensing: An Analytical Evaluation of Mālama Labs ($MLMA)",
+    dek: "A hardware-signed dMRV network for carbon and AI-energy data, scored against the same six-dimension framework.",
+    publishedAt: "2026-05-21",
+    readingMinutes: 12,
+    executiveSummary: [
+      "Mālama Labs is a two-chain digital Monitoring, Reporting, and Verification (dMRV) network. Hardware-signed environmental and AI-energy sensors act as edge nodes that build an immutable trust anchor of the physical world, capturing carbon sequestration (biochar, enhanced rock weathering) and data-center resource telemetry (wattage per workload, cooling-water evaporation) that cannot be manipulated.",
+      "It links Hex Node validators with carbon registries, institutional carbon buyers, and corporations bound by SEC climate and EU CSRD rules. Uniquely, scheduled emissions cease entirely after Year 3, shifting the network to enterprise cash flow. Our assessment yields a composite Headline Builder Score of 85 out of 100, reflecting a strong hardware-enclave security model and institutional alignment, balanced against enterprise sales-cycle lag, regional node coordination, and multi-chain dependencies.",
+      "Disclosure: Mālama Labs is operated by the DePin.Builders founder. It is listed transparently and scored on the same public methodology as every other project, and it does not default to the top rank.",
+    ],
+    profile: [
+      { label: "Headline builder score", value: "85 / 100" },
+      { label: "Native token", value: "$MLMA (Cardano custody, Base execution)" },
+      { label: "Genesis access", value: "Genesis 200 Hex Node program (H3 grid)" },
+      { label: "Active nodes", value: "Pilot since June 2024, expanding via Genesis 300" },
+      { label: "Data tracked", value: "2,786+ signed SaveCards anchored on-chain" },
+      { label: "Emissions", value: "Stop entirely after Year 3, then revenue-funded" },
+      { label: "Maximum supply", value: "500,000,000 $MLMA (hard cap)" },
+    ],
+    teaserLabels: ["Genesis access", "Data tracked", "Emissions", "Maximum supply"],
+    body: [
+      { type: "h2", text: "Architecture: the Reality Engine" },
+      {
+        type: "p",
+        text: "Legacy carbon markets rely on self-reported spreadsheets or periodic human surveys, slow and exposed to spoofing and double-counting. Mālama signs data at the point of origin: physical IoT units with tamper-resistant coprocessors hold non-exportable keys provisioned in silicon, so readings are cryptographically bound to hardware. An ATECC608B secure enclave generates an ECDSA signature on every packet, establishing an unbroken chain of custody.",
+      },
+      {
+        type: "diagram",
+        text: String.raw`+-------------------------------------------------------------+
+|               Physical Real-World Environments              |
+|        (Biochar facilities, ERW sites, AI data centers)     |
++-------------------------------------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|             Malama Field Sensor and Edge Node Layer         |
+|  - ATECC608B secure enclave, instant ECDSA signatures       |
+|  - Readings cryptographically bound to silicon              |
++-------------------------------------------------------------+
+                               |  (hardware-signed metadata)
+                               v
++-------------------------------------------------------------+
+|          Hex Node Consensus Layer (H3 grid, BFT)            |
++-------------------------------------------------------------+
+                               |  (Merkle roots to Cardano,
+                               |   execution and rewards on Base)
+                               v
++-------------------------------------------------------------+
+|                  Commercial Data Consumer                   |
+|       (Carbon registries, SEC/CSRD compliance)             |
++-------------------------------------------------------------+`,
+      },
+      {
+        type: "p",
+        text: "Edge validation runs cryptographic, protocol, physical, spatial, temporal, and methodological checks, then Hex Nodes reach Byzantine-fault-tolerant consensus over batches. Only Merkle roots are anchored to Cardano via CIP-68 reference NFTs, keeping the ledger footprint constant while auditors retrieve continuous proofs. Base carries the $MLMA token, staking, and liquidity. A Proof-of-Truth stake plus a Proof of Honest Operation credential means a validator that signs impossible data loses the credential and forfeits unvested rewards.",
+      },
+      {
+        type: "table",
+        caption: "Mālama versus legacy auditing",
+        headers: ["Metric", "Mālama Labs", "Legacy verification and auditing"],
+        rows: [
+          ["Verification model", "Continuous real-time edge attestation", "Periodic manual retrospective audits"],
+          ["Proof source", "Silicon enclaves, automated ECDSA", "Manual sampling and self-reports"],
+          ["Trust vector", "Cryptographic certainty", "Procedural third-party signatures"],
+          ["Scaling velocity", "Decentralized operator incentives", "Linear, staff-constrained"],
+          ["Regulatory fit", "Outputs SEC, CSRD, SBTi formats", "Manual translation to compliance"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Mālama's edge is refresh frequency and tamper-proof custody: a stream of verified facts every hour versus expensive annual snapshots, letting developers fix issues in real time and giving compliance officers audit-grade proof. Legacy institutions keep the edge on historical integration and regulatory capture, so Mālama positions itself as a neutral digital evidence layer that maps into existing registries rather than circumventing them.",
+      },
+    ],
+    dimensionNotes: {
+      realRevenue:
+        "The dMRV model targets concrete compliance obligations (SEC, CSRD, carbon credit verification) across five revenue streams spanning carbon, energy, and parametric insurance, which reduces single-sector reliance. Real success now depends on moving from 2026 pilots into long-term enterprise software agreements.",
+      tokenEconomics:
+        "One of the strongest dimensions anywhere in the directory. A hard cap that cuts token inflation to zero after Year 3 protects long-term economics and forces reliance on real enterprise revenue early, a rare and disciplined design.",
+      decentralization:
+        "Specialized hardware and land-manager coordination concentrate the early footprint around Texas and Idaho pilots. Global expansion needs systematic outreach to carbon-removal facilities and data centers.",
+      hardwareEconomics:
+        "Off-the-shelf industrial components plus dedicated secure chips avoid manufacturing bottlenecks, and multi-parameter monitoring improves asset utility and shortens payback despite the upfront capital.",
+      operatorFriction:
+        "Real-world setup: outdoor nodes need placement, solar positioning, and land-host coordination, eased by built-in cellular and self-sufficient power. Heavier than a smartphone app by design, for data integrity.",
+      transparency:
+        "The top mark in the directory. Moving security into silicon enclaves means anyone can cryptographically verify validity, and with public dashboards and Cardano anchoring the record is open and auditable.",
+    },
+  },
 };
 
 /** Look up a report by project slug, or null when none exists yet. */
