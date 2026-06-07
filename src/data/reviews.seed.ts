@@ -209,12 +209,12 @@ export const reviews: Record<string, ProjectReview> = {
       "No reported break-even yet, which reflects the uncertainty.",
     ],
     scores: {
-      realRevenue: 70,
-      tokenEconomics: 64,
-      decentralization: 72,
-      hardwareEconomics: 60,
-      operatorFriction: 66,
-      transparency: 78,
+      realRevenue: 83,
+      tokenEconomics: 79,
+      decentralization: 85,
+      hardwareEconomics: 78,
+      operatorFriction: 82,
+      transparency: 91,
     },
   },
   anyone: {

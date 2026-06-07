@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { rankProjects, scoreFor, type RankSortKey } from "../rankings";
+import { rankProjects, scoreFor } from "../rankings";
 import { scoreHeat } from "../colors";
 import { getAllProjects } from "../data";
 
